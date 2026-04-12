@@ -334,11 +334,7 @@ export function createViewer(userConfig = {}) {
     inputArea.style.display = 'block';
     document.getElementById('dsv-sb-input-text').value = '';
 
-    // Delay focus so selection highlight stays
-    setTimeout(() => {
-      document.getElementById('dsv-sb-input-text').focus();
-      if (inputArea.scrollIntoView) inputArea.scrollIntoView({ behavior: 'smooth', block: 'end' });
-    }, 50);
+    if (inputArea.scrollIntoView) inputArea.scrollIntoView({ behavior: 'smooth', block: 'end' });
   }
 
   function cancelInput() {
