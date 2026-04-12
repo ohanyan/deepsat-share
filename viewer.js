@@ -62,6 +62,11 @@ mark.dsv-active-selection { background:#b6d7ff; display:inline; padding:0; margi
 .dsv-comment-marker { position:absolute; right:-36px; top:50%; transform:translateY(-50%); width:24px; height:24px; background:#0969da; color:#fff; border-radius:50%; font-size:11px; font-weight:700; display:inline-flex; align-items:center; justify-content:center; cursor:pointer; box-shadow:0 1px 4px rgba(0,0,0,0.15); z-index:10; }
 .dsv-comment-marker:hover { background:#0860c4; transform:translateY(-50%) scale(1.1); }
 
+/* Floating toggle button */
+#dsv-float-toggle { position:fixed; bottom:24px; right:24px; width:48px; height:48px; border-radius:50%; background:#0969da; color:#fff; border:none; font-size:20px; cursor:pointer; box-shadow:0 4px 12px rgba(0,0,0,0.2); z-index:1000; display:none; transition:transform 0.15s; }
+#dsv-float-toggle:hover { transform:scale(1.1); }
+#dsv-float-toggle.visible { display:flex; align-items:center; justify-content:center; }
+
 @media print {
   #dsv-mode-bar, #dsv-sidebar, #dsv-gate { display:none !important; }
   mark.dsv-highlight { background:none; }
@@ -269,7 +274,13 @@ export function createViewer(userConfig = {}) {
 
   // ─── Comment UI ──────────────────────────────────────────
   function buildCommentUI() {
-    // No top mode bar — toggle lives in the sidebar now
+    // Floating toggle button (visible when sidebar is closed)
+    const floatBtn = document.createElement('button');
+    floatBtn.id = 'dsv-float-toggle';
+    floatBtn.innerHTML = '&#128172;';
+    floatBtn.title = 'Open comments';
+    floatBtn.addEventListener('click', () => setMode(true));
+    document.body.appendChild(floatBtn);
     const content = document.getElementById('dsv-content');
 
     const sidebar = document.createElement('div');
@@ -314,6 +325,7 @@ export function createViewer(userConfig = {}) {
     document.getElementById('dsv-label-read').classList.toggle('active', !isReview);
     document.getElementById('dsv-label-review').classList.toggle('active', isReview);
     document.getElementById('dsv-sidebar').classList.toggle('open', isReview);
+    document.getElementById('dsv-float-toggle').classList.toggle('visible', !isReview);
     if (!isReview) cancelInput();
   }
 
