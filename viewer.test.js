@@ -143,9 +143,9 @@ describe('Mode Toggle (Read/Review)', () => {
     expect(viewer.getMode()).toBe('review');
   });
 
-  it('sidebar stays open in Read mode', () => {
+  it('sidebar closes in Read mode', () => {
     document.getElementById('dsv-mode-toggle').click(); // switch to read
-    expect(document.getElementById('dsv-sidebar').classList.contains('open')).toBe(true);
+    expect(document.getElementById('dsv-sidebar').classList.contains('open')).toBe(false);
   });
 
   it('does NOT squeeze content when sidebar is open', () => {

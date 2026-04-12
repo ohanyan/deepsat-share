@@ -313,7 +313,7 @@ export function createViewer(userConfig = {}) {
     document.getElementById('dsv-toggle-track').classList.toggle('active', isReview);
     document.getElementById('dsv-label-read').classList.toggle('active', !isReview);
     document.getElementById('dsv-label-review').classList.toggle('active', isReview);
-    // Sidebar stays open in both modes
+    document.getElementById('dsv-sidebar').classList.toggle('open', isReview);
     if (!isReview) cancelInput();
   }
 
