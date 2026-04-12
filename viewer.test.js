@@ -137,14 +137,14 @@ describe('Mode Toggle (Read/Review)', () => {
   });
 
   it('switches to Read mode and back', () => {
-    document.getElementById('dsv-mode-toggle').click();
+    document.getElementById('dsv-float-mode-toggle').click();
     expect(viewer.getMode()).toBe('read');
-    document.getElementById('dsv-mode-toggle').click();
+    document.getElementById('dsv-float-mode-toggle').click();
     expect(viewer.getMode()).toBe('review');
   });
 
   it('sidebar closes in Read mode', () => {
-    document.getElementById('dsv-mode-toggle').click(); // switch to read
+    document.getElementById('dsv-float-mode-toggle').click(); // switch to read
     expect(document.getElementById('dsv-sidebar').classList.contains('open')).toBe(false);
   });
 
@@ -175,7 +175,7 @@ describe('Text Selection', () => {
   });
 
   it('ignores text selection in Read mode', () => {
-    document.getElementById('dsv-mode-toggle').click(); // switch to read
+    document.getElementById('dsv-float-mode-toggle').click(); // switch to read
     selectText(content, 'First paragraph');
     content.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
     // Sidebar input should NOT appear
@@ -371,7 +371,7 @@ describe('Comment Markers', () => {
     document.getElementById('dsv-sb-submit').click();
 
     // Switch to read mode
-    document.getElementById('dsv-mode-toggle').click();
+    document.getElementById('dsv-float-mode-toggle').click();
     expect(viewer.getMode()).toBe('read');
 
     // Click the marker
