@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DeepSat 5,5,5 — Space Symposium Conversation Guide</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    background: #fff;
+    color: #1f2328;
+    font-size: 14px;
+    line-height: 1.6;
+    padding: 24px 32px 80px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  a { color: #0969da; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0 16px;
+    border-bottom: 1px solid #d1d9e0;
+    margin-bottom: 24px;
+  }
+  .toolbar-left { display: flex; gap: 16px; align-items: center; }
+  .toolbar a { color: #656d76; font-size: 13px; }
+  .toolbar a:hover { color: #0969da; }
+  .btn {
+    font-family: inherit;
+    font-size: 12px;
+    padding: 5px 14px;
+    background: #fff;
+    border: 1px solid #d1d9e0;
+    border-radius: 6px;
+    color: #1f2328;
+    cursor: pointer;
+  }
+  .btn:hover { border-color: #0969da; color: #0969da; }
+
+  h1 { font-size: 20px; font-weight: 600; color: #1f2328; margin-bottom: 4px; }
+  h2 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1f2328;
+    margin: 32px 0 12px;
+    padding: 4px 0;
+    border-bottom: 1px solid #d1d9e0;
+  }
+  .meta { color: #656d76; font-size: 13px; margin-bottom: 24px; }
+  .meta span { margin-right: 20px; }
+
+  /* Event bar */
+  .event-bar {
+    background: #1f2328;
+    color: #fff;
+    border-radius: 8px;
+    padding: 16px 24px;
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .event-bar .name { font-weight: 700; font-size: 16px; }
+  .event-bar .detail { font-size: 13px; color: #aaa; }
+  .event-bar .urgent {
+    background: #d1242f;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* Section labels */
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin: 32px 0 12px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid;
+  }
+  .section-label.say { color: #0969da; border-color: #0969da; }
+  .section-label.avoid { color: #d1242f; border-color: #d1242f; }
+  .section-label.ask { color: #1a7f37; border-color: #1a7f37; }
+
+  /* Cards */
+  .card {
+    border: 2px solid #0969da;
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+    background: #fff;
+    page-break-inside: avoid;
+  }
+  .card.avoid { border-color: #d1242f; }
+  .card.ask { border-color: #1a7f37; }
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .card-num {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
+  .card .card-num { background: #ddf4ff; color: #0969da; }
+  .card.avoid .card-num { background: #ffebe9; color: #d1242f; }
+  .card.ask .card-num { background: #dafbe1; color: #1a7f37; }
+  .card-title { font-weight: 700; font-size: 15px; }
+  .card-body { font-size: 13px; color: #1f2328; line-height: 1.7; margin-left: 46px; }
+
+  /* Context boxes */
+  .context {
+    background: #f6f8fa;
+    border: 1px solid #d1d9e0;
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-top: 20px;
+    font-size: 13px;
+    line-height: 1.7;
+  }
+  .context .ctx-title {
+    font-weight: 700;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #656d76;
+    margin-bottom: 8px;
+  }
+
+  /* Say instead callout */
+  .say-instead {
+    background: #f6f8fa;
+    border-left: 3px solid #1a7f37;
+    padding: 8px 12px;
+    margin-top: 10px;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  .say-instead strong { color: #1a7f37; }
+
+  /* Category headers */
+  .cat-header {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #656d76;
+    margin: 24px 0 10px;
+    padding: 6px 12px;
+    background: #f6f8fa;
+    border-radius: 4px;
+  }
+
+  @media print {
+    body { padding: 0; }
+    .toolbar { display: none; }
+    .event-bar { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .card-num { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .section-label { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .urgent { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .cat-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar" id="dsv-toolbar">
+  <div class="toolbar-left">
+    <span style="font-weight:600;color:#0969da;">DeepSat</span>
+  </div>
+  <button class="btn" onclick="window.print()">Print / PDF</button>
+</div>
+
+<h1>DeepSat 5,5,5 — Space Symposium Conversation Guide</h1>
+<div class="meta">
+  <span>April 12, 2026</span>
+  <span>DeepSat Fundraising & BD</span>
+  <span>print/pdf ready</span>
+</div>
+
+<div class="event-bar">
+  <div>
+    <div class="name">41st Space Symposium</div>
+    <div class="detail">April 13-16, 2026 &middot; The Broadmoor, Colorado Springs &middot; ~12,000 attendees</div>
+  </div>
+</div>
+
+<div style="border:2px solid #1f2328;border-radius:8px;padding:24px;margin-bottom:28px;background:#fafbfc;">
+  <h2 style="margin:0 0 16px;font-size:18px;border:none;padding:0;">TL;DR — The 3,3,3</h2>
+
+  <h3 style="font-size:13px;color:#0969da;margin:0 0 8px;">Always Say</h3>
+  <ol style="font-size:13px;line-height:1.7;margin:0 0 16px 20px;">
+    <li><strong>"First intelligence platform in VLEO."</strong> Not a satellite company. We're building the platform. Partners build the hardware to our spec.</li>
+    <li><strong>"VLEO is the only ISR layer that survives a peer-state first strike."</strong> Below the ASAT kill zone. Self-cleaning orbit. Rapid reconstitution.</li>
+    <li><strong>"High-frequency collection, high-resolution imagery, real-time delivery from capture to operator."</strong> This exact phrase. Never say "persistent" or "real-time" alone.</li>
+  </ol>
+
+  <h3 style="font-size:13px;color:#d1242f;margin:0 0 8px;">Stay Away From</h3>
+  <ol style="font-size:13px;line-height:1.7;margin:0 0 16px 20px;">
+    <li><strong>"Satellite company," "startup," "early-stage."</strong> We're a defense intelligence company. Big, promising, moving fast. Mission launching 2027 on SpaceX.</li>
+    <li><strong>Fundraising specifics.</strong> No numbers, no terms, no round size. "Happy to set up a separate conversation to discuss with our CEO, Nerses."</li>
+    <li><strong>Resolution comparisons.</strong> Don't count centimeters. We sell intelligence, not pictures. Lead with multi-INT fusion (EO+RF), not specs.</li>
+  </ol>
+
+  <h3 style="font-size:13px;color:#1a7f37;margin:0 0 8px;">Want From Contacts</h3>
+  <ol style="font-size:13px;line-height:1.7;margin:0 0 0 20px;">
+    <li><strong>Government:</strong> PEO/PAE connections. "Where does the money come from in your org?" Map the acquisition chain.</li>
+    <li><strong>Industry:</strong> Their roadmap. "What are you building in the next 12-18 months?" Find where DeepSat plugs in.</li>
+    <li><strong>Investors:</strong> Their thesis and portfolio synergies. Do recon for the fundraise without talking about the fundraise. Redirect specifics to a separate conversation.</li>
+  </ol>
+</div>
+
+<div class="section-label say">5 Things We Should Always Say</div>
+
+<div class="card">
+  <div class="card-header">
+    <div class="card-num">1</div>
+    <div class="card-title">"We're building the first intelligence platform in VLEO."</div>
+  </div>
+  <div class="card-body">
+    Others have put satellites in VLEO. Albedo has done collection from VLEO. But they're a satellite company selling imagery. DeepSat is building the first intelligence platform purpose-built for very low Earth orbit: onboard AI processing, multi-INT fusion (EO+RF on one platform), and real-time delivery from capture to operator via laser comms. That's a fundamentally different product. The proprietary datasets we build compound with every orbital pass, and AI models trained on VLEO phenomenology cannot be replicated because the underlying training data doesn't exist anywhere else. Incumbents like Planet, Maxar, and BlackSky are locked into LEO architectures with billions in sunk investment. They can't pivot to VLEO without redesigning their entire constellation and supply chain. Every orbit we fly widens the moat. Lead with this in every conversation: not "we're building satellites," not "we do imagery." We're building the intelligence platform for an orbit nobody else operates in.
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <div class="card-num">2</div>
+    <div class="card-title">"VLEO is the only ISR layer that survives a peer-state first strike."</div>
+  </div>
+  <div class="card-body">
+    China's direct-ascent ASAT was tested at 800km. Russia's Nudol struck at 480km. Every LEO ISR constellation, every commercial imagery satellite, every communications relay in standard orbit is inside the kill zone. DeepSat operates at 250-350km, below the proven kinetic engagement envelope. Atmospheric drag clears debris in weeks, not decades, making the orbit self-cleaning. If an adversary attacks VLEO, the debris falls out of orbit before it can cause a Kessler cascade. Our satellites don't cost hundreds of millions of dollars like legacy platforms. Rapid reconstitution is built into the architecture. This isn't a feature of our product. It's the strategic thesis of the company. When LEO gets contested in a peer conflict, VLEO is the layer that stays lit. Every COCOM commander and Space Force officer at this conference knows their current ISR is vulnerable. You are offering the insurance policy.
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <div class="card-num">3</div>
+    <div class="card-title">"High-frequency collection, high-resolution imagery, real-time delivery from capture to operator."</div>
+  </div>
+  <div class="card-body">
+    This is the exact language. Not "persistent surveillance" (that's a drone word). Not "real-time imagery" (that's vague and everyone claims it). The specific value proposition is: high-frequency revisit rates from a proliferated VLEO constellation, high-resolution collection enabled by the physics of flying closer to Earth, and real-time delivery from the moment of capture to the operator's screen via onboard AI processing and laser comms relay. No ground station bottleneck. No hours-long downlink delay. The satellite detects, processes, and delivers in one pass. Onboard NVIDIA GPUs run edge inference at 200 milliseconds. Kepler laser comms relay the result directly to the operator without touching a ground station. That's the product. Say it the same way every time: high frequency, high resolution, real-time delivery from capture to operator.
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <div class="card-num">4</div>
+    <div class="card-title">"The government has validated the demand. We're progressing fast to secure contracts."</div>
+  </div>
+  <div class="card-body">
+    The framing matters here. Don't lead with "we're a prime on SHIELD" or "we have an SBIR" as if those are achievements on their own. Industry insiders know lots of companies get SHIELD IDIQ access and SBIR Phase IIs. What matters is the pattern: the government has validated that they want this capability, and we're the ones moving fastest to deliver it. MDA brought us onto SHIELD because they see the need for VLEO ISR. AFRL is funding our research because the Air Force wants onboard AI in space. SOCOM is running a live exercise with us this month because special operations needs this intelligence. SOUTHCOM has engaged us on counter-narcotics because the surveillance gap is real. NASA Goddard partnered with us. That's not a list of credentials to rattle off. It's a pattern of demand from across the defense and intelligence community. The message: "The government has validated the demand for what we're building. Multiple agencies and commands are engaged. We're progressing fast to turn that demand into production contracts." That's stronger than name-dropping contract vehicles that insiders know are early-stage.
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <div class="card-num">5</div>
+    <div class="card-title">"We're launching our first mission in 2027 on SpaceX."</div>
+  </div>
+  <div class="card-body">
+    Say this in every conversation. Not "we plan to launch" or "we hope to launch" or "our target is 2027." We are launching. SpaceX. 2027. Present tense confidence. Our partners build the satellite to our spec, all high-maturity hardware: Redwire's Mako bus, Satlantis camera with 12+ prior flights, Kepler laser comms demonstrated in space, NVIDIA enterprise-grade compute. There is no custom hardware development. This is system integration of COTS components, not R&D. The precursor mission proves the VLEO data value, validates the onboard AI processing pipeline, and converts our defense pipeline from exercises and pilots into production contracts. Everything we're doing right now, the SOCOM exercise, the AFRL contract, the MDA SHIELD prime status, is building toward this mission. The constellation scales from there.
+  </div>
+</div>
+
+<div class="context">
+  <div class="ctx-title">Competitive Positioning — Know Before You Walk In</div>
+  <strong>Your differentiator that nobody else has: EO+RF multi-INT fusion from a single VLEO platform.</strong> Albedo and EOI Space are optical-only. Planet, BlackSky, Maxar are all optical-only from LEO. HawkEye 360 is RF-only. Capella is SAR-only. DeepSat is the only company fusing electro-optical and RF on one platform at VLEO. This is the technical story that wins teaming conversations with primes and resonates with government customers who need multi-INT.<br><br>
+  <strong>Don't get drawn into resolution comparisons.</strong> Other companies will talk about centimeters. You talk about intelligence. EO+RF fusion, onboard AI processing at 200ms, and real-time delivery from capture to operator via laser comms is a fundamentally different product than a high-res image delivered hours later through a ground station. You're selling processed intelligence, not pictures.<br><br>
+  <strong>Biggest near-term competitive threat: EOI Space.</strong> Colorado-based, launching Stingray in 2026, has USAF/NGA/AFWERX contracts, 60-satellite constellation planned. They're optical-only and don't have RF, but they're moving fast. If anyone mentions EOI, stay positive: "They're validating the VLEO thesis, which is great for the market. We're differentiated on multi-INT fusion." Their success proves the market to investors and government.<br><br>
+  <strong>Natural partners, not competitors:</strong> Palantir (consumes DeepSat data), Capella Space (SAR + EO+RF = full multi-INT), Anduril (Lattice OS integration), LeoLabs (space domain awareness), L3Harris/Northrop (teaming on large programs).
+</div>
+
+<div class="section-label avoid">5 Things to Stay Away From</div>
+
+<div class="card avoid">
+  <div class="card-header"><div class="card-num">1</div><div class="card-title">"We're a satellite company" or leading with hardware.</div></div>
+  <div class="card-body">The moment you say "satellite company," the person across from you files you into a mental category with 200 other exhibitors on the floor. They think: capital-intensive, high technical risk, commodity imagery, years from revenue. Government contacts slot you into "vendor" instead of "platform provider." The framing kills you before you start. DeepSat is a defense intelligence company. Our partners build the satellites for us to operate: Redwire builds the bus, Satlantis provides the camera, Kepler does the laser comms, NVIDIA supplies the onboard compute. All COTS, all high-maturity. We own the orchestration platform, the AI models, and the proprietary data. The satellites are built to our specifications by partners with deep heritage. Say: "Our partners manufacture the satellites to our spec. We own the intelligence platform that makes them useful." That's the company.<div class="say-instead"><strong>Say instead:</strong> "We're a defense intelligence company. Our partners build the satellites to our specifications. We own the platform, the AI, and the data."</div></div>
+</div>
+
+<div class="card avoid">
+  <div class="card-header"><div class="card-num">2</div><div class="card-title">Fundraising specifics. No round size, no terms, no numbers.</div></div>
+  <div class="card-body">Do not volunteer any fundraising details at Space Symposium. No round size, no valuation cap, no SAFE terms, no STRATFI numbers, no runway discussion. This is not a fundraising event for you. You are here as the CEO of a defense intelligence company with a 2027 mission, government contracts, and a platform that nobody else has built. If someone asks about fundraising or investing, keep it simple and redirect: "Happy to set up a separate conversation to discuss with our CEO, Nerses." Then pivot back to the mission, the contracts, or the capability. Talking numbers puts you in "asking for money" mode. You want to be in "company with a mission launching" mode. Let the traction create the pull. Handle the capital conversations separately, on your terms.<div class="say-instead"><strong>Say instead:</strong> "Happy to set up a separate conversation to discuss with our CEO, Nerses. Let me get your info."</div></div>
+</div>
+
+<div class="card avoid">
+  <div class="card-header"><div class="card-num">3</div><div class="card-title">"Startup," "early-stage," or anything that makes us sound small.</div></div>
+  <div class="card-body">Never use the words "startup," "early-stage," "pre-revenue," "seed," or "small team." Don't frame yourselves as scrappy underdogs. Don't caveat with "we're just getting started" or qualify with "for a company our size." You have a mission launching in 2027, you're a prime contractor on a $151 billion IDIQ, you have an active AFRL contract, and you're running a live SOCOM exercise right now. The team operates at 50-person capacity because of agentic AI architecture. Our partners build the satellite to our spec: Redwire, NVIDIA, Satlantis, Kepler. The posture is: big, promising, moving fast. You're at Space Symposium as peers with the primes and programs, not as a company looking for a break. Speak in present tense about what you're doing, not future tense about what you hope to do. Act like you belong in the room, because you do.<div class="say-instead"><strong>Say instead:</strong> "We're launching our first mission in 2027 on SpaceX. We're a prime on MDA SHIELD, we have an active AFRL contract, and we're running a live SOCOM exercise right now."</div></div>
+</div>
+
+<div class="card avoid">
+  <div class="card-header"><div class="card-num">4</div><div class="card-title">"Persistent surveillance" or "real-time" as standalone buzzwords.</div></div>
+  <div class="card-body">Everyone at Space Symposium claims "persistent surveillance" and "real-time." These words have been drained of meaning by a decade of overuse. "Persistent" is a drone word. It implies continuous stare from a single platform, which is not what a satellite constellation does. "Real-time" on its own is vague and invites skepticism ("real-time compared to what?"). Instead, use the specific language every time: "High-frequency collection, high-resolution imagery, real-time delivery from capture to operator." This is precise, differentiated, and defensible. High-frequency means revisit rates that increase as the constellation grows. High-resolution means the physics of VLEO give you better imagery from smaller optics. Real-time delivery from capture to operator means onboard processing plus laser comms, no ground station delay. That specificity is what sticks in someone's memory after they've talked to 50 people this week.<div class="say-instead"><strong>Say instead:</strong> "High-frequency collection, high-resolution imagery, real-time delivery from capture to operator."</div></div>
+</div>
+
+<div class="card avoid">
+  <div class="card-header"><div class="card-num">5</div><div class="card-title">Resolution number comparisons or getting drawn into spec wars.</div></div>
+  <div class="card-body">Do not get into a centimeter-counting competition. Other VLEO companies will talk about optical resolution numbers. That's their game, not yours. If someone asks "what resolution do you get?", don't lead with a number. Lead with the product: "We deliver high-resolution multi-INT intelligence, EO and RF fused on a single platform, processed onboard and delivered to the operator via laser comms. Nobody else does that from VLEO." The differentiator is not centimeters. It's multi-INT fusion, onboard AI, and delivery speed. Companies that compete on resolution are selling pictures. You're selling intelligence. Keep the conversation at the intelligence layer, not the sensor spec sheet.<div class="say-instead"><strong>Say instead:</strong> "We deliver high-resolution multi-INT intelligence, EO and RF fused on a single platform, processed onboard and delivered to the operator via laser comms. Nobody else does that from VLEO."</div></div>
+</div>
+
+<div class="section-label ask">5 Things We Want — By Contact Type</div>
+
+<div class="cat-header">Government Contacts</div>
+
+<div class="card ask">
+  <div class="card-header"><div class="card-num">1</div><div class="card-title">PEO/PAE connections and where the money sits.</div></div>
+  <div class="card-body">For every defense contact, the first question is: are they connected to a Program Executive Office or a Program of Record? PEOs are where acquisition dollars flow. The money trail works like this: a COCOM identifies an operational need, a PEO owns the program that addresses it, and a contracting office executes the award. Your target PEOs are PEO Space Systems, PEO IEW&S, SDA, and SpaceWERX. Ask directly: "Which PEO manages the programs closest to what we do?" and "Where would funding for a VLEO ISR capability actually come from in your organization?" If someone says "you should talk to [name] at [PEO]," that's the single most valuable thing you can walk away with from any conversation this week.</div>
+</div>
+
+<div class="card ask">
+  <div class="card-header"><div class="card-num">2</div><div class="card-title">Unfunded requirements and ISR gaps they can't fill today.</div></div>
+  <div class="card-body">Ask every government contact: "What ISR capability do you need that you don't have right now?" COCOMs maintain unfunded requirements lists. J2 shops know exactly what intelligence gaps exist in their area of responsibility. Space Force knows where the architecture has holes. Push specifically on: high-frequency maritime surveillance gaps, VLEO-specific needs, multi-INT fusion requirements (EO+RF together, which nobody else can offer), and contested/degraded environment planning. If they describe a gap that maps to EO+RF fusion from VLEO, you've just found a customer. Nobody else at this conference can offer multi-INT from VLEO.</div>
+</div>
+
+<div class="card ask">
+  <div class="card-header"><div class="card-num">3</div><div class="card-title">Upcoming solicitations and FY27 budget signals.</div></div>
+  <div class="card-body">Ask: "What's coming down the pipe that we should be positioning for?" SDA Tranche 4, NRO EOCL expansion, SpaceWERX BAAs, AFWERX Open Topics, SOCOM broad agency announcements. Find out what's in the FY27 budget request that wasn't in FY26. Ask if there are rapid prototyping opportunities through OTA or SBIR Phase III pathways. The STTR solicitation dates just changed (now April 15 through May 13). Space Symposium hallway conversations surface opportunities months before they hit SAM.gov. A program manager saying "we're putting out a BAA for VLEO data in Q3" is worth more than any panel session.</div>
+</div>
+
+<div class="card ask">
+  <div class="card-header"><div class="card-num">4</div><div class="card-title">Who in their organization champions commercial space solutions.</div></div>
+  <div class="card-body">Every government organization has internal advocates for commercial technology adoption and internal skeptics who prefer traditional acquisition. You need to find the champions. Ask: "Who in your organization is pushing hardest for commercial space integration?" DIU, SpaceWERX, AFWERX, and SOCOM's acquisition innovation office all exist specifically to fast-track commercial technology. But many COCOMs also have their own innovation cells. Finding the person inside the bureaucracy who will fight to get DeepSat on contract is more valuable than a handshake with a general. Champions write the requirements documents, push the funding requests, and shepherd the contracts through the system.</div>
+</div>
+
+<div class="card ask">
+  <div class="card-header"><div class="card-num">5</div><div class="card-title">Intros to COCOM J2 shops and operational end users.</div></div>
+  <div class="card-body">The people who use the intelligence are different from the people who buy it. You need access to both. J2 shops at each COCOM define the intelligence requirements. Operational end users (watch floors, tactical units, maritime patrol coordination centers) validate whether the product actually works. Ask: "Can you connect me with the J2 at SOUTHCOM or INDOPACOM?" and "Who on your team would be the end user for a VLEO ISR feed?" An intro to a SOUTHCOM counter-narcotics watch floor, to an INDOPACOM maritime analyst, or to a Space Force South operator gives you direct feedback from the people who would use the product. That feedback shapes the platform and de-risks the sales cycle.</div>
+</div>
+
+<div class="cat-header">Industry / Partner Contacts</div>
+
+<div class="card ask">
+  <div class="card-header"><div class="card-num">1</div><div class="card-title">Their 12-18 month product roadmap.</div></div>
+  <div class="card-body">For every industry contact, ask: "What does your roadmap look like over the next year?" Primes like L3Harris, Northrop, and Raytheon may be developing VLEO capabilities or have gaps in their architectures they need filled. Bus manufacturers may be building VLEO-specific platforms. Sensor companies may have next-generation payloads looking for a ride. Comms companies may be building relay architectures. The question is always: where are they going, and does DeepSat plug into that trajectory? A prime telling you "we're developing a VLEO payload for SDA Tranche 4" or a sensor company saying "we have a SWIR sensor looking for a VLEO mission" is a partnership opportunity you will never find in an RFI. Space Symposium is where roadmaps get shared over coffee.</div>
+</div>
+
+<div class="card ask">
+  <div class="card-header"><div class="card-num">2</div><div class="card-title">Teaming opportunities on upcoming program bids.</div></div>
+  <div class="card-body">Ask directly: "Are you teaming on any upcoming SDA, NRO, or SpaceWERX programs where VLEO ISR or multi-INT fusion would strengthen your bid?" SDA Andromeda just awarded 14 companies ($1.8B+). Tranche 4 is coming. NRO EOCL is expanding commercial imagery sources. Primes frequently need non-traditional subcontractors to win innovation-focused contracts. DeepSat's EO+RF multi-INT fusion, onboard AI processing, and VLEO architecture are differentiators that strengthen any team's bid. EOI Space and Albedo are optical-only. Neither offers multi-INT fusion. If a prime needs EO+RF from VLEO, DeepSat is the only option. That's a powerful teaming pitch.</div>
+</div>
+
+<div class="card ask">
+  <div class="card-header"><div class="card-num">3</div><div class="card-title">Competitive intel: what they're seeing from other VLEO companies.</div></div>
+  <div class="card-body">Ask casually: "What are you seeing from other companies in the VLEO space? What's getting traction with your customers?" Industry people talk freely about the market landscape at conferences. What's Albedo's actual launch timeline? Is EOI Space winning contracts you should know about? Are primes building VLEO capability in-house? Is there a real shift toward multi-INT requirements, or are customers still buying single-modality imagery? What are their customers actually asking for: raw imagery or processed intelligence? If industry contacts confirm that customers are asking for multi-INT fusion, that validates DeepSat's differentiation. If they're not, that's equally important to know.</div>
+</div>
+
+<div class="card ask">
+  <div class="card-header"><div class="card-num">4</div><div class="card-title">Integration points: where their product connects to your platform.</div></div>
+  <div class="card-body">DeepSat's architecture is designed to be a platform that other capabilities plug into. For every industry contact, explore the integration angle: "Could your sensor, payload, data product, or analytics engine integrate with our VLEO platform?" Capella Space's SAR combined with DeepSat's EO+RF would create the most comprehensive multi-INT stack in commercial space. Palantir's Foundry or Anduril's Lattice OS could be distribution channels for DeepSat intelligence products. LeoLabs' space domain awareness data could inform orbital planning. These aren't hypothetical partnerships. They're architectural synergies where both sides get more valuable by connecting. The conversation starter is: "We're building an open platform for VLEO intelligence. What would it look like if your product plugged into that?"</div>
+</div>
+
+<div class="card ask">
+  <div class="card-header"><div class="card-num">5</div><div class="card-title">Who in their network is connected to defense acquisition or VLEO programs.</div></div>
+  <div class="card-body">End every industry conversation with: "Who else here this week should I be talking to?" Space Symposium is 12,000 people in one building for four days. Industry people know their customers, their partners, and their competitors by name. A satellite bus manufacturer knows which PEOs are shopping for VLEO platforms. A sensor company knows which programs have upcoming payloads. A prime knows which SDA or NRO contacts are receptive to commercial solutions. One warm intro from an industry peer is worth ten cold emails. Be specific: "We're trying to connect with the SDA Tranche 4 team and NRO's commercial imagery office. Do you know anyone there?"</div>
+</div>
+
+<div class="cat-header">Investor Contacts</div>
+
+<div class="card ask">
+  <div class="card-header"><div class="card-num">1</div><div class="card-title">Portfolio synergies: who in their portfolio benefits from DeepSat.</div></div>
+  <div class="card-body">Ask: "Who in your portfolio is working on defense ISR, space infrastructure, or autonomous systems?" Defense-focused VCs like Shield Capital, Harpoon, DCVC, and a16z American Dynamism have portfolios full of companies that need satellite data or would be natural partners. Shield Capital backed HawkEye 360 (RF geolocation from space, and DeepSat's co-located EO+RF fusion directly complements it). Harpoon backed Astranis (space infrastructure, similar architecture philosophy). An investor who sees DeepSat fitting into their existing portfolio thesis is 10x more likely to engage. Don't pitch the fund. Pitch the portfolio fit.</div>
+</div>
+
+<div class="card ask">
+  <div class="card-header"><div class="card-num">2</div><div class="card-title">Market intel: what they're seeing in space and defense deal flow.</div></div>
+  <div class="card-body">Ask: "What themes are you seeing in your space and defense deal flow right now?" VCs see dozens of pitches per week. They know what's getting funded, what's struggling to close, and where the market sentiment is heading. Is VLEO gaining traction as an investment thesis? Are LPs interested in space and defense allocations? What made them say yes or no to Albedo, EOI, or similar deals? This intelligence directly shapes how you position DeepSat. If investors are bullish on VLEO resilience, lean into the contested-space narrative. If they're cautious about pre-launch companies, lean harder on the traction story. Know the market before you pitch it.</div>
+</div>
+
+<div class="card ask">
+  <div class="card-header"><div class="card-num">3</div><div class="card-title">Their thesis: what gets them to write a check in space/defense.</div></div>
+  <div class="card-body">Every fund has a thesis, and the more you understand it, the better you can tailor the follow-up conversation. Ask: "What does a space or defense deal need to look like for your fund to get excited?" Some funds want government traction first (you have it). Some want technology validation (SOCOM exercise). Some want a clear path to commercial revenue (12 revenue streams across defense, commercial, and civil). Understanding their decision framework means you can position the investment conversation around what matters to that specific fund. You're doing reconnaissance for the fundraise without talking about the fundraise.</div>
+</div>
+
+<div class="card ask">
+  <div class="card-header"><div class="card-num">4</div><div class="card-title">Who else in the defense investor ecosystem we should know.</div></div>
+  <div class="card-body">Ask: "Who else in the defense and space investment world should we be talking to?" VCs know each other. They co-invest, they share deal flow, they sit on the same panels. A warm intro from one defense VC to another is the highest-converting path in fundraising. Be specific: "We're particularly interested in connecting with Shield Capital, Harpoon, In-Q-Tel, and Seraphim. Do you know anyone there?" Also ask about family offices, sovereign wealth funds, or strategic corporate venture arms (Lockheed Ventures, Boeing HorizonX, RTX Ventures) that invest in space and defense. The investor ecosystem at Space Symposium is smaller and more interconnected than the defense industry itself.</div>
+</div>
+
+<div class="card ask">
+  <div class="card-header"><div class="card-num">5</div><div class="card-title">Redirect investment conversations to a separate follow-up.</div></div>
+  <div class="card-body">If an investor shows real interest and starts asking about terms, round structure, timeline, or valuation, don't go there on the conference floor. Say: "Happy to set up a separate conversation to discuss with our CEO, Nerses. Let me get your info." Your job at Space Symposium is to sell the mission, the traction, and the vision. The capital conversation happens later, on your terms, in a controlled setting. Talking fundraising numbers at a defense conference fundamentally changes how people perceive you. You want to be the CEO of a defense intelligence company with a 2027 mission and government contracts. Not a founder on the fundraising circuit. Keep every conversation at the mission level. Close the capital separately.</div>
+</div>
+
+<div class="context">
+  <div class="ctx-title">Quick Reference: Your 30-Second Pitch</div>
+  "We're a defense intelligence company building the first multi-INT platform for very low Earth orbit, with our first mission launching in 2027 on SpaceX. The platform is designed for high-frequency, high-resolution collection with real-time delivery from capture to operator via onboard AI and laser comms. No ground station required. We're already a prime on MDA's $151 billion SHIELD program, we have an active AFRL contract, and we're running a live exercise with SOCOM right now. VLEO is the only ISR layer that operates below the proven ASAT kill zone. When LEO gets contested, we're the layer that stays lit. We're the only company building EO and RF fusion on a single platform from this orbit."
+  <br><br><em style="color:#656d76;">Note: Use "building" and "designed for" when describing capability. Use present tense only for things that are real today: contracts (MDA, AFRL), exercises (SOCOM), partnerships (Redwire, Satlantis, Kepler, NVIDIA). Don't say "our satellites detect" as if they're on orbit. Say "our platform is designed to detect" or "our AI models process." Be confident about the mission and timeline, honest about the stage.</em>
+</div>
+
+<div class="context" style="margin-top: 12px;">
+  <div class="ctx-title">Key Contacts to Find at Space Symposium</div>
+  <strong>PEO Space Systems / PEO IEW&S / SpaceWERX:</strong> Where VLEO ISR funding lives. Find the program managers. Ask what's in the FY27 pipeline.<br>
+  <strong>SDA / Andromeda awardees:</strong> 14 companies just awarded ($1.8B+). True Anomaly, Turion Space, Quantum Space in that cohort. Explore teaming for Tranche 4.<br>
+  <strong>NRO/NGA commercial partnerships:</strong> Brief them on VLEO as a new data phenomenology + EO+RF multi-INT. Ask about EOCL expansion.<br>
+  <strong>Primes (L3Harris, Northrop, Raytheon, Ball):</strong> VLEO gaps in their architectures. Teaming on SDA, NRO, SpaceWERX bids.<br>
+  <strong>Shield Capital / Harpoon / In-Q-Tel:</strong> Defense-native investors. Set up separate follow-up conversations.<br>
+  <strong>Allied delegations (Japan, Australia, UK, NATO):</strong> Potential customers. Ask about ISR gaps and roadmaps.<br>
+  <strong>DIU / AFWERX / SOCOM Acquisition Innovation:</strong> Fast-track OTA and commercial solutions pathways.
+</div>
+
+<script type="module">
+  import { createViewer } from './viewer.js';
+  const viewer = createViewer({
+    docId: 'space-symposium-555',
+    brandName: 'DeepSat',
+    brandTagline: 'Defense Intelligence from VLEO',
+    requireEmail: true,
+    supabaseUrl: 'https://wpyuqnuekzbcsirkrjsk.supabase.co',
+    supabaseKey: 'sb_publishable_lATEOVSdeb8pkbeicOskRA_UumFSWuw',
+  });
+  viewer.init();
+</script>
+</body>
+</html>
