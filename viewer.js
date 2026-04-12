@@ -326,9 +326,7 @@ export function createViewer(userConfig = {}) {
 
     state.selectionRange = { text: selectedText };
 
-    // Highlight the active selection (works across elements)
-    clearMarks('dsv-active-selection');
-    state.activeMarks = highlightTextNodes(range, 'dsv-active-selection');
+    // Don't wrap selection in marks — browser native highlight is enough
 
     // Show input in sidebar
     const inputArea = document.getElementById('dsv-sb-input');
@@ -346,7 +344,6 @@ export function createViewer(userConfig = {}) {
   function cancelInput() {
     document.getElementById('dsv-sb-input').style.display = 'none';
     document.getElementById('dsv-sb-input-text').value = '';
-    clearMarks('dsv-active-selection');
     state.activeMarks = [];
     state.selectionRange = null;
   }
@@ -368,8 +365,7 @@ export function createViewer(userConfig = {}) {
     supabasePost(config.supabaseUrl, config.supabaseKey, 'doc_comments', comment); // fire and forget
     localSet(`comments_${config.docId}`, state.comments);
 
-    // Replace active highlight with permanent one
-    clearMarks('dsv-active-selection');
+    // Add permanent highlight for the commented text
     addPermanentHighlight(state.selectionRange.text, state.comments.length, () => setMode(true));
 
     renderComments();

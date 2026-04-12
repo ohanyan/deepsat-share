@@ -198,13 +198,12 @@ describe('Text Selection', () => {
     expect(quote.textContent).toContain('some text');
   });
 
-  it('highlights selected text with active selection style', () => {
+  it('does not wrap selection in marks (uses native browser highlight)', () => {
     document.getElementById('dsv-mode-toggle').click();
     selectText(content, 'some text');
     content.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
     const marks = content.querySelectorAll('mark.dsv-active-selection');
-    expect(marks.length).toBe(1);
-    expect(marks[0].textContent).toBe('some text');
+    expect(marks.length).toBe(0);
   });
 
   it('handles selection across element boundaries', () => {
@@ -231,14 +230,14 @@ describe('Text Selection', () => {
     expect(quote.textContent.length).toBeGreaterThan(0);
   });
 
-  it('clears active selection when cancelled', () => {
+  it('hides sidebar input when cancelled', () => {
     document.getElementById('dsv-mode-toggle').click();
     selectText(content, 'First paragraph');
     content.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
-    expect(content.querySelectorAll('mark.dsv-active-selection').length).toBe(1);
+    expect(document.getElementById('dsv-sb-input').style.display).toBe('block');
 
     document.getElementById('dsv-sb-cancel').click();
-    expect(content.querySelectorAll('mark.dsv-active-selection').length).toBe(0);
+    expect(document.getElementById('dsv-sb-input').style.display).toBe('none');
   });
 });
 
@@ -275,7 +274,7 @@ describe('Comment Submission', () => {
     expect(comments[0].textContent).toContain('Great point!');
   });
 
-  it('converts active selection to permanent highlight after submit', () => {
+  it('adds permanent highlight after submit', () => {
     document.getElementById('dsv-mode-toggle').click();
     selectText(content, 'important text');
     content.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
@@ -283,7 +282,6 @@ describe('Comment Submission', () => {
     document.getElementById('dsv-sb-input-text').value = 'Nice';
     document.getElementById('dsv-sb-submit').click();
 
-    expect(content.querySelectorAll('mark.dsv-active-selection').length).toBe(0);
     expect(content.querySelectorAll('mark.dsv-highlight').length).toBe(1);
   });
 
@@ -415,13 +413,16 @@ describe('Cross-Element Highlighting', () => {
     content = document.getElementById('dsv-content');
   });
 
-  it('highlights text within a single element', () => {
+  it('captures text within a single element without breaking layout', () => {
     document.getElementById('dsv-mode-toggle').click();
     selectText(content, 'regular');
     content.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
 
+    // No active selection marks — uses native browser highlight
     const marks = content.querySelectorAll('mark.dsv-active-selection');
-    expect(marks.length).toBe(1);
+    expect(marks.length).toBe(0);
+    // But sidebar input should show the quoted text
+    expect(document.getElementById('dsv-sb-input-quote').textContent).toContain('regular');
   });
 
   it('captures text spanning bold and normal text without crashing', () => {
