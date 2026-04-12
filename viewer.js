@@ -35,7 +35,8 @@ const STYLES = `
 /* Sidebar */
 #dsv-sidebar { position:fixed; top:0; right:-340px; width:320px; height:100vh; background:rgba(255,255,255,0.97); backdrop-filter:blur(8px); border-left:1px solid #d1d9e0; z-index:1001; transition:right 0.25s ease; display:flex; flex-direction:column; box-shadow:-8px 0 24px rgba(0,0,0,0.08); }
 #dsv-sidebar.open { right:0; }
-.dsv-sb-header { padding:16px 20px; border-bottom:1px solid #d1d9e0; font-weight:600; font-size:14px; color:#656d76; text-transform:uppercase; letter-spacing:0.5px; position:sticky; top:0; background:rgba(255,255,255,0.97); flex-shrink:0; }
+.dsv-sb-header { padding:12px 16px; border-bottom:1px solid #d1d9e0; font-weight:600; font-size:14px; color:#656d76; position:sticky; top:0; background:rgba(255,255,255,0.97); flex-shrink:0; display:flex; justify-content:space-between; align-items:center; }
+.dsv-sb-header-right { display:flex; align-items:center; gap:6px; }
 #dsv-sb-list { flex:1; overflow-y:auto; }
 .dsv-sb-empty { padding:40px 20px; text-align:center; color:#656d76; font-size:13px; line-height:1.6; }
 .dsv-sb-comment { padding:14px 20px; border-bottom:1px solid #f0f0f0; }
@@ -268,27 +269,24 @@ export function createViewer(userConfig = {}) {
 
   // ─── Comment UI ──────────────────────────────────────────
   function buildCommentUI() {
-    const modeBar = document.createElement('div');
-    modeBar.id = 'dsv-mode-bar';
-    modeBar.innerHTML = `
-      <div class="dsv-mode-left">
-        <span id="dsv-label-read" class="dsv-toggle-label active">Read</span>
-        <div class="dsv-toggle" id="dsv-mode-toggle">
-          <div class="dsv-toggle-track" id="dsv-toggle-track"><div class="dsv-toggle-thumb"></div></div>
-        </div>
-        <span id="dsv-label-review" class="dsv-toggle-label">Review</span>
-      </div>
-      <div class="dsv-mode-right">
-        <span id="dsv-comment-count" class="dsv-mode-count"></span>
-      </div>
-    `;
+    // No top mode bar — toggle lives in the sidebar now
     const content = document.getElementById('dsv-content');
-    content.parentNode.insertBefore(modeBar, content);
 
     const sidebar = document.createElement('div');
     sidebar.id = 'dsv-sidebar';
+    sidebar.classList.add('open'); // always open by default
     sidebar.innerHTML = `
-      <div class="dsv-sb-header">Comments</div>
+      <div class="dsv-sb-header">
+        <span>Comments</span>
+        <div class="dsv-sb-header-right">
+          <span id="dsv-comment-count" class="dsv-mode-count"></span>
+          <span id="dsv-label-read" class="dsv-toggle-label">Read</span>
+          <div class="dsv-toggle" id="dsv-mode-toggle">
+            <div class="dsv-toggle-track active" id="dsv-toggle-track"><div class="dsv-toggle-thumb"></div></div>
+          </div>
+          <span id="dsv-label-review" class="dsv-toggle-label active">Review</span>
+        </div>
+      </div>
       <div id="dsv-sb-list"></div>
       <div id="dsv-sb-input" style="display:none;">
         <div id="dsv-sb-input-quote"></div>
@@ -302,6 +300,9 @@ export function createViewer(userConfig = {}) {
     document.body.appendChild(sidebar);
 
     document.getElementById('dsv-mode-toggle').addEventListener('click', () => setMode(!state.reviewMode));
+
+    // Start in review mode by default
+    state.reviewMode = true;
     content.addEventListener('mouseup', onTextSelect);
     document.getElementById('dsv-sb-cancel').addEventListener('click', cancelInput);
     document.getElementById('dsv-sb-submit').addEventListener('click', submitComment);
@@ -312,7 +313,7 @@ export function createViewer(userConfig = {}) {
     document.getElementById('dsv-toggle-track').classList.toggle('active', isReview);
     document.getElementById('dsv-label-read').classList.toggle('active', !isReview);
     document.getElementById('dsv-label-review').classList.toggle('active', isReview);
-    document.getElementById('dsv-sidebar').classList.toggle('open', isReview);
+    // Sidebar stays open in both modes
     if (!isReview) cancelInput();
   }
 
@@ -327,16 +328,8 @@ export function createViewer(userConfig = {}) {
     state.selectionRange = { text: selectedText };
 
     // Wrap selection to preserve highlight when focus moves to sidebar
-    // Only wrap single text node selections to avoid layout breaks
     clearMarks('dsv-active-selection');
-    if (range.startContainer === range.endContainer && range.startContainer.nodeType === Node.TEXT_NODE) {
-      try {
-        const mark = document.createElement('mark');
-        mark.className = 'dsv-active-selection';
-        range.surroundContents(mark);
-        state.activeMarks = [mark];
-      } catch { state.activeMarks = []; }
-    }
+    state.activeMarks = highlightTextNodes(range, 'dsv-active-selection');
 
     // Show input in sidebar
     const inputArea = document.getElementById('dsv-sb-input');

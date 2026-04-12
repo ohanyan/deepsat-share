@@ -128,29 +128,27 @@ describe('Mode Toggle (Read/Review)', () => {
     viewer.init();
   });
 
-  it('starts in Read mode by default', () => {
-    expect(viewer.getMode()).toBe('read');
-    expect(document.getElementById('dsv-sidebar').classList.contains('open')).toBe(false);
+  it('starts in Review mode by default', () => {
+    expect(viewer.getMode()).toBe('review');
   });
 
-  it('switches to Review mode', () => {
+  it('sidebar is always open', () => {
+    expect(document.getElementById('dsv-sidebar').classList.contains('open')).toBe(true);
+  });
+
+  it('switches to Read mode and back', () => {
+    document.getElementById('dsv-mode-toggle').click();
+    expect(viewer.getMode()).toBe('read');
     document.getElementById('dsv-mode-toggle').click();
     expect(viewer.getMode()).toBe('review');
   });
 
-  it('opens sidebar in Review mode', () => {
-    document.getElementById('dsv-mode-toggle').click();
+  it('sidebar stays open in Read mode', () => {
+    document.getElementById('dsv-mode-toggle').click(); // switch to read
     expect(document.getElementById('dsv-sidebar').classList.contains('open')).toBe(true);
   });
 
-  it('closes sidebar when switching back to Read', () => {
-    document.getElementById('dsv-mode-toggle').click();
-    document.getElementById('dsv-mode-toggle').click();
-    expect(document.getElementById('dsv-sidebar').classList.contains('open')).toBe(false);
-  });
-
-  it('does NOT squeeze content when sidebar opens', () => {
-    document.getElementById('dsv-mode-toggle').click();
+  it('does NOT squeeze content when sidebar is open', () => {
     const content = document.getElementById('dsv-content');
     expect(content.style.marginRight).toBe('');
   });
@@ -177,6 +175,7 @@ describe('Text Selection', () => {
   });
 
   it('ignores text selection in Read mode', () => {
+    document.getElementById('dsv-mode-toggle').click(); // switch to read
     selectText(content, 'First paragraph');
     content.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
     // Sidebar input should NOT appear
@@ -184,14 +183,13 @@ describe('Text Selection', () => {
   });
 
   it('shows sidebar input when text is selected in Review mode', () => {
-    document.getElementById('dsv-mode-toggle').click();
+    // Already in review mode by default
     selectText(content, 'First paragraph');
     content.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
     expect(document.getElementById('dsv-sb-input').style.display).toBe('block');
   });
 
   it('shows the selected text as a quote in sidebar', () => {
-    document.getElementById('dsv-mode-toggle').click();
     selectText(content, 'some text');
     content.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
     const quote = document.getElementById('dsv-sb-input-quote');
@@ -199,7 +197,6 @@ describe('Text Selection', () => {
   });
 
   it('wraps single-node selection with active highlight that preserves layout', () => {
-    document.getElementById('dsv-mode-toggle').click();
     selectText(content, 'some text');
     content.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
     const marks = content.querySelectorAll('mark.dsv-active-selection');
@@ -208,7 +205,6 @@ describe('Text Selection', () => {
   });
 
   it('handles selection across element boundaries', () => {
-    document.getElementById('dsv-mode-toggle').click();
     // Select from "Bold text" (inside <strong>) to "and normal" (outside <strong>)
     const p2 = document.getElementById('p2');
     selectAcrossElements(p2, 'Bold', p2, 'normal');
@@ -221,7 +217,6 @@ describe('Text Selection', () => {
   });
 
   it('handles selection across paragraph boundaries', () => {
-    document.getElementById('dsv-mode-toggle').click();
     const p1 = document.getElementById('p1');
     const p2 = document.getElementById('p2');
     selectAcrossElements(p1, 'some text', p2, 'Bold text');
@@ -232,7 +227,6 @@ describe('Text Selection', () => {
   });
 
   it('hides sidebar input when cancelled', () => {
-    document.getElementById('dsv-mode-toggle').click();
     selectText(content, 'First paragraph');
     content.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
     expect(document.getElementById('dsv-sb-input').style.display).toBe('block');
@@ -262,7 +256,6 @@ describe('Comment Submission', () => {
   });
 
   it('submits a comment and adds it to the sidebar', () => {
-    document.getElementById('dsv-mode-toggle').click();
     selectText(content, 'important text');
     content.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
 
@@ -276,7 +269,6 @@ describe('Comment Submission', () => {
   });
 
   it('adds permanent highlight after submit', () => {
-    document.getElementById('dsv-mode-toggle').click();
     selectText(content, 'important text');
     content.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
 
@@ -287,7 +279,6 @@ describe('Comment Submission', () => {
   });
 
   it('adds a comment marker to the highlighted text', () => {
-    document.getElementById('dsv-mode-toggle').click();
     selectText(content, 'important text');
     content.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
 
@@ -300,7 +291,6 @@ describe('Comment Submission', () => {
   });
 
   it('numbers markers sequentially for multiple comments', () => {
-    document.getElementById('dsv-mode-toggle').click();
 
     // Comment 1
     selectText(content, 'important text');
@@ -321,7 +311,6 @@ describe('Comment Submission', () => {
   });
 
   it('hides sidebar input after submission', () => {
-    document.getElementById('dsv-mode-toggle').click();
     selectText(content, 'important text');
     content.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
 
@@ -332,7 +321,6 @@ describe('Comment Submission', () => {
   });
 
   it('does not submit empty comments', () => {
-    document.getElementById('dsv-mode-toggle').click();
     selectText(content, 'important text');
     content.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
 
@@ -343,7 +331,6 @@ describe('Comment Submission', () => {
   });
 
   it('persists comments to localStorage', () => {
-    document.getElementById('dsv-mode-toggle').click();
     selectText(content, 'important text');
     content.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
 
@@ -378,7 +365,6 @@ describe('Comment Markers', () => {
 
   it('clicking a marker opens Review mode and sidebar', () => {
     // Add a comment first
-    document.getElementById('dsv-mode-toggle').click();
     selectText(content, 'Paragraph one');
     content.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
     document.getElementById('dsv-sb-input-text').value = 'Test';
@@ -397,7 +383,7 @@ describe('Comment Markers', () => {
 
 // ─── Cross-Element Highlighting ──────────────────────────────
 
-describe('Cross-Element Highlighting', () => {
+describe('Selection Highlighting — All Scenarios', () => {
   let viewer, content;
 
   beforeEach(() => {
@@ -405,45 +391,130 @@ describe('Cross-Element Highlighting', () => {
     localStorage.setItem('dsv_viewer', JSON.stringify({ email: 'test@example.com', name: 'Test' }));
     setupDocument(`
       <div>
-        <p id="cp1">Start of <strong>bold section</strong> and then regular.</p>
-        <p id="cp2">Another <em>italic</em> paragraph.</p>
+        <p id="p1">Start of <strong>bold section</strong> and then regular text here.</p>
+        <p id="p2">Another <em>italic word</em> in this paragraph.</p>
+        <p id="p3">Third paragraph with plain text only.</p>
+        <ul id="list1"><li>List item one</li><li>List item two</li></ul>
       </div>
     `);
-    viewer = createViewer({ requireEmail: false, docId: 'test-cross' });
+    viewer = createViewer({ requireEmail: false, docId: 'test-highlight' });
     viewer.init();
     content = document.getElementById('dsv-content');
   });
 
-  it('wraps single-node selection and shows quote in sidebar', () => {
-    document.getElementById('dsv-mode-toggle').click();
-    selectText(content, 'regular');
+  // --- Single text node (simplest case) ---
+
+  it('highlights a few words within one text node', () => {
+    selectText(content, 'plain text');
     content.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
 
     const marks = content.querySelectorAll('mark.dsv-active-selection');
-    expect(marks.length).toBe(1);
-    expect(document.getElementById('dsv-sb-input-quote').textContent).toContain('regular');
+    expect(marks.length).toBeGreaterThanOrEqual(1);
+    expect(document.getElementById('dsv-sb-input-quote').textContent).toContain('plain text');
   });
 
-  it('captures text spanning bold and normal text without crashing', () => {
-    document.getElementById('dsv-mode-toggle').click();
-    const p1 = document.getElementById('cp1');
+  it('highlights an entire paragraph of plain text', () => {
+    selectText(content, 'Third paragraph with plain text only.');
+    content.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
+
+    const marks = content.querySelectorAll('mark.dsv-active-selection');
+    expect(marks.length).toBeGreaterThanOrEqual(1);
+    expect(document.getElementById('dsv-sb-input-quote').textContent).toContain('Third paragraph');
+  });
+
+  // --- Across inline elements (bold, italic) within one paragraph ---
+
+  it('highlights text spanning from bold into normal text', () => {
+    const p1 = document.getElementById('p1');
     selectAcrossElements(p1, 'bold section', p1, 'regular');
     content.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
 
-    // Should not crash, and should show quote in sidebar
-    const quote = document.getElementById('dsv-sb-input-quote');
-    expect(quote.textContent.length).toBeGreaterThan(0);
+    const marks = content.querySelectorAll('mark.dsv-active-selection');
+    expect(marks.length).toBeGreaterThanOrEqual(1);
+    expect(document.getElementById('dsv-sb-input-quote').textContent).toContain('bold');
   });
 
-  it('captures text spanning two paragraphs without crashing', () => {
-    document.getElementById('dsv-mode-toggle').click();
-    const p1 = document.getElementById('cp1');
-    const p2 = document.getElementById('cp2');
-    selectAcrossElements(p1, 'regular', p2, 'Another');
+  it('highlights text spanning from normal into italic', () => {
+    const p2 = document.getElementById('p2');
+    selectAcrossElements(p2, 'Another', p2, 'italic');
     content.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
 
-    const quote = document.getElementById('dsv-sb-input-quote');
-    expect(quote.textContent.length).toBeGreaterThan(0);
+    const marks = content.querySelectorAll('mark.dsv-active-selection');
+    expect(marks.length).toBeGreaterThanOrEqual(1);
+    expect(document.getElementById('dsv-sb-input-quote').textContent).toContain('Another');
+  });
+
+  // --- Across paragraphs ---
+
+  it('highlights text spanning two paragraphs', () => {
+    const p1 = document.getElementById('p1');
+    const p2 = document.getElementById('p2');
+    selectAcrossElements(p1, 'regular text', p2, 'Another');
+    content.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
+
+    const marks = content.querySelectorAll('mark.dsv-active-selection');
+    expect(marks.length).toBeGreaterThanOrEqual(1);
+    expect(document.getElementById('dsv-sb-input-quote').textContent.length).toBeGreaterThan(0);
+  });
+
+  it('highlights text spanning three paragraphs', () => {
+    const p1 = document.getElementById('p1');
+    const p3 = document.getElementById('p3');
+    selectAcrossElements(p1, 'regular', p3, 'plain text');
+    content.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
+
+    const marks = content.querySelectorAll('mark.dsv-active-selection');
+    expect(marks.length).toBeGreaterThanOrEqual(1);
+  });
+
+  // --- Across different element types (paragraph + list) ---
+
+  it('highlights text spanning from paragraph into list item', () => {
+    const p3 = document.getElementById('p3');
+    const list = document.getElementById('list1');
+    selectAcrossElements(p3, 'plain text', list, 'List item');
+    content.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
+
+    const marks = content.querySelectorAll('mark.dsv-active-selection');
+    expect(marks.length).toBeGreaterThanOrEqual(1);
+  });
+
+  // --- Cleanup ---
+
+  it('clears all active selection marks on cancel', () => {
+    const p1 = document.getElementById('p1');
+    const p2 = document.getElementById('p2');
+    selectAcrossElements(p1, 'bold section', p2, 'italic');
+    content.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
+
+    expect(content.querySelectorAll('mark.dsv-active-selection').length).toBeGreaterThanOrEqual(1);
+
+    document.getElementById('dsv-sb-cancel').click();
+    expect(content.querySelectorAll('mark.dsv-active-selection').length).toBe(0);
+  });
+
+  it('clears active marks and adds permanent highlight on submit', () => {
+    selectText(content, 'plain text');
+    content.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
+
+    document.getElementById('dsv-sb-input-text').value = 'Test comment';
+    document.getElementById('dsv-sb-submit').click();
+
+    expect(content.querySelectorAll('mark.dsv-active-selection').length).toBe(0);
+    expect(content.querySelectorAll('mark.dsv-highlight').length).toBe(1);
+  });
+
+  // --- No layout breakage ---
+
+  it('does not change the text content of the document', () => {
+    const textBefore = content.textContent;
+    const p1 = document.getElementById('p1');
+    const p2 = document.getElementById('p2');
+    selectAcrossElements(p1, 'bold section', p2, 'italic');
+    content.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
+
+    // Text content should be identical (marks are just wrappers)
+    expect(content.textContent).toBe(textBefore);
   });
 });
 
@@ -546,7 +617,6 @@ describe('Data States: Supabase vs localStorage', () => {
     await new Promise(r => setTimeout(r, 50));
 
     const content = document.getElementById('dsv-content');
-    document.getElementById('dsv-mode-toggle').click();
     selectText(content, 'Content');
     content.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
 
