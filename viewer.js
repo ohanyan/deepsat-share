@@ -55,7 +55,7 @@ const STYLES = `
 
 /* Highlights */
 mark.dsv-highlight { background:#fff8c5; padding:1px 2px; border-radius:2px; position:relative; }
-mark.dsv-active-selection { background:#b6d7ff; padding:1px 2px; border-radius:2px; }
+mark.dsv-active-selection { background:#b6d7ff; display:inline; padding:0; margin:0; border:0; line-height:inherit; font-size:inherit; }
 
 /* Comment markers */
 .dsv-comment-marker { position:absolute; right:-36px; top:50%; transform:translateY(-50%); width:24px; height:24px; background:#0969da; color:#fff; border-radius:50%; font-size:11px; font-weight:700; display:inline-flex; align-items:center; justify-content:center; cursor:pointer; box-shadow:0 1px 4px rgba(0,0,0,0.15); z-index:10; }
@@ -326,7 +326,17 @@ export function createViewer(userConfig = {}) {
 
     state.selectionRange = { text: selectedText };
 
-    // Don't wrap selection in marks — browser native highlight is enough
+    // Wrap selection to preserve highlight when focus moves to sidebar
+    // Only wrap single text node selections to avoid layout breaks
+    clearMarks('dsv-active-selection');
+    if (range.startContainer === range.endContainer && range.startContainer.nodeType === Node.TEXT_NODE) {
+      try {
+        const mark = document.createElement('mark');
+        mark.className = 'dsv-active-selection';
+        range.surroundContents(mark);
+        state.activeMarks = [mark];
+      } catch { state.activeMarks = []; }
+    }
 
     // Show input in sidebar
     const inputArea = document.getElementById('dsv-sb-input');
@@ -334,12 +344,16 @@ export function createViewer(userConfig = {}) {
     inputArea.style.display = 'block';
     document.getElementById('dsv-sb-input-text').value = '';
 
-    if (inputArea.scrollIntoView) inputArea.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    setTimeout(() => {
+      document.getElementById('dsv-sb-input-text').focus();
+      if (inputArea.scrollIntoView) inputArea.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    }, 50);
   }
 
   function cancelInput() {
     document.getElementById('dsv-sb-input').style.display = 'none';
     document.getElementById('dsv-sb-input-text').value = '';
+    clearMarks('dsv-active-selection');
     state.activeMarks = [];
     state.selectionRange = null;
   }
@@ -361,7 +375,8 @@ export function createViewer(userConfig = {}) {
     supabasePost(config.supabaseUrl, config.supabaseKey, 'doc_comments', comment); // fire and forget
     localSet(`comments_${config.docId}`, state.comments);
 
-    // Add permanent highlight for the commented text
+    // Clear active selection, add permanent highlight
+    clearMarks('dsv-active-selection');
     addPermanentHighlight(state.selectionRange.text, state.comments.length, () => setMode(true));
 
     renderComments();

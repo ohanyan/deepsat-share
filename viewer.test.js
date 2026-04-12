@@ -198,12 +198,13 @@ describe('Text Selection', () => {
     expect(quote.textContent).toContain('some text');
   });
 
-  it('does not wrap selection in marks (uses native browser highlight)', () => {
+  it('wraps single-node selection with active highlight that preserves layout', () => {
     document.getElementById('dsv-mode-toggle').click();
     selectText(content, 'some text');
     content.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
     const marks = content.querySelectorAll('mark.dsv-active-selection');
-    expect(marks.length).toBe(0);
+    expect(marks.length).toBe(1);
+    expect(marks[0].textContent).toBe('some text');
   });
 
   it('handles selection across element boundaries', () => {
@@ -413,15 +414,13 @@ describe('Cross-Element Highlighting', () => {
     content = document.getElementById('dsv-content');
   });
 
-  it('captures text within a single element without breaking layout', () => {
+  it('wraps single-node selection and shows quote in sidebar', () => {
     document.getElementById('dsv-mode-toggle').click();
     selectText(content, 'regular');
     content.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
 
-    // No active selection marks — uses native browser highlight
     const marks = content.querySelectorAll('mark.dsv-active-selection');
-    expect(marks.length).toBe(0);
-    // But sidebar input should show the quoted text
+    expect(marks.length).toBe(1);
     expect(document.getElementById('dsv-sb-input-quote').textContent).toContain('regular');
   });
 
