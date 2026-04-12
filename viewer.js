@@ -62,10 +62,8 @@ mark.dsv-active-selection { background:#b6d7ff; display:inline; padding:0; margi
 .dsv-comment-marker { position:absolute; right:-36px; top:50%; transform:translateY(-50%); width:24px; height:24px; background:#0969da; color:#fff; border-radius:50%; font-size:11px; font-weight:700; display:inline-flex; align-items:center; justify-content:center; cursor:pointer; box-shadow:0 1px 4px rgba(0,0,0,0.15); z-index:10; }
 .dsv-comment-marker:hover { background:#0860c4; transform:translateY(-50%) scale(1.1); }
 
-/* Floating toggle button */
-#dsv-float-toggle { position:fixed; bottom:24px; right:24px; width:48px; height:48px; border-radius:50%; background:#0969da; color:#fff; border:none; font-size:20px; cursor:pointer; box-shadow:0 4px 12px rgba(0,0,0,0.2); z-index:1000; display:none; transition:transform 0.15s; }
-#dsv-float-toggle:hover { transform:scale(1.1); }
-#dsv-float-toggle.visible { display:flex; align-items:center; justify-content:center; }
+/* Floating toggle bar */
+#dsv-float-toggle { position:fixed; top:12px; right:16px; display:flex; align-items:center; gap:6px; padding:6px 14px; background:rgba(255,255,255,0.95); backdrop-filter:blur(8px); border:1px solid #d1d9e0; border-radius:20px; box-shadow:0 2px 8px rgba(0,0,0,0.1); z-index:1002; }
 
 @media print {
   #dsv-mode-bar, #dsv-sidebar, #dsv-gate { display:none !important; }
@@ -274,13 +272,18 @@ export function createViewer(userConfig = {}) {
 
   // ─── Comment UI ──────────────────────────────────────────
   function buildCommentUI() {
-    // Floating toggle button (visible when sidebar is closed)
-    const floatBtn = document.createElement('button');
-    floatBtn.id = 'dsv-float-toggle';
-    floatBtn.innerHTML = '&#128172;';
-    floatBtn.title = 'Open comments';
-    floatBtn.addEventListener('click', () => setMode(true));
-    document.body.appendChild(floatBtn);
+    // Floating toggle bar (always visible at top-right, above sidebar)
+    const floatBar = document.createElement('div');
+    floatBar.id = 'dsv-float-toggle';
+    floatBar.innerHTML = `
+      <span id="dsv-float-label-read" class="dsv-toggle-label">Read</span>
+      <div class="dsv-toggle" id="dsv-float-mode-toggle">
+        <div class="dsv-toggle-track active" id="dsv-float-toggle-track"><div class="dsv-toggle-thumb"></div></div>
+      </div>
+      <span id="dsv-float-label-review" class="dsv-toggle-label active">Review</span>
+    `;
+    document.body.appendChild(floatBar);
+    document.getElementById('dsv-float-mode-toggle').addEventListener('click', () => setMode(!state.reviewMode));
     const content = document.getElementById('dsv-content');
 
     const sidebar = document.createElement('div');
@@ -321,11 +324,16 @@ export function createViewer(userConfig = {}) {
 
   function setMode(isReview) {
     state.reviewMode = isReview;
+    // Sync sidebar header toggle
     document.getElementById('dsv-toggle-track').classList.toggle('active', isReview);
     document.getElementById('dsv-label-read').classList.toggle('active', !isReview);
     document.getElementById('dsv-label-review').classList.toggle('active', isReview);
+    // Sync floating toggle
+    document.getElementById('dsv-float-toggle-track').classList.toggle('active', isReview);
+    document.getElementById('dsv-float-label-read').classList.toggle('active', !isReview);
+    document.getElementById('dsv-float-label-review').classList.toggle('active', isReview);
+    // Show/hide sidebar
     document.getElementById('dsv-sidebar').classList.toggle('open', isReview);
-    document.getElementById('dsv-float-toggle').classList.toggle('visible', !isReview);
     if (!isReview) cancelInput();
   }
 
