@@ -54,7 +54,9 @@ const STYLES = `
 .dsv-sb-input-actions button:last-child { background:#0969da; color:#fff; border-color:#0969da; }
 
 /* Highlights */
-mark.dsv-highlight { background:#fff8c5; padding:1px 2px; border-radius:2px; position:relative; }
+mark.dsv-highlight { background:#fff8c5; padding:1px 2px; border-radius:2px; position:relative; transition:background 0.2s; }
+.dsv-read-mode mark.dsv-highlight { background:transparent; }
+.dsv-read-mode .dsv-comment-marker { display:none; }
 mark.dsv-active-selection { background:#b6d7ff; display:inline; padding:0; margin:0; border:0; line-height:inherit; font-size:inherit; }
 
 /* Comment markers */
@@ -318,8 +320,9 @@ export function createViewer(userConfig = {}) {
     document.getElementById('dsv-float-toggle-track').classList.toggle('active', isReview);
     document.getElementById('dsv-float-label-read').classList.toggle('active', !isReview);
     document.getElementById('dsv-float-label-review').classList.toggle('active', isReview);
-    // Show/hide sidebar
+    // Show/hide sidebar and comment markers
     document.getElementById('dsv-sidebar').classList.toggle('open', isReview);
+    document.getElementById('dsv-content').classList.toggle('dsv-read-mode', !isReview);
     if (!isReview) cancelInput();
   }
 
