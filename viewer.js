@@ -22,10 +22,14 @@ const STYLES = `
 
 /* Mode bar */
 #dsv-mode-bar { display:flex; justify-content:space-between; align-items:center; padding:8px 16px; background:#f6f8fa; border:1px solid #d1d9e0; border-radius:8px; margin-bottom:20px; position:sticky; top:0; z-index:100; }
-.dsv-mode-left { display:flex; gap:4px; }
-.dsv-mode-btn { padding:5px 16px; border:1px solid #d1d9e0; border-radius:6px; background:#fff; font-size:13px; font-weight:600; cursor:pointer; color:#656d76; transition:all 0.15s; }
-.dsv-mode-btn:hover { border-color:#0969da; color:#0969da; }
-.dsv-mode-btn.active { background:#0969da; color:#fff; border-color:#0969da; }
+.dsv-mode-left { display:flex; align-items:center; gap:10px; }
+.dsv-toggle { position:relative; display:inline-flex; align-items:center; cursor:pointer; user-select:none; }
+.dsv-toggle-track { width:44px; height:24px; background:#d1d9e0; border-radius:12px; position:relative; transition:background 0.2s; }
+.dsv-toggle-track.active { background:#0969da; }
+.dsv-toggle-thumb { position:absolute; top:2px; left:2px; width:20px; height:20px; background:#fff; border-radius:50%; transition:left 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.2); }
+.dsv-toggle-track.active .dsv-toggle-thumb { left:22px; }
+.dsv-toggle-label { font-size:12px; font-weight:600; color:#656d76; }
+.dsv-toggle-label.active { color:#0969da; }
 .dsv-mode-count { font-size:12px; color:#656d76; }
 
 /* Sidebar */
@@ -268,8 +272,11 @@ export function createViewer(userConfig = {}) {
     modeBar.id = 'dsv-mode-bar';
     modeBar.innerHTML = `
       <div class="dsv-mode-left">
-        <button id="dsv-mode-read" class="dsv-mode-btn active">Read</button>
-        <button id="dsv-mode-review" class="dsv-mode-btn">Review</button>
+        <span id="dsv-label-read" class="dsv-toggle-label active">Read</span>
+        <div class="dsv-toggle" id="dsv-mode-toggle">
+          <div class="dsv-toggle-track" id="dsv-toggle-track"><div class="dsv-toggle-thumb"></div></div>
+        </div>
+        <span id="dsv-label-review" class="dsv-toggle-label">Review</span>
       </div>
       <div class="dsv-mode-right">
         <span id="dsv-comment-count" class="dsv-mode-count"></span>
@@ -294,8 +301,7 @@ export function createViewer(userConfig = {}) {
     `;
     document.body.appendChild(sidebar);
 
-    document.getElementById('dsv-mode-read').addEventListener('click', () => setMode(false));
-    document.getElementById('dsv-mode-review').addEventListener('click', () => setMode(true));
+    document.getElementById('dsv-mode-toggle').addEventListener('click', () => setMode(!state.reviewMode));
     content.addEventListener('mouseup', onTextSelect);
     document.getElementById('dsv-sb-cancel').addEventListener('click', cancelInput);
     document.getElementById('dsv-sb-submit').addEventListener('click', submitComment);
@@ -303,8 +309,9 @@ export function createViewer(userConfig = {}) {
 
   function setMode(isReview) {
     state.reviewMode = isReview;
-    document.getElementById('dsv-mode-read').classList.toggle('active', !isReview);
-    document.getElementById('dsv-mode-review').classList.toggle('active', isReview);
+    document.getElementById('dsv-toggle-track').classList.toggle('active', isReview);
+    document.getElementById('dsv-label-read').classList.toggle('active', !isReview);
+    document.getElementById('dsv-label-review').classList.toggle('active', isReview);
     document.getElementById('dsv-sidebar').classList.toggle('open', isReview);
     if (!isReview) cancelInput();
   }
