@@ -513,10 +513,298 @@
     }
     .print-bar { display: none !important; }
     a { color: var(--accent); text-decoration: none; }
-    .partner-grid, .agency-grid, .pillars, .scenario-card, .highlight-box, .figure {
+    .partner-grid, .agency-grid, .pillars, .scenario-card, .highlight-box, .figure,
+    .workflow-strip, .platform-layers, .constellation-grid, .service-flow, .polari-grid {
       page-break-inside: avoid;
     }
     h2, h3 { page-break-after: avoid; }
+  }
+
+  /* Workflow strip (Capture / Detect / Relay / Alert / Act) */
+  .workflow-strip {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 8px 0;
+    background: var(--bg);
+  }
+  .workflow-cell {
+    padding: 8px 6px;
+    text-align: center;
+    border-right: 1px solid var(--line-soft);
+  }
+  .workflow-cell:last-child { border-right: none; }
+  .workflow-cell .w-name {
+    font-size: 11pt;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+  }
+  .workflow-cell .w-desc {
+    font-size: 8pt;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  .customer-row {
+    text-align: center;
+    font-size: 9pt;
+    color: var(--muted);
+    padding: 6px 0 8px;
+  }
+  .customer-row strong { color: var(--ink); }
+
+  /* Three-layer platform diagram */
+  .platform-layers {
+    background: var(--bg-panel);
+    border-radius: 8px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 4px 0 8px;
+  }
+  .platform-layer {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    overflow: hidden;
+    background: var(--bg);
+  }
+  .platform-layer.layer-intel {
+    border: 2px solid var(--accent);
+    box-shadow: 0 1px 6px rgba(30, 64, 175, 0.1);
+  }
+  .layer-label {
+    padding: 8px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: var(--bg-soft);
+  }
+  .layer-intel .layer-label { background: var(--accent-soft); }
+  .layer-label .layer-name {
+    font-size: 9pt;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .layer-intel .layer-name { color: var(--accent); }
+  .layer-products .layer-name { color: var(--ok); }
+  .layer-label .layer-sub {
+    font-size: 8pt;
+    color: var(--muted);
+    margin-top: 1px;
+  }
+  .layer-cells {
+    display: grid;
+    gap: 4px;
+    padding: 6px 8px;
+    align-items: center;
+  }
+  .layer-cells.cells-5 { grid-template-columns: repeat(5, 1fr); }
+  .layer-cells.cells-6 { grid-template-columns: repeat(6, 1fr); }
+  .lc {
+    padding: 5px 6px;
+    background: var(--bg-soft);
+    border-radius: 4px;
+    text-align: center;
+    font-size: 7.5pt;
+    color: var(--muted);
+    line-height: 1.25;
+  }
+  .lc b, .lc strong {
+    display: block;
+    font-size: 8.5pt;
+    color: var(--ink);
+    margin-bottom: 1px;
+  }
+  .layer-intel .lc { background: var(--accent-soft); }
+  .layer-intel .lc b { color: var(--accent); }
+  .layer-products .lc { background: var(--ok-soft); }
+  .layer-products .lc b { color: var(--ok); }
+  .lc.with-logo img {
+    height: 20px;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+    margin-bottom: 2px;
+  }
+
+  /* Constellation section */
+  .constellation-grid {
+    display: grid;
+    grid-template-columns: 1.35fr 1fr;
+    gap: 14px;
+    margin: 8px 0;
+  }
+  .constellation-img {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--bg);
+    padding: 6px;
+  }
+  .constellation-img img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .constellation-points { display: flex; flex-direction: column; gap: 8px; }
+  .cp-item { padding-left: 10px; border-left: 2px solid var(--accent); }
+  .cp-item .cp-name {
+    font-size: 10pt;
+    font-weight: 800;
+    color: var(--ink);
+  }
+  .cp-item .cp-desc {
+    font-size: 9pt;
+    color: var(--muted);
+    margin-top: 1px;
+    line-height: 1.4;
+  }
+
+  /* Service API flow */
+  .service-flow {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr 0.7fr 1.1fr;
+    gap: 8px;
+    margin: 8px 0 10px;
+    align-items: stretch;
+  }
+  .sf-col {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 10px 10px 12px;
+    background: var(--bg-soft);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .sf-col.sf-api { background: var(--bg-panel); border-color: var(--accent); }
+  .sf-col.sf-constellation { background: var(--accent-soft); border-color: var(--accent); }
+  .sf-title {
+    font-size: 8.5pt;
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .sf-sub {
+    font-size: 11pt;
+    font-weight: 800;
+    color: var(--ink);
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+  .sf-node {
+    border: 1px solid var(--line);
+    background: var(--bg);
+    border-radius: 6px;
+    padding: 6px 8px;
+    font-size: 9pt;
+    font-weight: 700;
+    color: var(--ink);
+    text-align: center;
+  }
+  .sf-node .sf-node-sub {
+    display: block;
+    font-size: 7.5pt;
+    color: var(--muted);
+    font-weight: 500;
+    margin-top: 1px;
+  }
+  .sf-steps {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin-top: 6px;
+  }
+  .sf-step {
+    display: flex;
+    gap: 6px;
+    align-items: flex-start;
+    font-size: 9pt;
+    color: var(--ink-2);
+    line-height: 1.4;
+  }
+  .sf-step .sf-num {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    background: var(--accent);
+    color: white;
+    font-weight: 800;
+    font-size: 8pt;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Polarimetry appendix */
+  .polari-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 8px 0;
+  }
+  .polari-caps ul { margin: 4px 0 0 16px; }
+  .polari-caps li { font-size: 9.5pt; color: var(--ink-2); margin: 3px 0; }
+  .polari-vision {
+    border: 1px solid var(--line);
+    background: var(--bg-soft);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 9pt;
+  }
+  .polari-vision .pv-label {
+    font-size: 7.5pt;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-top: 2px;
+  }
+  .polari-vision .pv-arrow {
+    text-align: center;
+    color: var(--subtle);
+    font-size: 8pt;
+    margin: 4px 0;
+  }
+  .polari-vision .pv-text {
+    color: var(--ink-2);
+    line-height: 1.45;
+    margin-top: 1px;
+  }
+  .polari-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 8px;
+  }
+  .polari-images figure { margin: 0; }
+  .polari-images img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+  }
+  .polari-images figcaption {
+    text-align: center;
+    font-size: 8pt;
+    color: var(--muted);
+    padding: 4px 0;
+    background: var(--bg-soft);
+    border-radius: 0 0 6px 6px;
+    border: 1px solid var(--line);
+    border-top: none;
+    margin-top: -1px;
   }
 </style>
 </head>
@@ -602,7 +890,7 @@
 
   <div class="page-footer">
     <div>DeepSat, Inc. · nerses@deepsat.com · CAGE 9XB24</div>
-    <div>Capability White Paper · Page 1 of 6</div>
+    <div>Capability White Paper · Page 1 of 9</div>
   </div>
 </div>
 
@@ -651,7 +939,7 @@
 
   <div class="page-footer">
     <div>DeepSat, Inc. · nerses@deepsat.com · CAGE 9XB24</div>
-    <div>Capability White Paper · Page 2 of 6</div>
+    <div>Capability White Paper · Page 2 of 9</div>
   </div>
 </div>
 
@@ -667,9 +955,56 @@
     </div>
   </div>
 
-  <h2>4. The DeepSat Platform</h2>
-  <p>Our platform is engineered around four pillars, Speed, Quality, Resilience, Orchestration, delivered through six integrated layers. Every pillar is deliberately architected to survive the environment SOF actually operates in.</p>
+  <h2>4. The DeepSat Platform: Three Layers, One System</h2>
+  <p>DeepSat's architecture is a <strong>horizontal integration strategy</strong>. We do not rebuild what industry already does well. Best-in-class commercial space hardware at the infrastructure layer, DeepSat's proprietary intelligence core in the middle, and operator-facing products on top. This is how we move at commercial pace while delivering defense-grade capability: integrate, secure, make it programmable.</p>
 
+  <div class="workflow-strip">
+    <div class="workflow-cell"><div class="w-name">Capture</div><div class="w-desc">Things that are hard to find</div></div>
+    <div class="workflow-cell"><div class="w-name">Detect</div><div class="w-desc">In real time, in orbit</div></div>
+    <div class="workflow-cell"><div class="w-name">Relay</div><div class="w-desc">Resilient comms, via laser</div></div>
+    <div class="workflow-cell"><div class="w-name">Alert</div><div class="w-desc">Delivered to operator</div></div>
+    <div class="workflow-cell"><div class="w-name">Act</div><div class="w-desc">Autonomy + human-in-the-loop</div></div>
+  </div>
+
+  <div class="customer-row">Customers: <strong>SOCOM · AFRL · MDA · NASA Goddard · JIATF-South · INDOPACOM</strong></div>
+
+  <div class="platform-layers">
+    <div class="platform-layer layer-products">
+      <div class="layer-label"><div class="layer-name">Products</div><div class="layer-sub">Subscription</div></div>
+      <div class="layer-cells cells-5">
+        <div class="lc"><b>Command Center</b>Full situational awareness</div>
+        <div class="lc"><b>Tactical Edge</b>Warfighter delivery</div>
+        <div class="lc"><b>Real-time Alerts</b>Right data, right time</div>
+        <div class="lc"><b>Agentic Actions</b>Autonomous w/ guardrails</div>
+        <div class="lc"><b>Cybersecurity</b>Post-quantum encrypted</div>
+      </div>
+    </div>
+    <div class="platform-layer layer-intel">
+      <div class="layer-label"><div class="layer-name">Intelligence</div><div class="layer-sub">DeepSat Core</div></div>
+      <div class="layer-cells cells-5">
+        <div class="lc"><b>Edge AI</b>Inference ~200 ms</div>
+        <div class="lc"><b>Sensor Fusion</b>Optical + IR + RF</div>
+        <div class="lc"><b>Agentic</b>Orchestration engine</div>
+        <div class="lc"><b>Detection</b>Vessel &amp; anomaly</div>
+        <div class="lc"><b>Chain of Custody</b>End-to-end tracking</div>
+      </div>
+    </div>
+    <div class="platform-layer layer-infra">
+      <div class="layer-label"><div class="layer-name">Infrastructure</div><div class="layer-sub">Partners</div></div>
+      <div class="layer-cells cells-6">
+        <div class="lc"><b>Redwire</b>Satellite bus</div>
+        <div class="lc"><b>Satlantis</b>Optics &lt;1 m</div>
+        <div class="lc"><b>NVIDIA</b>Edge compute</div>
+        <div class="lc"><b>Orbion</b>Propulsion</div>
+        <div class="lc"><b>Kepler</b>Laser comms</div>
+        <div class="lc"><b>NASA Goddard</b>Atmospheric data</div>
+      </div>
+    </div>
+  </div>
+
+  <p>The intelligence layer is where DeepSat is proprietary and defensible. Everything above and below is composed from a deliberately chosen commercial stack, the <em>same</em> choice that has let Anduril, SpaceX, and Palantir out-execute traditional primes. Swapping a partner does not change the platform; adding a new sensor does not change the AI stack. Horizontal integration is how we stay fast.</p>
+
+  <h3>Four Pillars</h3>
   <div class="pillars">
     <div class="pillar">
       <div class="pillar-name">SPEED</div>
@@ -733,11 +1068,128 @@
 
   <div class="page-footer">
     <div>DeepSat, Inc. · nerses@deepsat.com · CAGE 9XB24</div>
-    <div>Capability White Paper · Page 3 of 6</div>
+    <div>Capability White Paper · Page 3 of 9</div>
   </div>
 </div>
 
-<!-- ============================== PAGE 4 ============================== -->
+<!-- ============================== PAGE 4: CONSTELLATION ============================== -->
+<div class="page">
+  <div class="page-header">
+    <div class="brand">
+      <img src="logos/deepsat-logo-dark.svg" class="logo" alt="DeepSat">
+    </div>
+    <div class="meta">
+      <div><strong>The Constellation</strong></div>
+      <div>Proprietary · Not for Public Release</div>
+    </div>
+  </div>
+
+  <h2>5. The Constellation: From Detection to Action in Minutes, Not Hours</h2>
+  <p>SOF cannot wait on a station pass. DeepSat's constellation is engineered so that a detection in orbit becomes a notification on an operator's device before the target leaves the frame. The four elements below work together as a single pipeline.</p>
+
+  <div class="constellation-grid">
+    <div class="constellation-img">
+      <img src="assets/constellation-diagram-v2.png" alt="DeepSat constellation: LEO backhaul, VLEO DeepSat, aerial, ground layers">
+    </div>
+    <div class="constellation-points">
+      <div class="cp-item">
+        <div class="cp-name">Onboard AI processing</div>
+        <div class="cp-desc">GPU processes imagery in orbit. Only alerts and compressed data packets are downlinked. No raw bulk imagery to ground.</div>
+      </div>
+      <div class="cp-item">
+        <div class="cp-name">LEO laser relay</div>
+        <div class="cp-desc">Inter-satellite optical links push data to ground through a LEO backhaul mesh. No waiting on a station pass.</div>
+      </div>
+      <div class="cp-item">
+        <div class="cp-name">Below the aerial layer</div>
+        <div class="cp-desc">Drones and aircraft have limited dwell and lose custody on refuel. VLEO is persistent and cross-cues the returning aerial asset.</div>
+      </div>
+      <div class="cp-item">
+        <div class="cp-name">Live video &amp; anomaly alerts</div>
+        <div class="cp-desc">Real-time detection and alerting to operators over existing C2 channels and TAK-compatible endpoints.</div>
+      </div>
+      <div class="cp-item" style="border-left-color: var(--ok);">
+        <div class="cp-name" style="color: var(--ok);">Always connected to the internet</div>
+        <div class="cp-desc">TCP/IP end to end across the constellation mesh. Every satellite is both a sensor and a router.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>What this means for SOF:</strong> an MQ-9 breaking station does not break custody. A go-fast vessel detected from VLEO is queued to the returning aerial asset with updated position, vector, and pattern-of-life, over the operator's existing comms, in time to interdict.
+  </div>
+
+  <div class="page-footer">
+    <div>DeepSat, Inc. · nerses@deepsat.com · CAGE 9XB24</div>
+    <div>Capability White Paper · Page 4 of 9</div>
+  </div>
+</div>
+
+<!-- ============================== PAGE 5: SERVICE API ============================== -->
+<div class="page">
+  <div class="page-header">
+    <div class="brand">
+      <img src="logos/deepsat-logo-dark.svg" class="logo" alt="DeepSat">
+    </div>
+    <div class="meta">
+      <div><strong>The Service</strong></div>
+      <div>Proprietary · Not for Public Release</div>
+    </div>
+  </div>
+
+  <h2>6. The Service: Live Data and Intelligence API</h2>
+  <p>DeepSat exposes its constellation as a programmable service, not a data feed. Operator and mission systems subscribe to anomaly types they care about and receive real-time detection events over TCP/IP, then pull additional data by reference when they need deeper context. The service is designed to integrate with complementary sensing systems and external analytical workflows.</p>
+
+  <div class="service-flow">
+    <div class="sf-col">
+      <div class="sf-title">Consumer</div>
+      <div class="sf-sub">Customer System</div>
+      <div class="sf-node">C2 / TAK / Ops Platform<span class="sf-node-sub">Subscribes to anomaly types</span></div>
+      <div class="sf-node">Takes action on notification<span class="sf-node-sub">Human or agentic</span></div>
+    </div>
+    <div class="sf-col sf-api">
+      <div class="sf-title">DeepSat</div>
+      <div class="sf-sub">Real-time API Service</div>
+      <div class="sf-node">Notification Center<span class="sf-node-sub">Pub-Sub, anomaly events</span></div>
+      <div class="sf-node">Data Engine<span class="sf-node-sub">REST, reference-ID lookup</span></div>
+    </div>
+    <div class="sf-col">
+      <div class="sf-title">Backhaul</div>
+      <div class="sf-sub">Internet in Space</div>
+      <div class="sf-node">LEO mesh<span class="sf-node-sub">Optical inter-sat links</span></div>
+      <div class="sf-node">TCP/IP end to end<span class="sf-node-sub">No ground-pass dependence</span></div>
+    </div>
+    <div class="sf-col sf-constellation">
+      <div class="sf-title">DeepSat</div>
+      <div class="sf-sub">Orion's Belt Constellation</div>
+      <div class="sf-node">VLEO satellite<span class="sf-node-sub">Capture imagery</span></div>
+      <div class="sf-node">Onboard GPU AI<span class="sf-node-sub">Detect anomaly in orbit</span></div>
+      <div class="sf-node">Onboard storage<span class="sf-node-sub">Full data, retrievable by ID</span></div>
+    </div>
+  </div>
+
+  <div class="sf-steps">
+    <div class="sf-step"><span class="sf-num">1</span><div>Customer subscribes to an <strong>anomaly type</strong> on the Notification Center (e.g. dark-vessel rendezvous, GPS-spoofed track, thermal anomaly over an area of interest).</div></div>
+    <div class="sf-step"><span class="sf-num">2</span><div>Onboard GPU runs detection in orbit. When a match is found, a <strong>detection event</strong> is generated (anomaly type, compressed packet, full-data reference ID).</div></div>
+    <div class="sf-step"><span class="sf-num">3</span><div>The event is sent in real time over TCP/IP through the <strong>LEO backhaul mesh</strong>, no waiting on a ground pass.</div></div>
+    <div class="sf-step"><span class="sf-num">4</span><div>The Notification Center <strong>publishes</strong> the event to every subscribed customer system.</div></div>
+    <div class="sf-step"><span class="sf-num">5</span><div>Customer system <strong>acts on the notification</strong> automatically, agentically, or routes it to an operator via existing C2.</div></div>
+    <div class="sf-step"><span class="sf-num">6</span><div>If deeper context is needed, customer calls the <strong>Data Engine REST API</strong> with the reference ID.</div></div>
+    <div class="sf-step"><span class="sf-num">7</span><div>Data Engine <strong>retrieves additional data</strong> (full-resolution frame, adjacent frames, sensor fusion slices) from the satellite's onboard storage in real time.</div></div>
+    <div class="sf-step"><span class="sf-num">8</span><div>Customer takes <strong>follow-on action</strong> on the enriched data, interdict, cross-cue, alert partner force.</div></div>
+  </div>
+
+  <div class="callout-ok">
+    <strong>Why this matters for SOF-peculiar missions.</strong> New sensors (polarimetric, RF, SIGINT, hyperspectral) come in through the payload abstraction layer without changing the API. The same Pub-Sub contract that alerts on a cargo vessel alerts on a SOF-defined signature. Reserved capacity means reserved anomaly types, reserved tasking, reserved compute.
+  </div>
+
+  <div class="page-footer">
+    <div>DeepSat, Inc. · nerses@deepsat.com · CAGE 9XB24</div>
+    <div>Capability White Paper · Page 5 of 9</div>
+  </div>
+</div>
+
+<!-- ============================== PAGE 6: PARTNERS + GOVT ============================== -->
 <div class="page">
   <div class="page-header">
     <div class="brand">
@@ -749,7 +1201,7 @@
     </div>
   </div>
 
-  <h2>5. Industry Partners Powering the Stack</h2>
+  <h2>7. Industry Partners Powering the Stack</h2>
   <p>Every layer of the DeepSat platform is delivered with best-in-class commercial partners already integrated into active engineering flows. These relationships are paper, not handshake, MOUs, POs, and joint engineering are in motion.</p>
 
   <div class="partner-grid">
@@ -790,7 +1242,7 @@
     </div>
   </div>
 
-  <h2>6. Government Agencies Actively Engaged</h2>
+  <h2>8. Government Agencies Actively Engaged</h2>
   <p>DeepSat is under active contract, under active LOI, or in active experimentation with the following U.S. Government sponsors. This is not a pipeline slide, each of these represents flowing work, paper signed, or hardware on the manifest.</p>
 
   <div class="agency-grid">
@@ -858,7 +1310,7 @@
 
   <div class="page-footer">
     <div>DeepSat, Inc. · nerses@deepsat.com · CAGE 9XB24</div>
-    <div>Capability White Paper · Page 4 of 6</div>
+    <div>Capability White Paper · Page 6 of 9</div>
   </div>
 </div>
 
@@ -874,7 +1326,7 @@
     </div>
   </div>
 
-  <h2>7. Q4 2027 Precursor Mission &amp; Reserved SOF-Peculiar Capacity</h2>
+  <h2>9. Q4 2027 Precursor Mission &amp; Reserved SOF-Peculiar Capacity</h2>
 
   <p>DeepSat is manifested on a Q4 2027 SpaceX launch carrying the first operational node of the Orion's Belt constellation. The precursor validates the full stack, Redwire VLEO bus, Satlantis optics, NVIDIA onboard AI, Kepler laser backhaul, polarimetric payload study, and the operator-facing data service, in orbit. This is the transition point from experiment to operational infrastructure.</p>
 
@@ -890,7 +1342,7 @@
     <p>This reservation can be procured via <span class="emphasize">CRADA</span> (SOCOM matching funds plus resource access, private-match-eligible), <span class="emphasize">non-competitive SBIR Phase III</span> as a direct extension of D2P2, <span class="emphasize">TACFI/STRATFI</span>, or a Title 10/50 dual instrument where appropriate.</p>
   </div>
 
-  <h2>8. Why This Model Is Right for SOF, Now</h2>
+  <h2>10. Why This Model Is Right for SOF, Now</h2>
   <ul>
     <li><strong>SOF-peculiar authority is the right tool.</strong> SOCOM can procure capabilities unique to SOF without waiting on Service-wide acquisition timelines. A programmable platform with reserved capacity is precisely the shape that authority was built for.</li>
     <li><strong>Commercial pace matches the threat.</strong> Adversary maritime tactics, AIS spoofing, semi-submersibles, and counterspace posture all evolve faster than traditional programs of record. DeepSat's agile architecture, COTS hardware, software-defined missions, on-orbit model updates, closes that gap.</li>
@@ -900,7 +1352,7 @@
 
   <div class="page-footer">
     <div>DeepSat, Inc. · nerses@deepsat.com · CAGE 9XB24</div>
-    <div>Capability White Paper · Page 5 of 6</div>
+    <div>Capability White Paper · Page 7 of 9</div>
   </div>
 </div>
 
@@ -916,7 +1368,7 @@
     </div>
   </div>
 
-  <h2>9. Path Forward</h2>
+  <h2>11. Path Forward</h2>
   <p>DeepSat is seeking government partners willing to co-define SOF-peculiar mission profiles on the precursor and subsequent proliferated capacity. The following pathways are open and parallel, we recommend pursuing them in combination:</p>
 
   <ol class="numbered">
@@ -932,7 +1384,7 @@
     <strong>We need warfighter access.</strong> Integrating DeepSat to the tactical edge, including in denied environments, is the final validation step. We are specifically looking to connect with SOF units to test concepts for connecting directly to the DeepSat constellation using existing organic comms systems.
   </div>
 
-  <h2>10. Summary</h2>
+  <h2>12. Summary</h2>
   <p>DeepSat is not asking SOCOM to buy a subscription. We are offering SOCOM something rare: <strong>early-stage influence over a space-ISR platform that is under contract, integrated with best-in-class partners, scheduled to fly, and explicitly designed to accept SOF-peculiar missions</strong>. The platform already delivers maritime custody, cross-cueing, GPS-denied resilience, and polarimetric target discrimination on a single substrate. What we are adding, and what only SOCOM can authorize, is reserved capacity for the missions only SOF will ever run.</p>
 
   <div class="contact-block">
@@ -956,7 +1408,70 @@
 
   <div class="page-footer">
     <div>DeepSat, Inc. · nerses@deepsat.com · CAGE 9XB24</div>
-    <div>Capability White Paper · Page 6 of 6</div>
+    <div>Capability White Paper · Page 8 of 9</div>
+  </div>
+</div>
+
+<!-- ============================== PAGE 9: APPENDIX POLARIMETRY ============================== -->
+<div class="page">
+  <div class="page-header">
+    <div class="brand">
+      <img src="logos/deepsat-logo-dark.svg" class="logo" alt="DeepSat">
+    </div>
+    <div class="meta">
+      <div><strong>Appendix: Polarimetry</strong></div>
+      <div>Proprietary · Not for Public Release</div>
+    </div>
+  </div>
+
+  <div class="lead-title" style="color: var(--accent); font-size: 8.5pt; font-weight: 800; text-transform: uppercase; letter-spacing: 0.16em; margin-bottom: 4px;">Appendix</div>
+  <h1 style="font-size: 20pt;">Polarimetry: detecting vessels that hide</h1>
+
+  <div class="polari-grid">
+    <div class="polari-caps">
+      <p>Electro-optic films enable <strong>polarimetric imaging</strong>, detecting material and surface differences invisible to normal cameras. Vessels hiding from conventional surveillance, through wake dispersal, radar-absorbing coatings, or low-contrast paint, become visible.</p>
+      <div style="font-size: 10pt; font-weight: 800; color: var(--ink); margin-top: 10px; margin-bottom: 4px;">Capabilities</div>
+      <ul>
+        <li>Sea-surface target enhancement via Stokes vectors</li>
+        <li>Submarine wake detection (Kelvin wake patterns)</li>
+        <li>Material and surface discrimination</li>
+        <li>Active R&amp;D with helicopter experiments underway</li>
+      </ul>
+      <div style="font-size: 9pt; color: var(--muted); margin-top: 10px; line-height: 1.45;">Polarimetry is integrated via DeepSat's payload abstraction layer, a new sensor does not change the AI stack or the API contract. The same Pub-Sub subscription that alerts on a vessel alerts on a polarimetric signature.</div>
+    </div>
+    <div>
+      <div style="font-size: 10pt; font-weight: 800; color: var(--ink); margin-bottom: 6px;">The Vision</div>
+      <div class="polari-vision">
+        <div class="pv-label">Input</div>
+        <div class="pv-text">Satellite with electro-optic polarization filter captures polarized light reflected off ocean surface.</div>
+        <div class="pv-arrow">&darr;</div>
+        <div class="pv-label">Processing</div>
+        <div class="pv-text">Compute polarization parameters (Stokes I, Q, U; DoLP; AoP) to separate reflected vs. refracted light.</div>
+        <div class="pv-arrow">&darr;</div>
+        <div class="pv-label">Output</div>
+        <div class="pv-text">Wake patterns, surface anomalies, and material signatures invisible in normal imagery.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="polari-images">
+    <figure>
+      <img src="logos/images/polarimetry-a.png" alt="Standard optical imagery of submarine Kelvin wake">
+      <figcaption>Standard optical imagery, Submarine Kelvin Wake</figcaption>
+    </figure>
+    <figure>
+      <img src="logos/images/polarimetry-b.png" alt="Polarimetric enhancement reveals hidden vessels">
+      <figcaption>Polarimetric enhancement: hidden vessels revealed</figcaption>
+    </figure>
+  </div>
+
+  <div class="callout">
+    <strong>Why polarimetry matters for SOF.</strong> Adversary vessels designed to defeat conventional optical and radar surveillance, low-freeboard submersibles, wake-suppressing hulls, coatings designed to confuse SAR, leave polarimetric signatures. A SOF-reserved polarimetric payload on the precursor is one of several SOF-peculiar capabilities DeepSat's architecture is built to accept.
+  </div>
+
+  <div class="page-footer">
+    <div>DeepSat, Inc. · nerses@deepsat.com · CAGE 9XB24</div>
+    <div>Capability White Paper · Page 9 of 9</div>
   </div>
 </div>
 
