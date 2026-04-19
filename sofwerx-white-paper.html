@@ -347,6 +347,42 @@
     line-height: 1.3;
     margin-top: 1px;
   }
+  .agency-row > div { flex: 1; min-width: 0; }
+  .agency-row .status-badge {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-left: 6px;
+    box-shadow: 0 0 0 2px var(--bg), 0 0 0 3px currentColor;
+  }
+  .status-active { background: #16a34a; color: #16a34a; }
+  .status-pipeline { background: #d97706; color: #d97706; }
+  .status-alignment { background: #94a3b8; color: #94a3b8; }
+  .agency-row.row-active { border-left: 3px solid #16a34a; }
+  .agency-row.row-pipeline { border-left: 3px solid #d97706; }
+  .agency-row.row-alignment { border-left: 3px solid #94a3b8; }
+
+  .pipeline-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+    margin: 8px 0 10px 0;
+    font-size: 8pt;
+    color: var(--ink-2);
+    padding: 8px 10px;
+    background: var(--bg-soft);
+    border: 1px solid var(--line-soft);
+    border-radius: 6px;
+  }
+  .pipeline-legend .lg-item { display: inline-flex; align-items: center; gap: 6px; }
+  .pipeline-legend .lg-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
 
   .highlight-box {
     background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
@@ -508,7 +544,7 @@
   @media print {
     @page {
       size: letter;
-      margin: 0.4in;
+      margin: 0.55in;
     }
     html, body {
       background: white !important;
@@ -1074,12 +1110,12 @@
   </div>
 
   <h1>Space-ISR Infrastructure<br>for Special Operations Forces</h1>
-  <div class="subtitle">VLEO constellation delivering real-time maritime, contested-space, and cross-cueing intelligence, with payload capacity reserved for SOF-peculiar missions.</div>
+  <div class="subtitle">A VLEO constellation with onboard AI, delivering real-time intelligence directly to the SOF operator. Payload capacity reserved for SOF-peculiar missions.</div>
 
   <div class="doc-meta-grid">
     <div>
       <div class="label">Transformational Capability</div>
-      <div class="value">End-to-end, payload-abstracted space-ISR platform, detect-to-operator in real time, high-frequency revisit constellation on a scalable cost-effective architecture, onboard AI at the edge.</div>
+      <div class="value">A VLEO constellation that detects in orbit and delivers to the operator in real time. High-frequency revisit on a scalable, cost-effective, payload-abstracted architecture.</div>
     </div>
     <div>
       <div class="label">SOF Outcome</div>
@@ -1121,7 +1157,7 @@
       </div>
       <div class="pv-plus">+</div>
       <div class="pv-node pv-platform">
-        <div class="pv-chip"><div class="pv-chip-label">DS</div></div>
+        <div class="pv-chip"><div class="pv-chip-label">AI</div></div>
         <div class="pv-name">DeepSat Platform</div>
         <div class="pv-tags">
           <span class="pv-tag">AI Intelligence</span>
@@ -1666,70 +1702,84 @@
     </div>
   </div>
 
-  <h2>8. Government Agencies Actively Engaged</h2>
-  <p>DeepSat is under active contract, under active LOI, or in active experimentation with the following U.S. Government sponsors. This is not a pipeline slide, each of these represents flowing work, paper signed, or hardware on the manifest.</p>
+  <h2>8. Government Engagement Pipeline</h2>
+  <p>DeepSat's government engagements span active contract, signed LOI, operational experimentation, submitted proposals, and theater alignment. Status reflects April 2026.</p>
+
+  <div class="pipeline-legend">
+    <span class="lg-item"><span class="lg-dot status-active"></span><strong>Active</strong>&nbsp;— contract, LOI, or flight hardware in motion</span>
+    <span class="lg-item"><span class="lg-dot status-pipeline"></span><strong>In Progress</strong>&nbsp;— submitted or under evaluation</span>
+    <span class="lg-item"><span class="lg-dot status-alignment"></span><strong>Theater Alignment</strong></span>
+  </div>
 
   <div class="agency-grid">
-    <div class="agency-row">
+    <div class="agency-row row-active">
       <img src="logos/afrl.png" alt="AFRL">
       <div>
         <div class="a-name">Air Force Research Laboratory (AFRL)</div>
         <div class="a-status">Active D2P2 contract (DAF X25.5 CSO #FA864925P0298, $1.25M). Government sponsor unlocking TAK SDK. CMMC-2 demonstrated.</div>
       </div>
+      <div class="status-badge status-active"></div>
     </div>
-    <div class="agency-row">
+    <div class="agency-row row-active">
       <img src="logos/mda.png" alt="MDA">
       <div>
         <div class="a-name">Missile Defense Agency (MDA)</div>
         <div class="a-status">Prime on MDA SHIELD $151B IDIQ. MDA-sponsored facility clearance pathway.</div>
       </div>
+      <div class="status-badge status-active"></div>
     </div>
-    <div class="agency-row">
+    <div class="agency-row row-active">
       <img src="logos/socom.png" alt="USSOCOM">
       <div>
-        <div class="a-name">USSOCOM, SOF AT&amp;L / PEO SDA</div>
-        <div class="a-status">SOFLE April 2026 exercise completed; Maritime TE Aug 2026 in planning; active engagement with PEO SDA (SOF Digital Applications) and S&amp;T.</div>
+        <div class="a-name">USSOCOM — SOF AT&amp;L / PEO SDA</div>
+        <div class="a-status">Participated in USSOCOM TE (April 2026); Maritime TE August 2026 in planning; active engagement with PEO SDA and S&amp;T.</div>
       </div>
+      <div class="status-badge status-active"></div>
     </div>
-    <div class="agency-row">
+    <div class="agency-row row-active">
       <img src="logos/jiatf_south.png" alt="JIATF-South">
       <div>
         <div class="a-name">JIATF-South</div>
-        <div class="a-status">Counter-narcotics maritime flight-test engagement, real-world dark-vessel detection validation.</div>
+        <div class="a-status">Counter-narcotics maritime engagement; dark-vessel detection validation.</div>
       </div>
+      <div class="status-badge status-active"></div>
     </div>
-    <div class="agency-row">
+    <div class="agency-row row-active">
       <img src="logos/nasa_goddard.png" alt="NASA Goddard">
       <div>
         <div class="a-name">NASA Goddard Space Flight Center</div>
-        <div class="a-status">Signed Letter of Intent, atmospheric / space-weather data products derived from VLEO overflight regimes unavailable elsewhere.</div>
+        <div class="a-status">Signed Letter of Intent — atmospheric / space-weather data products from VLEO overflight regimes unavailable elsewhere.</div>
       </div>
+      <div class="status-badge status-active"></div>
     </div>
-    <div class="agency-row">
+    <div class="agency-row row-pipeline">
       <img src="logos/ssc.png" alt="SSC">
       <div>
         <div class="a-name">Space Systems Command (SSC)</div>
-        <div class="a-status">STTR 2025.D SF25D-T1201 submission via USC ISI; named SSC Space Sensing and SSC BMC3 pathways for follow-on matching.</div>
+        <div class="a-status">STTR 2025.D SF25D-T1201 submission via USC ISI; SSC Space Sensing and SSC BMC3 identified as follow-on matching pathways.</div>
       </div>
+      <div class="status-badge status-pipeline"></div>
     </div>
-    <div class="agency-row">
+    <div class="agency-row row-alignment">
       <img src="logos/indopacom.png" alt="INDOPACOM">
       <div>
         <div class="a-name">INDOPACOM</div>
         <div class="a-status">Named priority theater for VLEO maritime domain awareness; persistent ISR for peer-competition standoff.</div>
       </div>
+      <div class="status-badge status-alignment"></div>
     </div>
-    <div class="agency-row">
+    <div class="agency-row row-alignment">
       <img src="logos/space_force.png" alt="Space Force South">
       <div>
         <div class="a-name">Space Force South (SpOC-S)</div>
         <div class="a-status">Regional coordination partner for SOUTHCOM-aligned operational experimentation.</div>
       </div>
+      <div class="status-badge status-alignment"></div>
     </div>
   </div>
 
   <div class="callout-ok">
-    <strong>Credibility by position, not promise.</strong> DeepSat is one of a small number of early-stage companies holding simultaneous active D2P2, MDA SHIELD IDIQ prime, NASA LOI, and SOCOM exercise engagement, with CMMC-2 already demonstrated.
+    <strong>Credibility by position, not promise.</strong> DeepSat holds simultaneous active D2P2, MDA SHIELD IDIQ prime, NASA Goddard LOI, USSOCOM TE participation, and JIATF-South flight-test engagement — with CMMC-2 demonstrated.
   </div>
 
   <div class="page-footer">
