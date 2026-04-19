@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DeepSat — Programmable Space-ISR Infrastructure for SOF | SOFWERX Tech Tuesday White Paper</title>
+<style>
+  :root {
+    --ink: #0f172a;
+    --ink-2: #1e293b;
+    --muted: #475569;
+    --subtle: #64748b;
+    --line: #cbd5e1;
+    --line-soft: #e2e8f0;
+    --bg: #ffffff;
+    --bg-soft: #f8fafc;
+    --bg-panel: #f1f5f9;
+    --accent: #1e40af;
+    --accent-2: #2563eb;
+    --accent-soft: #dbeafe;
+    --warn: #b45309;
+    --warn-soft: #fef3c7;
+    --ok: #15803d;
+    --ok-soft: #dcfce7;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #e2e8f0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", "Helvetica Neue", Arial, sans-serif;
+    color: var(--ink);
+    font-size: 10.5pt;
+    line-height: 1.45;
+  }
+
+  .page {
+    background: var(--bg);
+    width: 8.5in;
+    min-height: 11in;
+    margin: 24px auto;
+    padding: 0.6in 0.7in;
+    box-shadow: 0 8px 30px rgba(15, 23, 42, 0.12);
+    position: relative;
+    page-break-after: always;
+  }
+  .page:last-of-type { page-break-after: auto; }
+
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 8px;
+    border-bottom: 1.5px solid var(--ink);
+    margin-bottom: 14px;
+  }
+  .page-header .brand {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .page-header img.logo { height: 22px; width: auto; }
+  .page-header .brand-text {
+    font-weight: 900;
+    letter-spacing: 0.14em;
+    font-size: 11pt;
+    color: var(--ink);
+  }
+  .page-header .meta {
+    font-size: 8pt;
+    color: var(--muted);
+    text-align: right;
+    line-height: 1.3;
+  }
+
+  .page-footer {
+    position: absolute;
+    left: 0.7in; right: 0.7in; bottom: 0.35in;
+    display: flex;
+    justify-content: space-between;
+    font-size: 7.5pt;
+    color: var(--subtle);
+    border-top: 1px solid var(--line-soft);
+    padding-top: 6px;
+  }
+
+  h1 {
+    font-size: 22pt;
+    line-height: 1.15;
+    margin: 0 0 4px 0;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  h2 {
+    font-size: 13.5pt;
+    margin: 18px 0 6px 0;
+    color: var(--ink);
+    border-bottom: 1px solid var(--line-soft);
+    padding-bottom: 4px;
+    letter-spacing: 0.01em;
+  }
+  h3 {
+    font-size: 10.5pt;
+    margin: 10px 0 3px 0;
+    color: var(--ink-2);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  p { margin: 6px 0; }
+  ul { margin: 4px 0 8px 18px; padding: 0; }
+  ul li { margin: 2px 0; }
+
+  .lead-title {
+    color: var(--accent);
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 8.5pt;
+    letter-spacing: 0.16em;
+    margin-bottom: 4px;
+  }
+  .subtitle {
+    color: var(--muted);
+    font-size: 10.5pt;
+    margin: 2px 0 16px 0;
+    font-weight: 500;
+  }
+
+  .doc-meta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    background: var(--bg-panel);
+    border: 1px solid var(--line-soft);
+    border-radius: 6px;
+    padding: 12px 14px;
+    margin-top: 10px;
+    font-size: 9pt;
+  }
+  .doc-meta-grid .label {
+    text-transform: uppercase;
+    font-size: 7.5pt;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+  .doc-meta-grid .value {
+    font-weight: 600;
+    color: var(--ink);
+    margin-top: 2px;
+  }
+
+  .callout {
+    background: var(--accent-soft);
+    border-left: 4px solid var(--accent);
+    padding: 10px 14px;
+    border-radius: 4px;
+    margin: 10px 0;
+    font-size: 10pt;
+  }
+  .callout strong { color: var(--accent); }
+
+  .callout-warn {
+    background: var(--warn-soft);
+    border-left: 4px solid var(--warn);
+    padding: 10px 14px;
+    border-radius: 4px;
+    margin: 10px 0;
+    font-size: 10pt;
+  }
+  .callout-ok {
+    background: var(--ok-soft);
+    border-left: 4px solid var(--ok);
+    padding: 10px 14px;
+    border-radius: 4px;
+    margin: 10px 0;
+    font-size: 10pt;
+  }
+
+  .scenario-card {
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 10px 12px;
+    margin: 8px 0;
+    background: var(--bg-soft);
+    page-break-inside: avoid;
+  }
+  .scenario-card .scenario-title {
+    font-weight: 800;
+    font-size: 11pt;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .scenario-card .scenario-label {
+    display: inline-block;
+    background: var(--ink);
+    color: white;
+    font-size: 7.5pt;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    border-radius: 3px;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+  .scenario-card .scenario-body { font-size: 9.5pt; line-height: 1.5; }
+  .scenario-card .scenario-cap {
+    font-size: 8.5pt;
+    color: var(--muted);
+    margin-top: 6px;
+    padding-top: 6px;
+    border-top: 1px dashed var(--line-soft);
+  }
+  .scenario-card .scenario-cap strong { color: var(--accent); }
+
+  .pillars {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 8px;
+    margin: 8px 0 4px 0;
+  }
+  .pillar {
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 8px 10px;
+    background: var(--bg);
+  }
+  .pillar-name {
+    font-weight: 900;
+    font-size: 10pt;
+    color: var(--accent);
+    margin-bottom: 2px;
+  }
+  .pillar-desc { font-size: 8.5pt; color: var(--ink-2); line-height: 1.35; }
+
+  .stack-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 8px 0;
+    font-size: 9pt;
+  }
+  .stack-table th {
+    text-align: left;
+    background: var(--ink);
+    color: white;
+    padding: 6px 10px;
+    font-weight: 700;
+    font-size: 8.5pt;
+    letter-spacing: 0.06em;
+  }
+  .stack-table td {
+    padding: 7px 10px;
+    border-bottom: 1px solid var(--line-soft);
+    vertical-align: top;
+  }
+  .stack-table tr:last-child td { border-bottom: none; }
+  .stack-table .layer {
+    font-weight: 800;
+    color: var(--accent);
+    width: 140px;
+  }
+
+  .partner-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 8px 0;
+  }
+  .partner-card {
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 10px 8px;
+    background: var(--bg);
+    text-align: center;
+    page-break-inside: avoid;
+  }
+  .partner-card img {
+    height: 28px;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+    margin-bottom: 6px;
+  }
+  .partner-card .p-name {
+    font-weight: 800;
+    font-size: 9pt;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+  .partner-card .p-role {
+    font-size: 7.5pt;
+    color: var(--muted);
+    line-height: 1.3;
+  }
+
+  .agency-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin: 8px 0;
+  }
+  .agency-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 8px 10px;
+    background: var(--bg);
+    page-break-inside: avoid;
+  }
+  .agency-row img {
+    height: 30px;
+    width: 30px;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+  .agency-row .a-name {
+    font-weight: 800;
+    font-size: 9.5pt;
+    color: var(--ink);
+  }
+  .agency-row .a-status {
+    font-size: 8pt;
+    color: var(--muted);
+    line-height: 1.3;
+    margin-top: 1px;
+  }
+
+  .highlight-box {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+    color: white;
+    border-radius: 8px;
+    padding: 16px 18px;
+    margin: 12px 0;
+    page-break-inside: avoid;
+  }
+  .highlight-box h2 {
+    color: white;
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+    margin-top: 0;
+    font-size: 14pt;
+  }
+  .highlight-box p { font-size: 10pt; line-height: 1.5; }
+  .highlight-box ul li::marker { color: #93c5fd; }
+  .highlight-box .emphasize { color: #bfdbfe; font-weight: 700; }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .figure {
+    border: 1px solid var(--line-soft);
+    border-radius: 6px;
+    padding: 8px;
+    background: var(--bg-soft);
+    text-align: center;
+    margin: 8px 0;
+    page-break-inside: avoid;
+  }
+  .figure img { max-width: 100%; height: auto; }
+  .figure .caption {
+    font-size: 7.5pt;
+    color: var(--muted);
+    margin-top: 4px;
+    font-style: italic;
+  }
+
+  .numbered {
+    counter-reset: stepcount;
+    list-style: none;
+    margin: 8px 0;
+    padding: 0;
+  }
+  .numbered li {
+    counter-increment: stepcount;
+    padding-left: 36px;
+    position: relative;
+    margin: 8px 0;
+    font-size: 9.5pt;
+    line-height: 1.5;
+    page-break-inside: avoid;
+  }
+  .numbered li::before {
+    content: counter(stepcount);
+    position: absolute;
+    left: 0; top: 0;
+    width: 26px; height: 26px;
+    background: var(--accent);
+    color: white;
+    border-radius: 50%;
+    font-weight: 900;
+    font-size: 10pt;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 8px 0;
+  }
+  .stat {
+    text-align: center;
+    background: var(--bg-panel);
+    border-radius: 6px;
+    padding: 10px;
+    border: 1px solid var(--line-soft);
+  }
+  .stat .stat-num {
+    font-size: 18pt;
+    font-weight: 900;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .stat .stat-label {
+    font-size: 7.5pt;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-top: 3px;
+  }
+
+  .contact-block {
+    border: 1.5px solid var(--ink);
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin-top: 14px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .contact-block .ck {
+    font-size: 7.5pt;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    color: var(--muted);
+  }
+  .contact-block .cv {
+    font-size: 10pt;
+    font-weight: 700;
+    color: var(--ink);
+    margin-top: 2px;
+  }
+  .contact-block .cv a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  /* Print button (hidden on print) */
+  .print-bar {
+    position: fixed;
+    top: 18px;
+    right: 18px;
+    z-index: 1000;
+    display: flex;
+    gap: 8px;
+  }
+  .print-btn {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 10pt;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
+  }
+  .print-btn:hover { background: var(--accent-2); }
+  .print-btn.secondary {
+    background: white;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+  }
+
+  .hint {
+    font-size: 9pt;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  /* Print styles */
+  @media print {
+    @page {
+      size: letter;
+      margin: 0.4in;
+    }
+    html, body {
+      background: white !important;
+      margin: 0;
+      padding: 0;
+      font-size: 10pt;
+    }
+    .page {
+      margin: 0 !important;
+      padding: 0 !important;
+      box-shadow: none !important;
+      width: 100%;
+      min-height: auto;
+      page-break-after: always;
+    }
+    .page:last-of-type { page-break-after: auto; }
+    .page-header {
+      padding-bottom: 6px;
+    }
+    .page-footer {
+      position: fixed;
+      bottom: 0.2in;
+    }
+    .print-bar { display: none !important; }
+    a { color: var(--accent); text-decoration: none; }
+    .partner-grid, .agency-grid, .pillars, .scenario-card, .highlight-box, .figure {
+      page-break-inside: avoid;
+    }
+    h2, h3 { page-break-after: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<div class="print-bar">
+  <button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
+</div>
+
+<!-- ============================== PAGE 1 ============================== -->
+<div class="page">
+  <div class="page-header">
+    <div class="brand">
+      <img src="logos/deepsat-logo-dark.svg" class="logo" alt="DeepSat">
+      <div class="brand-text">DEEPSAT</div>
+    </div>
+    <div class="meta">
+      <div><strong>Tech Tuesday Capability White Paper</strong></div>
+      <div>April 2026 · Distribution A — Proprietary, Not for Public Release</div>
+    </div>
+  </div>
+
+  <div class="lead-title">SOFWERX Tech Tuesday Submission</div>
+  <h1>Programmable Space-ISR Infrastructure<br>for Special Operations Forces</h1>
+  <div class="subtitle">Commercial-pace VLEO constellation delivering real-time maritime, contested-space, and cross-cueing intelligence — with payload capacity reserved for SOF-peculiar missions.</div>
+
+  <div class="doc-meta-grid">
+    <div>
+      <div class="label">Transformational Capability</div>
+      <div class="value">End-to-end, payload-abstracted space-ISR platform — detect-to-operator in near real time, high-frequency revisit constellation on a scalable cost-effective architecture, onboard AI at the edge.</div>
+    </div>
+    <div>
+      <div class="label">SOF Outcome</div>
+      <div class="value">Persistent target custody, GPS-denied resilience, and rapid cross-cueing between satellites and aerial / surface SOF assets.</div>
+    </div>
+    <div>
+      <div class="label">Precursor Launch</div>
+      <div class="value">Q4 2027 on SpaceX — with reserved capacity available for SOF-peculiar payloads and missions, tasking priority, and AI models.</div>
+    </div>
+    <div>
+      <div class="label">Active Government Engagements</div>
+      <div class="value">AFRL (D2P2), MDA (SHIELD IDIQ), USSOCOM (participated in TE), NASA Goddard (LOI), JIATF-South (counter-narcotics &amp; dark vessel detection).</div>
+    </div>
+  </div>
+
+  <h2>1. DeepSat in One Paragraph</h2>
+  <p>DeepSat is a national-security space company building <strong>Orion's Belt</strong>, a Very Low Earth Orbit (VLEO) ISR constellation with onboard AI, multi-modal sensing, and laser backhaul — delivered as an end-to-end platform rather than raw imagery. Founded by operators with Silicon Valley scale-up experience and aerospace heritage (CTO led Armenia's first national satellite), DeepSat is under active contract with the Department of the Air Force (<em>DAF X25.5 CSO Direct-to-Phase II, Contract FA864925P0298</em>), holds a prime position on the MDA SHIELD $151B IDIQ, has demonstrated CMMC-2 to AFRL, and is scheduled to fly a precursor mission Q4 2027 on SpaceX. Our commercial, COTS-driven architecture — integrating Redwire's TRL-9 VLEO bus, Satlantis &lt;1m VNIR+SWIR optics, Kepler laser backhaul, and NVIDIA onboard compute — lets us move at startup speed while meeting defense-grade security and reliability.</p>
+
+  <h2>2. What We Understand About Special Operations Forces</h2>
+  <p>SOF account for <strong>3% of U.S. military personnel but roughly 35% of casualties</strong>. Intelligence is not a force multiplier for SOF — it is a survival requirement. Three operational realities drive our platform design:</p>
+
+  <div class="stat-row">
+    <div class="stat">
+      <div class="stat-num">22</div>
+      <div class="stat-label">Partner nations & agencies<br>across EastPac & Caribbean</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">6–12 hr</div>
+      <div class="stat-label">Legacy satellite update<br>latency on moving targets</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">44 hr</div>
+      <div class="stat-label">Typical MQ-9 refuel cycle<br>where custody is lost</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">36K+</div>
+      <div class="stat-label">Tracked objects in LEO<br>(growing counter-space threat)</div>
+    </div>
+  </div>
+
+  <ul>
+    <li><strong>A fight measured in minutes, intelligence measured in hours.</strong> Semi-submersibles, go-fast vessels, and low-profile craft disappear before legacy ISR cycles complete. Adversaries exploit geography, weather, and jurisdictional seams.</li>
+    <li><strong>Custody is mission-critical and hard to maintain.</strong> SOF must cross-cue — bi-directionally hand off target custody — between aerial, maritime, and space assets as each rotates out for refuel, retasking, or weather.</li>
+    <li><strong>SOF-peculiar authority is under-utilized.</strong> USSOCOM holds special procurement authorities for capabilities <em>unique</em> to special operations. Most commercial space providers sell generic imagery feeds; SOF needs a platform it can <em>program</em>.</li>
+  </ul>
+
+  <div class="page-footer">
+    <div>DeepSat, Inc. · nerses@deepsat.com · CAGE 9XB24</div>
+    <div>SOFWERX Tech Tuesday White Paper · Page 1 of 6</div>
+  </div>
+</div>
+
+<!-- ============================== PAGE 2 ============================== -->
+<div class="page">
+  <div class="page-header">
+    <div class="brand">
+      <img src="logos/deepsat-logo-dark.svg" class="logo" alt="DeepSat">
+      <div class="brand-text">DEEPSAT</div>
+    </div>
+    <div class="meta">
+      <div><strong>SOF Scenarios &amp; Platform Response</strong></div>
+      <div>Proprietary · Not for Public Release</div>
+    </div>
+  </div>
+
+  <h2>3. SOF Scenarios DeepSat Is Built For</h2>
+  <p>Rather than pitch a single point capability, we design for the full envelope of SOF ISR needs. Below are three representative scenarios drawn directly from stakeholder conversations at SOFLE and exercises in planning. Each maps to the same underlying platform.</p>
+
+  <div class="scenario-card">
+    <div><span class="scenario-label">Scenario 1</span><span class="scenario-title">Maritime Interdiction with Persistent Custody</span></div>
+    <div class="scenario-body">
+      An MQ-9 tracks a go-fast vessel in the Caribbean, then must break station to refuel — a 44-hour custody gap. A DeepSat satellite autonomously accepts custody, maintains pattern-of-life tracking using optical, polarimetric, RF, and AIS fusion, flags AIS spoofing, and cross-cues the returning MQ-9 with updated position and vector in real time. Interdiction proceeds without loss of track.
+    </div>
+    <div class="scenario-cap"><strong>Platform capabilities engaged:</strong> onboard AI detection (~200 ms), &lt;30-sec latency to operator, cross-cueing orchestration, payload-abstracted polarimetry for glare-defeating dark-vessel detection, chain of custody.</div>
+  </div>
+
+  <div class="scenario-card">
+    <div><span class="scenario-label">Scenario 2</span><span class="scenario-title">Operations in Contested &amp; GPS-Denied Environments</span></div>
+    <div class="scenario-body">
+      In a peer conflict, GPS constellations in MEO/GEO are degraded or destroyed. Ground SOF teams require positioning without GPS. DeepSat's VLEO constellation — below the debris belt and below the principal ASAT threat envelope — remains operational. Its predictable emissions act as a <em>signal of opportunity</em> for ground positioning. Tasking, model updates, and tactical comms flow over optical uplink, outside traditional RF-vulnerable pathways.
+    </div>
+    <div class="scenario-cap"><strong>Platform capabilities engaged:</strong> VLEO self-cleaning orbit, rapid constellation re-deployment, laser comms, post-quantum security, CMMC-2 compliance.</div>
+  </div>
+
+  <div class="scenario-card">
+    <div><span class="scenario-label">Scenario 3</span><span class="scenario-title">SOF-Tailored Tasking &amp; Follow-On Effects</span></div>
+    <div class="scenario-body">
+      An Army SOF PSYOP element needs rapid pattern-of-life on a specific port to support a narrow time-window effect. Rather than purchasing an imagery subscription and waiting days for analysis, the operator tasks DeepSat per-mission through an agentic interface, receives real-time alerts only when specific anomaly conditions trigger, and geofences follow-on tasking to the developed target area. Raw imagery never leaves the platform; the operator receives decisions.
+    </div>
+    <div class="scenario-cap"><strong>Platform capabilities engaged:</strong> per-mission tasking, agentic / MCP-compatible command integration, data-on-demand transport, mission-aligned AI models, chain of custody for traceability.</div>
+  </div>
+
+  <div class="callout">
+    <strong>Why a platform, not a point solution:</strong> each scenario above would traditionally require a different vendor, sensor, and tasking cycle. DeepSat delivers all three on a single, programmable substrate — with additional scenarios (space weather, border patrol persistent ISR, disaster response) available as software-configurable missions.
+  </div>
+
+  <div class="page-footer">
+    <div>DeepSat, Inc. · nerses@deepsat.com · CAGE 9XB24</div>
+    <div>SOFWERX Tech Tuesday White Paper · Page 2 of 6</div>
+  </div>
+</div>
+
+<!-- ============================== PAGE 3 ============================== -->
+<div class="page">
+  <div class="page-header">
+    <div class="brand">
+      <img src="logos/deepsat-logo-dark.svg" class="logo" alt="DeepSat">
+      <div class="brand-text">DEEPSAT</div>
+    </div>
+    <div class="meta">
+      <div><strong>The Platform — Four Pillars, Six Layers</strong></div>
+      <div>Proprietary · Not for Public Release</div>
+    </div>
+  </div>
+
+  <h2>4. The DeepSat Platform</h2>
+  <p>Our platform is engineered around four pillars — Speed, Quality, Resilience, Orchestration — delivered through six integrated layers. Every pillar is deliberately architected to survive the environment SOF actually operates in.</p>
+
+  <div class="pillars">
+    <div class="pillar">
+      <div class="pillar-name">SPEED</div>
+      <div class="pillar-desc">Onboard AI at the edge, &lt;30 min revisit, &lt;30 sec data latency, agile re-tasking. Built for battle rhythm, not legacy collection cycles.</div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-name">QUALITY</div>
+      <div class="pillar-desc">Multi-modal fusion (optical, RF, AIS, polarimetry), ~4× higher SNR from low look angles, foundational AI reducing false positives.</div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-name">RESILIENCE</div>
+      <div class="pillar-desc">VLEO self-cleaning orbit, rapid re-deployment, COTS-abstracted supply chain, post-quantum security, CMMC-2 compliant.</div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-name">ORCHESTRATION</div>
+      <div class="pillar-desc">Agentic workflows, tip &amp; cue automation, chain of custody, hardware-abstracted payload integration, direct command integration.</div>
+    </div>
+  </div>
+
+  <h3>Six-Layer Architecture</h3>
+  <table class="stack-table">
+    <tr>
+      <th style="width: 140px;">Layer</th>
+      <th>What it does</th>
+      <th style="width: 180px;">Key components</th>
+    </tr>
+    <tr>
+      <td class="layer">Hardware</td>
+      <td>VLEO-optimized satellite bus with modular payload bays; commercial launch cadence, rapid replenishment.</td>
+      <td>Redwire TRL-9 VLEO bus, Satlantis &lt;1m VNIR+SWIR camera, NVIDIA IGX Orin 500 GPU</td>
+    </tr>
+    <tr>
+      <td class="layer">Payload Abstraction</td>
+      <td>Standardized interface lets new sensors (polarimetric, RF, SIGINT, hyperspectral) integrate without redesigning the bus or AI stack.</td>
+      <td>Active polarimetry study (Panthier/Jayada), RF/AIS receivers, UHF/LoRa decoders</td>
+    </tr>
+    <tr>
+      <td class="layer">Software Platform</td>
+      <td>AI models run onboard (~200 ms detection), with continuous learning and mission-aligned model swaps. Agentic / MCP-compatible for agent-to-agent integration.</td>
+      <td>Vessel &amp; cloud detection AI, vision transformers, agentic runtime</td>
+    </tr>
+    <tr>
+      <td class="layer">Network</td>
+      <td>Proliferated VLEO constellation with inter-satellite laser backhaul. "Always connected to the internet" — data retrievable while over the event, not just a ground station.</td>
+      <td>Kepler laser comms constellation, commercial launch</td>
+    </tr>
+    <tr>
+      <td class="layer">Intelligence Layer</td>
+      <td>Pub-Sub anomaly notifications, REST data engine, multi-source data fusion, chain of custody for traceability and compliance.</td>
+      <td>DeepSat Real-time API, Notification Center, Data Engine</td>
+    </tr>
+    <tr>
+      <td class="layer">Operator Delivery</td>
+      <td>Intelligence — not imagery — delivered to the operator's existing C2 and edge devices. Cross-cueing between DeepSat and aerial/surface assets.</td>
+      <td>TAK/ATAK integration (AFRL-sponsored SDK), command integration, agentic UI</td>
+    </tr>
+  </table>
+
+  <h3>Commercial-Pace Execution</h3>
+  <p>DeepSat operates on a commercial cadence — not a 10-to-15-year traditional acquisition arc. We use COTS components wherever TRL-9 heritage exists, integrate through standard interfaces, and iterate software independently of hardware. The result is a <strong>precursor satellite scheduled to launch Q4 2027 on SpaceX</strong>, less than four years after company founding, with follow-on proliferation paced by government and commercial demand rather than program timelines.</p>
+
+  <div class="page-footer">
+    <div>DeepSat, Inc. · nerses@deepsat.com · CAGE 9XB24</div>
+    <div>SOFWERX Tech Tuesday White Paper · Page 3 of 6</div>
+  </div>
+</div>
+
+<!-- ============================== PAGE 4 ============================== -->
+<div class="page">
+  <div class="page-header">
+    <div class="brand">
+      <img src="logos/deepsat-logo-dark.svg" class="logo" alt="DeepSat">
+      <div class="brand-text">DEEPSAT</div>
+    </div>
+    <div class="meta">
+      <div><strong>Partners &amp; Government Engagements</strong></div>
+      <div>Proprietary · Not for Public Release</div>
+    </div>
+  </div>
+
+  <h2>5. Industry Partners Powering the Stack</h2>
+  <p>Every layer of the DeepSat platform is delivered with best-in-class commercial partners already integrated into active engineering flows. These relationships are paper, not handshake — MOUs, POs, and joint engineering are in motion.</p>
+
+  <div class="partner-grid">
+    <div class="partner-card">
+      <img src="logos/redwire.png" alt="Redwire">
+      <div class="p-name">Redwire</div>
+      <div class="p-role">TRL-9 VLEO-optimized satellite bus; joint integration flow; Aug 2026 Maritime TE partner.</div>
+    </div>
+    <div class="partner-card">
+      <img src="logos/satlantis.png" alt="Satlantis">
+      <div class="p-name">Satlantis</div>
+      <div class="p-role">&lt;1 m VNIR + SWIR TRL-9 imaging payload with multiband real-time video.</div>
+    </div>
+    <div class="partner-card">
+      <img src="logos/kepler.png" alt="Kepler">
+      <div class="p-name">Kepler</div>
+      <div class="p-role">Inter-satellite laser backhaul — real-time data delivery to ground.</div>
+    </div>
+    <div class="partner-card">
+      <img src="logos/nvidia.png" alt="NVIDIA">
+      <div class="p-name">NVIDIA</div>
+      <div class="p-role">IGX Orin 500 GPU for onboard AI/ML inference — ~200 ms detection.</div>
+    </div>
+    <div class="partner-card">
+      <img src="logos/nasa_goddard.png" alt="NASA Goddard">
+      <div class="p-name">NASA Goddard</div>
+      <div class="p-role">Letter of Intent — first-of-kind VLEO atmospheric and space-weather datasets.</div>
+    </div>
+    <div class="partner-card">
+      <img src="logos/usc_isi.png" alt="USC ISI">
+      <div class="p-name">USC ISI</div>
+      <div class="p-role">STTR Phase I/II partner for adaptive &amp; intelligent space systems (SF25D-T1201).</div>
+    </div>
+    <div class="partner-card">
+      <img src="assets/gpu.png" alt="Firebird" onerror="this.style.display='none'">
+      <div class="p-name">Firebird</div>
+      <div class="p-role">MOU (Mar 2026) — compute backbone and AI training infrastructure.</div>
+    </div>
+    <div class="partner-card">
+      <img src="assets/operator.png" alt="Edge Autonomy" onerror="this.style.display='none'">
+      <div class="p-name">Edge Autonomy</div>
+      <div class="p-role">Drone asset for Aug 2026 Maritime TE satellite ↔ aerial cross-cueing demo.</div>
+    </div>
+  </div>
+
+  <h2>6. Government Agencies Actively Engaged</h2>
+  <p>DeepSat is under active contract, under active LOI, or in active experimentation with the following U.S. Government sponsors. This is not a pipeline slide — each of these represents flowing work, paper signed, or hardware on the manifest.</p>
+
+  <div class="agency-grid">
+    <div class="agency-row">
+      <img src="logos/afrl.png" alt="AFRL">
+      <div>
+        <div class="a-name">Air Force Research Laboratory (AFRL)</div>
+        <div class="a-status">Active D2P2 contract (DAF X25.5 CSO #FA864925P0298, $1.25M). Government sponsor unlocking TAK SDK. CMMC-2 demonstrated.</div>
+      </div>
+    </div>
+    <div class="agency-row">
+      <img src="logos/mda.png" alt="MDA">
+      <div>
+        <div class="a-name">Missile Defense Agency (MDA)</div>
+        <div class="a-status">Prime on MDA SHIELD $151B IDIQ. MDA-sponsored facility clearance pathway.</div>
+      </div>
+    </div>
+    <div class="agency-row">
+      <img src="logos/socom.png" alt="USSOCOM">
+      <div>
+        <div class="a-name">USSOCOM — SOF AT&amp;L / PEO SDA</div>
+        <div class="a-status">SOFLE April 2026 exercise completed; Maritime TE Aug 2026 in planning; active engagement with PEO SDA (SOF Digital Applications) and S&amp;T.</div>
+      </div>
+    </div>
+    <div class="agency-row">
+      <img src="logos/jiatf_south.png" alt="JIATF-South">
+      <div>
+        <div class="a-name">JIATF-South</div>
+        <div class="a-status">Counter-narcotics maritime flight-test engagement — real-world dark-vessel detection validation.</div>
+      </div>
+    </div>
+    <div class="agency-row">
+      <img src="logos/nasa_goddard.png" alt="NASA Goddard">
+      <div>
+        <div class="a-name">NASA Goddard Space Flight Center</div>
+        <div class="a-status">Signed Letter of Intent — atmospheric / space-weather data products derived from VLEO overflight regimes unavailable elsewhere.</div>
+      </div>
+    </div>
+    <div class="agency-row">
+      <img src="logos/ssc.png" alt="SSC">
+      <div>
+        <div class="a-name">Space Systems Command (SSC)</div>
+        <div class="a-status">STTR 2025.D SF25D-T1201 submission via USC ISI; named SSC Space Sensing and SSC BMC3 pathways for follow-on matching.</div>
+      </div>
+    </div>
+    <div class="agency-row">
+      <img src="logos/indopacom.png" alt="INDOPACOM">
+      <div>
+        <div class="a-name">INDOPACOM</div>
+        <div class="a-status">Named priority theater for VLEO maritime domain awareness; persistent ISR for peer-competition standoff.</div>
+      </div>
+    </div>
+    <div class="agency-row">
+      <img src="logos/space_force.png" alt="Space Force South">
+      <div>
+        <div class="a-name">Space Force South (SpOC-S)</div>
+        <div class="a-status">Regional coordination partner for SOUTHCOM-aligned operational experimentation.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout-ok">
+    <strong>Credibility by position, not promise.</strong> DeepSat is one of a small number of early-stage companies holding simultaneous active D2P2, MDA SHIELD IDIQ prime, NASA LOI, and SOCOM exercise engagement — with CMMC-2 already demonstrated.
+  </div>
+
+  <div class="page-footer">
+    <div>DeepSat, Inc. · nerses@deepsat.com · CAGE 9XB24</div>
+    <div>SOFWERX Tech Tuesday White Paper · Page 4 of 6</div>
+  </div>
+</div>
+
+<!-- ============================== PAGE 5 ============================== -->
+<div class="page">
+  <div class="page-header">
+    <div class="brand">
+      <img src="logos/deepsat-logo-dark.svg" class="logo" alt="DeepSat">
+      <div class="brand-text">DEEPSAT</div>
+    </div>
+    <div class="meta">
+      <div><strong>Q4 2027 Precursor — SOF-Peculiar Capacity</strong></div>
+      <div>Proprietary · Not for Public Release</div>
+    </div>
+  </div>
+
+  <h2>7. Q4 2027 Precursor Mission &amp; Reserved SOF-Peculiar Capacity</h2>
+
+  <p>DeepSat is manifested on a Q4 2027 SpaceX launch carrying the first operational node of the Orion's Belt constellation. The precursor validates the full stack — Redwire VLEO bus, Satlantis optics, NVIDIA onboard AI, Kepler laser backhaul, polarimetric payload study, and the operator-facing data service — in orbit. This is the transition point from experiment to operational infrastructure.</p>
+
+  <div class="highlight-box">
+    <h2>The Ask: Reserved SOF-Peculiar Capacity</h2>
+    <p>DeepSat will reserve a portion of precursor and follow-on mission resources — <span class="emphasize">payload bay, onboard compute, bandwidth, and tasking priority</span> — for USSOCOM SOF-peculiar use, procurable under SOCOM's existing authorities.</p>
+    <ul>
+      <li><span class="emphasize">Payload slot reservation</span> for SOF-peculiar sensors (e.g., SIGINT, hyperspectral, classified payloads) leveraging DeepSat's Payload Abstraction Layer.</li>
+      <li><span class="emphasize">On-orbit GPU cycles</span> for SOF-trained models and mission-aligned inference without shared-tenancy constraints.</li>
+      <li><span class="emphasize">Tasking priority lanes</span> so SOF units can invoke per-mission collection through their own command channels, including via the Chaos platform (PEO SDA) and TAK/ATAK.</li>
+      <li><span class="emphasize">Classified-path delivery</span> options via facility-cleared infrastructure (MDA-sponsored) and optical uplink for model updates in denied environments.</li>
+    </ul>
+    <p>This reservation can be procured via <span class="emphasize">CRADA</span> (SOCOM matching funds plus resource access, private-match-eligible), <span class="emphasize">non-competitive SBIR Phase III</span> as a direct extension of D2P2, <span class="emphasize">TACFI/STRATFI</span>, or a Title 10/50 dual instrument where appropriate.</p>
+  </div>
+
+  <h2>8. Why This Model Is Right for SOF — Now</h2>
+  <ul>
+    <li><strong>SOF-peculiar authority is the right tool.</strong> SOCOM can procure capabilities unique to SOF without waiting on Service-wide acquisition timelines. A programmable platform with reserved capacity is precisely the shape that authority was built for.</li>
+    <li><strong>Commercial pace matches the threat.</strong> Adversary maritime tactics, AIS spoofing, semi-submersibles, and counterspace posture all evolve faster than traditional programs of record. DeepSat's agile architecture — COTS hardware, software-defined missions, on-orbit model updates — closes that gap.</li>
+    <li><strong>Dual-use economics lower unit cost.</strong> Commercial and allied demand (NASA, allied maritime, JIATF-S, NORSOCOM, UK MOD) carries the infrastructure; SOF capacity reservation is an additive layer, not the sole sustainment base.</li>
+    <li><strong>No single-point failure.</strong> VLEO-below-ASAT orbits, self-cleaning regime, COTS-abstracted supply chain, hardware-agnostic software — the platform is designed to survive the kinetic and cyber contested environments SOF expects.</li>
+  </ul>
+
+  <div class="page-footer">
+    <div>DeepSat, Inc. · nerses@deepsat.com · CAGE 9XB24</div>
+    <div>SOFWERX Tech Tuesday White Paper · Page 5 of 6</div>
+  </div>
+</div>
+
+<!-- ============================== PAGE 6 ============================== -->
+<div class="page">
+  <div class="page-header">
+    <div class="brand">
+      <img src="logos/deepsat-logo-dark.svg" class="logo" alt="DeepSat">
+      <div class="brand-text">DEEPSAT</div>
+    </div>
+    <div class="meta">
+      <div><strong>Path Forward &amp; Contact</strong></div>
+      <div>Proprietary · Not for Public Release</div>
+    </div>
+  </div>
+
+  <h2>9. Path Forward</h2>
+  <p>DeepSat is seeking government partners willing to co-define SOF-peculiar mission profiles on the precursor and subsequent proliferated capacity. The following pathways are open and parallel — we recommend pursuing them in combination:</p>
+
+  <ol class="numbered">
+    <li><strong>Tech Tuesday Capability Brief (this submission).</strong> Present the full platform and SOF-peculiar reservation model to the USSOCOM and defense-agency audience. Outcome: identify stakeholders for deeper engagement.</li>
+    <li><strong>Maritime TE, August 2026 (Idaho).</strong> Observe or participate in the live cross-cueing demonstration: Redwire Group-2 drone simulating VLEO repass every 10 min, Edge Autonomy queued asset, full detect-analyze-cross-cue-interdict pipeline on a representative maritime target.</li>
+    <li><strong>CRADA — SOF-Peculiar Capacity Instrument.</strong> Establish the formal mechanism for SOCOM to reserve precursor capacity, including (where appropriate) in-kind resource access such as C-130 or MQ-9 time for payload characterization.</li>
+    <li><strong>Broad Agency Announcement — Space-Based ISR.</strong> Quad chart submission aligned with SOCOM's listed priority capability, referencing this white paper for the full architecture.</li>
+    <li><strong>Non-Competitive SBIR Phase III.</strong> DeepSat qualifies under SBIR statutory authority as a direct extension of the current AFRL D2P2 effort — an efficient vehicle for follow-on SOF-specific scope.</li>
+    <li><strong>SpaceWERX TACFI / STRATFI Matching.</strong> Available from SSC Space Sensing, SSC BMC3, USSOCOM (SOF AT&amp;L), Army, Navy, and C5ISR. DeepSat actively welcomes sponsor letters for this pathway.</li>
+  </ol>
+
+  <div class="callout-warn">
+    <strong>We need warfighter access.</strong> Integrating DeepSat to the tactical edge — including in denied environments — is the final validation step. We are specifically looking to connect with SOF units to test concepts for connecting directly to the DeepSat constellation using existing organic comms systems.
+  </div>
+
+  <h2>10. Summary</h2>
+  <p>DeepSat is not asking SOCOM to buy a subscription. We are offering SOCOM something rare: <strong>early-stage influence over a space-ISR platform that is under contract, integrated with best-in-class partners, scheduled to fly, and explicitly designed to accept SOF-peculiar missions</strong>. The platform already delivers maritime custody, cross-cueing, GPS-denied resilience, and polarimetric target discrimination on a single substrate. What we are adding — and what only SOCOM can authorize — is reserved capacity for the missions only SOF will ever run.</p>
+
+  <div class="contact-block">
+    <div>
+      <div class="ck">Principal Contact</div>
+      <div class="cv">Nerses Ohanyan · Co-Founder &amp; CEO</div>
+      <div class="cv" style="font-weight: 500; font-size: 9pt;"><a href="mailto:nerses@deepsat.com">nerses@deepsat.com</a></div>
+    </div>
+    <div>
+      <div class="ck">Company</div>
+      <div class="cv">DeepSat, Inc.</div>
+      <div class="cv" style="font-weight: 500; font-size: 9pt;">Los Angeles, CA · CAGE 9XB24 · CMMC-2 demonstrated</div>
+    </div>
+    <div>
+      <div class="ck">Active Contract Vehicle</div>
+      <div class="cv" style="font-size: 9pt;">DAF X25.5 CSO D2P2 — #FA864925P0298</div>
+    </div>
+    <div>
+      <div class="ck">Precursor Launch</div>
+      <div class="cv" style="font-size: 9pt;">Q4 2027 · SpaceX</div>
+    </div>
+  </div>
+
+  <p class="hint" style="margin-top: 14px;">This white paper is submitted in response to the SOFWERX Tech Tuesday open invitation for transformational technology briefs to USSOCOM and supporting defense agencies. DeepSat is prepared to present the enclosed material in a 20-minute brief with live platform demonstration.</p>
+
+  <div class="page-footer">
+    <div>DeepSat, Inc. · nerses@deepsat.com · CAGE 9XB24</div>
+    <div>SOFWERX Tech Tuesday White Paper · Page 6 of 6</div>
+  </div>
+</div>
+
+<script>
+  // Keyboard shortcut: Cmd/Ctrl+P is already native; nothing to do.
+  // Graceful fallback for missing images on partner cards is handled via onerror attributes.
+</script>
+
+<script type="module">
+  import { createViewer } from './viewer.js';
+  createViewer({
+    docId: 'sofwerx-white-paper',
+    brandName: 'DeepSat',
+    brandTagline: 'Defense Intelligence from VLEO',
+    requireEmail: true,
+    supabaseUrl: 'https://wpyuqnuekzbcsirkrjsk.supabase.co',
+    supabaseKey: 'sb_publishable_lATEOVSdeb8pkbeicOskRA_UumFSWuw',
+  }).init();
+</script>
+
+</body>
+</html>
