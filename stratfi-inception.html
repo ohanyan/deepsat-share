@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>DeepSat StratFi Inception Board</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #1f2328;
+    --muted: #57606a;
+    --line: #d0d7de;
+    --accent: #0969da;
+    --warn: #9a6700;
+    --ok: #1a7f37;
+    --danger: #cf222e;
+    --card: #f6f8fa;
+    --sticky-yellow: #fff8c5;
+    --sticky-green: #dafbe1;
+    --sticky-blue: #ddf4ff;
+    --sticky-orange: #ffe0c7;
+    --sticky-pink: #ffd6e0;
+    --sticky-gray: #eaeef2;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--fg);
+    background: var(--bg);
+    margin: 0;
+    padding: 0;
+  }
+  .wrap { max-width: 1600px; margin: 0 auto; padding: 32px 24px 80px; }
+  header.hero {
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 20px;
+    margin-bottom: 28px;
+  }
+  .eyebrow {
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  h1 { font-size: 30px; margin: 0 0 10px; font-weight: 600; letter-spacing: -0.01em; }
+  h2 {
+    font-size: 18px;
+    margin: 0 0 12px;
+    font-weight: 600;
+  }
+  h3 { font-size: 14px; margin: 16px 0 6px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }
+  p, li { font-size: 15px; }
+  a { color: var(--accent); }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+    color: var(--muted);
+    font-size: 14px;
+  }
+  .meta span b { color: var(--fg); }
+
+  .wrap { max-width: 980px; }
+  .board {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .col {
+    background: transparent;
+    border: none;
+    padding: 0;
+  }
+  .col-title {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .panel {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 18px 22px;
+    margin-bottom: 14px;
+  }
+  .panel h2 {
+    font-size: 20px;
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .section-heading {
+    font-size: 26px;
+    margin: 8px 0 16px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--fg);
+  }
+
+  .sticky {
+    display: block;
+    background: var(--sticky-yellow);
+    border-radius: 4px;
+    padding: 10px 14px;
+    margin-bottom: 8px;
+    font-size: 15px;
+    line-height: 1.45;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  }
+  .sticky.green { background: var(--sticky-green); }
+  .sticky.blue { background: var(--sticky-blue); }
+  .sticky.orange { background: var(--sticky-orange); }
+  .sticky.pink { background: var(--sticky-pink); }
+  .sticky.gray { background: var(--sticky-gray); }
+  .sticky .when { display: block; font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 2px; }
+  .sticky .who { font-size: 11px; color: var(--muted); }
+  .sticky .ref { font-size: 11px; color: var(--muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+  .sticky.urgent { border-left: 3px solid var(--danger); }
+
+  ul.clean { margin: 6px 0; padding-left: 18px; }
+  ul.clean li { margin: 3px 0; font-size: 14px; }
+
+  .agenda-list { list-style: none; padding: 0; margin: 0; }
+  .agenda-list li { display: grid; grid-template-columns: 56px 1fr; gap: 8px; padding: 4px 0; font-size: 14px; border-bottom: 1px dashed var(--line); }
+  .agenda-list li:last-child { border-bottom: none; }
+  .agenda-list .t { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--muted); font-weight: 600; }
+  .agenda-list .desc { color: var(--fg); }
+  .agenda-list .desc small { color: var(--muted); display: block; font-size: 12px; }
+
+  .matrix {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 6px;
+    margin-top: 8px;
+  }
+  .matrix .cell {
+    padding: 14px 18px;
+    border-radius: 6px;
+    min-height: 160px;
+  }
+  .matrix .cell .label {
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 6px;
+  }
+  .matrix .do-now { background: var(--sticky-green); }
+  .matrix .do-next { background: var(--sticky-yellow); }
+  .matrix .later { background: var(--sticky-orange); }
+  .matrix .skip { background: var(--sticky-gray); }
+  .matrix .cell ul { margin: 0; padding-left: 16px; }
+  .matrix .cell li { font-size: 14px; margin: 4px 0; }
+
+  .risk-row {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 14px 18px;
+    margin-bottom: 10px;
+    font-size: 15px;
+  }
+  .risk-row .risk-title { font-weight: 600; margin-bottom: 4px; }
+  .risk-row .mit { color: var(--fg); margin-bottom: 4px; }
+  .risk-row .owner { font-size: 12px; color: var(--muted); }
+
+  .callout {
+    background: var(--sticky-yellow);
+    border-left: 3px solid #d4a72c;
+    padding: 10px 14px;
+    border-radius: 4px;
+    margin: 14px 0;
+    font-size: 14px;
+  }
+
+  .section {
+    margin-top: 36px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+  }
+
+  footer.foot {
+    margin-top: 56px;
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 13px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="eyebrow">DeepSat &middot; Inception Board</div>
+  <h1>StratFi Readiness Inception</h1>
+  <div class="meta">
+    <span><b>Target milestone:</b> STRATFI submission, end of May 2026</span>
+    <span><b>Workshop date:</b> TBD</span>
+    <span><b>Format:</b> 1-day board-based inception</span>
+    <span><b>Last updated:</b> 2026-04-19</span>
+  </div>
+  <div class="callout">
+    STRATFI pairs a private-capital match with an AFWERX / SpaceWERX Phase III award.
+    Submission quality and the strength of matching commitments plus government letters of support
+    are the gating variables. Everything in this board should ladder up to one of those.
+  </div>
+</header>
+
+<div class="board">
+
+  <!-- COLUMN 1: AGENDA + PARTICIPANTS -->
+  <div class="col">
+    <h2 class="section-heading">Agenda &amp; Participants</h2>
+
+    <div class="panel">
+      <h2>1-day format</h2>
+      <ul class="agenda-list">
+        <li><span class="t">10:00</span><span class="desc">Office orientation, intros</span></li>
+        <li><span class="t">10:15</span><span class="desc">What is an inception? What we accomplish today</span></li>
+        <li><span class="t">10:30</span><span class="desc">Goals and anti-goals <small>Deadlines, business goals, product goals, anti-goals</small></span></li>
+        <li><span class="t">11:30</span><span class="desc">Risks and mitigations <small>Assign one owner per risk</small></span></li>
+        <li><span class="t">12:30</span><span class="desc">Lunch</span></li>
+        <li><span class="t">13:30</span><span class="desc">Roles and personas <small>AFWERX evaluators, SSC, SOCOM PEOs, investors</small></span></li>
+        <li><span class="t">14:00</span><span class="desc">Activities, workflows, epics</span></li>
+        <li><span class="t">14:45</span><span class="desc">Story mapping</span></li>
+        <li><span class="t">15:30</span><span class="desc">Estimation and prioritization</span></li>
+        <li><span class="t">16:00</span><span class="desc">Retro</span></li>
+      </ul>
+    </div>
+
+    <div class="panel">
+      <h2>Participants</h2>
+      <h3>DeepSat</h3>
+      <ul class="clean">
+        <li>Nerses, CEO</li>
+        <li>Sarkis, programs / BD</li>
+        <li>Subbu, strategy / fundraising</li>
+        <li>Hayk, engineering</li>
+        <li>Vrezh, engineering</li>
+      </ul>
+      <h3>External, as available</h3>
+      <ul class="clean">
+        <li>STRATFI consultant</li>
+        <li>AFWERX / SpaceWERX program contacts</li>
+        <li>Private-capital lead investor</li>
+        <li>Facilitator</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- COLUMN 2: GOALS & ANTI-GOALS (WITH DEADLINES) -->
+  <div class="col">
+    <h2 class="section-heading">Goals &amp; Anti-Goals</h2>
+
+    <div class="panel">
+      <h2>Deadlines</h2>
+
+      <div class="sticky urgent">
+        <span class="when">Next 2 weeks &middot; by 2026-05-03</span>
+        <b>Secure SSC (Space Systems Command) letter of support</b>
+        <span class="who">Gating for SpaceWERX decision. No Linear ticket exists yet, create one.</span>
+      </div>
+
+      <div class="sticky">
+        <span class="when">Now through 2026-04-24</span>
+        Team in San Francisco
+        <span class="who">Use in-person time for investor, NVIDIA, Bay-area gov relays</span>
+      </div>
+
+      <div class="sticky">
+        <span class="when">2026-04-24 through 2026-05-02</span>
+        Team in Eureka
+        <span class="who">Field / exercise window. Calendar holds for pitch review and LOS follow-ups</span>
+      </div>
+
+      <div class="sticky">
+        <span class="when">2026-05-01</span>
+        SOCOM evaluator assessments on Vulcan scout card
+        <span class="ref">DEE-429</span>
+      </div>
+
+      <div class="sticky">
+        <span class="when">2026-05-06</span>
+        Reach out to Jason Mayer (PAO, PEO TIS) before SOF Week
+        <span class="ref">DEE-430</span>
+      </div>
+
+      <div class="sticky urgent">
+        <span class="when">2026-05-13</span>
+        <b>RFP close: SF254-D1204, Secure Multi-Source Data Fusion for pLEO</b>
+        <span class="ref">DEE-451 &middot; Subbu</span>
+      </div>
+
+      <div class="sticky">
+        <span class="when">2026-05-13</span>
+        AFRL / AFWERX Strategic Priorities Exchange, Wright-Patterson
+        <span class="who">SECRET, US citizen only. Conflicts with SOF Week travel. Pick one.</span>
+        <span class="ref">DEE-235</span>
+      </div>
+
+      <div class="sticky urgent">
+        <span class="when">2026-05-17 through 2026-05-21</span>
+        <b>SOF Week 2026, Tampa</b>
+        <span class="who">Note: official program lists May 18-21. Confirm full team travel dates.</span>
+      </div>
+
+      <div class="sticky urgent">
+        <span class="when">Monday 2026-05-18</span>
+        <b>Submission deadline, SOFWERX SOF Tech</b>
+        <span class="who">For Tuesday (May 19) pitch / showcase. Capability statement, white paper, quad chart already scoped in DEE-462.</span>
+        <span class="ref">DEE-462 + DEE-465..477, 480, 481</span>
+      </div>
+
+      <div class="sticky">
+        <span class="when">Tuesday 2026-05-19</span>
+        SOF Tech event at SOF Week
+        <span class="who">SOCOM PEO stakeholders. Also vector for Tech Tuesday follow-on.</span>
+      </div>
+
+      <div class="sticky urgent">
+        <span class="when">End of May 2026</span>
+        <b>STRATFI package submission</b>
+        <span class="who">Exact date to be confirmed with program office. Pin it down this week.</span>
+        <span class="ref">DEE-446 / DEE-457</span>
+      </div>
+
+      <div class="sticky">
+        <span class="when">Late May 2026</span>
+        DAF BRIKE 26.1 BAAs likely close (TacSRT, threat-aware autonomy)
+        <span class="ref">DEE-449, DEE-448</span>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Business Goals</h2>
+      <div class="sticky green">Submit a competitive STRATFI package by end of May 2026</div>
+      <div class="sticky green">Secure private-capital match (Leonid venture debt up to 75%, Vahe fills 25%, $10M raise covers total)</div>
+      <div class="sticky green">Collect named government letters of support: SSC, NASA/GSFC refresh, AFRL / AFWERX</div>
+      <div class="sticky green">Lock customer transition plan, named end users, dollar value, timeline</div>
+      <div class="sticky green">Land a SOCOM PEO champion out of SOF Week / Tech Tuesday track</div>
+    </div>
+
+    <div class="panel">
+      <h2>Product Goals</h2>
+      <div class="sticky blue">Sharpen dual-use technical narrative, VLEO surveillance for DoD and commercial</div>
+      <div class="sticky blue">Evidence TRL claims, past performance from D2P2, SOCOM exercise, prior deliverables</div>
+      <div class="sticky blue">Tie SF254-D1204 pLEO fusion RFP win path to STRATFI past-performance case</div>
+    </div>
+
+    <div class="panel">
+      <h2>Anti-Goals</h2>
+      <div class="sticky orange">Reopen product strategy or reposition the company</div>
+      <div class="sticky orange">Chase unrelated proposals during submission window (no-bid DEE-448 and DEE-450 unless team capacity frees up)</div>
+      <div class="sticky orange">Solve every operational or hiring problem surfaced in the workshop</div>
+      <div class="sticky orange">Perfect collateral that is not gating for submission</div>
+      <div class="sticky orange">Let AFRL Wright-Patt (May 13) and SOF Week (May 17-21) both consume the same person</div>
+    </div>
+  </div>
+
+  <!-- COLUMN 3: PRODUCT CONTEXT -->
+  <div class="col">
+    <h2 class="section-heading">Product Context</h2>
+
+    <div class="panel">
+      <h2>Users &amp; Activities</h2>
+
+      <h3>AFWERX / SpaceWERX program office</h3>
+      <ul class="clean">
+        <li>Reviews STRATFI package, validates past performance and transition</li>
+        <li>Contacts: David Ryan, Marcus Bracey (DEE-105), Andrew at SpaceWERX (DEE-160)</li>
+      </ul>
+
+      <h3>Space Systems Command (SSC) endorser</h3>
+      <ul class="clean">
+        <li>Issues letter of support, gates SpaceWERX decision</li>
+        <li>Path: Tigran Tepenjian intro, Kevin follow-up (DEE-270), adjacent PEO SDA (Josh Bonhart, DEE-404)</li>
+      </ul>
+
+      <h3>SOCOM PEO champion</h3>
+      <ul class="clean">
+        <li>Signs and, ideally, funds. Targets: COL Chris McDonald (DEE-490), Ben Tuttle intro (DEE-489), MAJ Cameron Ludeman (DEE-488)</li>
+        <li>Access path: SOFWERX Tech Tuesday, SOF Week Tech Tuesday showcase, eSOF submission</li>
+      </ul>
+
+      <h3>Private-capital lead and matching syndicate</h3>
+      <ul class="clean">
+        <li>Leonid Capital for venture debt match</li>
+        <li>Vahe for equity top-up ($1M call)</li>
+        <li>Backup: DARPA as matching source if needed (Dominic Gallello, DEE-493)</li>
+      </ul>
+
+      <h3>DoD end users / transition partners</h3>
+      <ul class="clean">
+        <li>NRO CSPO program (DEE-425)</li>
+        <li>PEO SDA (DEE-404, DEE-407)</li>
+        <li>Jayada / SOCOM / DeepSat joint exercise, August Idaho (DEE-456, DEE-428)</li>
+      </ul>
+    </div>
+
+    <div class="panel">
+      <h2>Assumptions</h2>
+      <div class="sticky pink">End-of-May submission window is firm</div>
+      <div class="sticky pink">STRATFI 1-1-2 option is the target structure</div>
+      <div class="sticky pink">Matching capital path (Leonid + Vahe) holds through submission</div>
+      <div class="sticky pink">D2P2 extension lands, giving past-performance credit</div>
+      <div class="sticky pink">Current team, no new hires required for submission itself</div>
+      <div class="sticky pink">SSC letter is achievable in 2 weeks via warm intro, not cold outreach</div>
+    </div>
+  </div>
+
+  <!-- COLUMN 4: TASKS & PRIORITIES -->
+  <div class="col">
+    <h2 class="section-heading">Tasks &amp; Priorities</h2>
+
+    <div class="panel">
+      <h2>Story Map, seeded from Linear</h2>
+
+      <h3>STRATFI package</h3>
+      <div class="sticky">RFP umbrella <span class="ref">DEE-457 &middot; sarkis</span></div>
+      <div class="sticky">Confirm exact STRATFI deadline with program office <span class="ref">New</span></div>
+      <div class="sticky">Clean up strategy notes for Subbu <span class="ref">DEE-446 &middot; subbu</span></div>
+      <div class="sticky">Create tasks for each proposal and milestones <span class="ref">DEE-447 &middot; subbu</span></div>
+
+      <h3>Letters of support</h3>
+      <div class="sticky urgent">Find SSC contact, secure LOS (2 weeks) <span class="ref">New, no owner yet</span></div>
+      <div class="sticky">Email Nick (NASA/GSFC) for new STRATFI letter <span class="ref">DEE-487 &middot; hayk</span></div>
+      <div class="sticky">Reach out to Marlin for STRATFI <span class="ref">DEE-486 &middot; hayk</span></div>
+      <div class="sticky">Follow up with Andrew at SpaceWERX <span class="ref">DEE-160 &middot; sarkis</span></div>
+      <div class="sticky">AFWERX contacts David Ryan, Marcus Bracey <span class="ref">DEE-105 &middot; sarkis</span></div>
+      <div class="sticky">SSC path via Tigran T + Kevin <span class="ref">DEE-270</span></div>
+
+      <h3>Matching capital</h3>
+      <div class="sticky">Call Vahe for $1M equity match <span class="ref">DEE-446 note</span></div>
+      <div class="sticky">Leonid Capital venture-debt LOI, up to 75% of match</div>
+      <div class="sticky">Ask Cody who has money now for public matching <span class="ref">DEE-482 &middot; subbu</span></div>
+      <div class="sticky">DARPA path as matching fallback <span class="ref">DEE-493 &middot; nerses</span></div>
+
+      <h3>SOF Week / SOFWERX</h3>
+      <div class="sticky urgent">SOFWERX Tech Tuesday submission pack <span class="ref">DEE-462 + 11 subtasks &middot; sarkis</span></div>
+      <div class="sticky">SOF Week logistics <span class="ref">DEE-478 &middot; sarkis</span></div>
+      <div class="sticky">Reach Jason Mayer pre-SOF Week <span class="ref">DEE-430 &middot; sarkis, due 2026-05-06</span></div>
+      <div class="sticky">SOCOM PR POC for publication approvals <span class="ref">DEE-429 &middot; nerses</span></div>
+      <div class="sticky">eSOF submission on Vulcan <span class="ref">DEE-459 &middot; sarkis</span></div>
+      <div class="sticky">SOCOM BAA submission, $3-15M opp <span class="ref">DEE-458 &middot; sarkis</span></div>
+
+      <h3>Active proposals</h3>
+      <div class="sticky urgent">SF254-D1204 pLEO data fusion RFP, due 2026-05-13 <span class="ref">DEE-451 &middot; subbu</span></div>
+      <div class="sticky">DAF26BZ01-NV501 TacSRT commercial insights <span class="ref">DEE-449 &middot; sarkis</span></div>
+      <div class="sticky">D2P2 extension submission <span class="ref">DEE-419, this week</span></div>
+      <div class="sticky">STTR SF25D-T1201 submission <span class="ref">DEE-50 &middot; hayk</span></div>
+      <div class="sticky">TE-3 proposal, SOCOM maritime exercise, August Idaho <span class="ref">DEE-456 &middot; sarkis</span></div>
+
+      <h3>Travel and prep</h3>
+      <div class="sticky blue">SF meetings through 2026-04-24 <span class="ref">Create ticket</span></div>
+      <div class="sticky blue">Eureka field window 2026-04-24 through 2026-05-02 <span class="ref">Create ticket</span></div>
+      <div class="sticky blue">Pick one: AFRL Wright-Patt (May 13) vs SOF Week (May 17-21) owner</div>
+    </div>
+
+    <div class="panel">
+      <h2>Prioritization</h2>
+      <div class="matrix">
+        <div class="cell do-now">
+          <div class="label">Do Now &middot; High value, low effort</div>
+          <ul>
+            <li>SSC LOS path, create ticket + assign today</li>
+            <li>Confirm STRATFI deadline with program office</li>
+            <li>NASA/GSFC new LOS email (DEE-487)</li>
+            <li>Vahe $1M match call</li>
+            <li>SOFWERX SOF Tech submission pack, drive to 2026-05-18</li>
+          </ul>
+        </div>
+        <div class="cell do-next">
+          <div class="label">Do Next &middot; High value, higher effort</div>
+          <ul>
+            <li>SF254-D1204 proposal, due 2026-05-13</li>
+            <li>Leonid Capital LOI papered</li>
+            <li>SOCOM PEO champion outreach sequence</li>
+            <li>D2P2 extension submission</li>
+          </ul>
+        </div>
+        <div class="cell later">
+          <div class="label">If There's Time &middot; Low value, low effort</div>
+          <ul>
+            <li>DAF26BZ01-NV501 TacSRT bid</li>
+            <li>eSOF submission polish</li>
+            <li>DoD education 1-pager for investors (DEE-216)</li>
+          </ul>
+        </div>
+        <div class="cell skip">
+          <div class="label">Don't Do It (yet)</div>
+          <ul>
+            <li>DAF26BZ01-NV006 threat-aware autonomy, 3/10 fit</li>
+            <li>DAF26BZ01-DV005 AI scene construction, 3.5/10 fit</li>
+            <li>Nonessential deck iterations</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COLUMN 5: RISKS & MITIGATIONS -->
+  <div class="col">
+    <h2 class="section-heading">Risks &amp; Mitigations</h2>
+
+    <div class="panel">
+      <div class="risk-row">
+        <div class="risk-title">SSC letter not secured in 2 weeks</div>
+        <div class="mit">Parallel paths: Tigran T intro, Kevin via DEE-270, PEO SDA adjacent (Josh Bonhart), Aedan Yohannan (WH/NSC) for relay. Daily check-in until signed.</div>
+        <div class="owner">Owner: Nerses</div>
+      </div>
+      <div class="risk-row">
+        <div class="risk-title">Matching capital slips, STRATFI math breaks</div>
+        <div class="mit">Lock Leonid LOI by early May. Vahe $1M commit in writing. DARPA backup path via Dominic Gallello. Stagger commitments so no single source is gating.</div>
+        <div class="owner">Owner: Nerses + Subbu</div>
+      </div>
+      <div class="risk-row">
+        <div class="risk-title">SOF Week travel collides with AFRL Wright-Patt (May 13)</div>
+        <div class="mit">One of the leadership team goes to Wright-Patt May 13, rejoin SOF Week by May 18. Decide owners at the end of this inception.</div>
+        <div class="owner">Owner: Sarkis</div>
+      </div>
+      <div class="risk-row">
+        <div class="risk-title">SOFWERX SOF Tech pack not ready for Monday May 18</div>
+        <div class="mit">DEE-462 + 11 subtickets. Assign each. Daily standup from 2026-04-28. Draft-complete by May 11.</div>
+        <div class="owner">Owner: Sarkis</div>
+      </div>
+      <div class="risk-row">
+        <div class="risk-title">SF254-D1204 RFP (May 13) competes for same writers as STRATFI</div>
+        <div class="mit">Subbu owns D1204 only, no STRATFI writing until D1204 is submitted. Decouple reviewers.</div>
+        <div class="owner">Owner: Subbu</div>
+      </div>
+      <div class="risk-row">
+        <div class="risk-title">Eureka field window (Apr 24 to May 2) absorbs all bandwidth</div>
+        <div class="mit">Explicit split: field vs desk roles. At least one person remains on STRATFI desk work every day. Async check-ins from Eureka.</div>
+        <div class="owner">Owner: CEO delegate</div>
+      </div>
+      <div class="risk-row">
+        <div class="risk-title">Scope creep into non-STRATFI workstreams</div>
+        <div class="mit">Anti-goals enforced at weekly review. No-bid DEE-448 and DEE-450. Park non-critical items to post-submission.</div>
+        <div class="owner">Owner: Facilitator</div>
+      </div>
+      <div class="risk-row">
+        <div class="risk-title">Key person dependency on CEO for narrative and capital</div>
+        <div class="mit">Delegate section ownership. CEO is reviewer, not author, wherever possible.</div>
+        <div class="owner">Owner: Subbu</div>
+      </div>
+      <div class="risk-row">
+        <div class="risk-title">Technical volume starts too late for red-team pass</div>
+        <div class="mit">Draft complete two weeks before submission. External reviewer scheduled now.</div>
+        <div class="owner">Owner: Hayk + consultant</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COLUMN 6: FOLLOW-UP -->
+  <div class="col">
+    <h2 class="section-heading">Follow-up</h2>
+
+    <div class="panel">
+      <h2>Action Items</h2>
+      <div class="sticky urgent">Create Linear ticket: SSC LOS outreach, 2-week deadline, owner Nerses</div>
+      <div class="sticky urgent">Confirm exact STRATFI submission date with program office this week</div>
+      <div class="sticky">Create Linear ticket: SF trip activities through 2026-04-24</div>
+      <div class="sticky">Create Linear ticket: Eureka field window 2026-04-24 to 2026-05-02</div>
+      <div class="sticky">Assign AFRL Wright-Patt vs SOF Week owners by end of inception</div>
+      <div class="sticky">Decompose DEE-462 SOFWERX SOF Tech pack into owned subtasks</div>
+      <div class="sticky">Paper the Leonid LOI and Vahe equity commit</div>
+      <div class="sticky">Schedule red-team review for STRATFI technical volume</div>
+      <div class="sticky">Pre-fill this board with any new dates after the inception runs</div>
+    </div>
+
+    <div class="panel">
+      <h2>Parking Lot</h2>
+      <div class="sticky gray">Non-STRATFI BAAs and topics rated below 5/10 relevance</div>
+      <div class="sticky gray">Post-submission hiring plan</div>
+      <div class="sticky gray">DoD education 1-pager for investors</div>
+      <div class="sticky gray">Long-term SOCOM maritime exercise prep (DEE-456)</div>
+      <div class="sticky gray">MAGE fork productization</div>
+    </div>
+
+    <div class="panel">
+      <h2>Retro Items</h2>
+      <h3>What went well</h3>
+      <div class="sticky green">Fill in after workshop</div>
+      <h3>What we'd change</h3>
+      <div class="sticky orange">Fill in after workshop</div>
+      <h3>Questions unanswered</h3>
+      <div class="sticky">Fill in after workshop</div>
+    </div>
+  </div>
+
+</div>
+
+<footer class="foot">
+  DeepSat StratFi Inception Board &middot; Seeded from Linear export (2026-04-19) and user-provided dates &middot; Edit during and after the workshop.
+</footer>
+
+</div>
+<script type="module">
+  import { createViewer } from './viewer.js';
+  createViewer({
+    docId: 'stratfi-inception',
+    brandName: 'DeepSat',
+    brandTagline: 'Defense Intelligence from VLEO',
+    requireEmail: true,
+    supabaseUrl: 'https://wpyuqnuekzbcsirkrjsk.supabase.co',
+    supabaseKey: 'sb_publishable_lATEOVSdeb8pkbeicOskRA_UumFSWuw',
+  }).init();
+</script>
+</body>
+</html>
