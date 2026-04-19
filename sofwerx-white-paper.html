@@ -829,7 +829,38 @@
     margin-top: -1px;
   }
 
-  /* STRATFI primary-ask ribbon (page 1 top) */
+  /* Thin single-line banner (page 1 top) */
+  .top-banner {
+    background: linear-gradient(90deg, #1a1a2e 0%, #1e3a8a 100%);
+    color: white;
+    font-size: 9.5pt;
+    padding: 7px 16px;
+    border-radius: 4px;
+    margin: 0 0 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    line-height: 1.3;
+  }
+  .top-banner .tb-label {
+    font-size: 8pt;
+    font-weight: 900;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #7b8ff7;
+    white-space: nowrap;
+  }
+  .top-banner .tb-text { flex: 1; }
+  .top-banner .tb-text strong { color: white; }
+  .top-banner .tb-ref {
+    font-size: 8pt;
+    color: rgba(255,255,255,0.65);
+    white-space: nowrap;
+    font-style: italic;
+  }
+
+  /* STRATFI primary-ask ribbon (full box, used in §11) */
   .stratfi-ribbon {
     background: linear-gradient(135deg, #0f172a 0%, #1a1a2e 55%, #1e3a8a 100%);
     color: white;
@@ -1036,14 +1067,10 @@
     </div>
   </div>
 
-  <div class="stratfi-ribbon">
-    <div class="stratfi-label">
-      <span class="stratfi-kicker">Primary Ask</span>
-      SpaceWERX<br>STRATFI<br>Matching
-    </div>
-    <div class="stratfi-text">
-      DeepSat is seeking a <strong>sponsor Letter of Intent from SOF PEO SDA or SOF PEO TIS</strong> for STRATFI matching funds. This is the single fastest pathway for SOCOM to act as both <strong>operational end user</strong> and <strong>co-funder</strong>, unlocking government co-investment at commercial pace and reserving SOF-peculiar capacity on the Q4 2027 precursor.
-    </div>
+  <div class="top-banner">
+    <div class="tb-label">Seeking</div>
+    <div class="tb-text">Sponsor Letter of Intent from <strong>SOF PEO SDA or SOF PEO TIS</strong> for SpaceWERX <strong>STRATFI matching funds</strong>.</div>
+    <div class="tb-ref">see §11</div>
   </div>
 
   <h1>Space-ISR Infrastructure<br>for Special Operations Forces</h1>
@@ -1766,7 +1793,18 @@
   </div>
 
   <h2>11. Path Forward</h2>
-  <p>DeepSat is seeking government partners willing to co-define SOF-peculiar mission profiles on the precursor and subsequent proliferated capacity. The following pathways are open and parallel, we recommend pursuing them in combination:</p>
+
+  <div class="stratfi-ribbon">
+    <div class="stratfi-label">
+      <span class="stratfi-kicker">Primary Ask</span>
+      SpaceWERX<br>STRATFI<br>Matching
+    </div>
+    <div class="stratfi-text">
+      DeepSat is seeking a <strong>sponsor Letter of Intent from SOF PEO SDA or SOF PEO TIS</strong> for STRATFI matching funds. This is the single fastest pathway for SOCOM to act as both <strong>operational end user</strong> and <strong>co-funder</strong>, unlocking government co-investment at commercial pace and reserving SOF-peculiar capacity on the Q4 2027 precursor.
+    </div>
+  </div>
+
+  <p>Beyond the primary ask above, DeepSat is seeking government partners willing to co-define SOF-peculiar mission profiles on the precursor and subsequent proliferated capacity. The following pathways are open and parallel, we recommend pursuing them in combination:</p>
 
   <ol class="numbered">
     <li><strong>Capability Brief (this submission).</strong> Present the full platform and SOF-peculiar reservation model to the USSOCOM and defense-agency audience. Outcome: identify stakeholders for deeper engagement.</li>
@@ -1774,7 +1812,7 @@
     <li><strong>CRADA, SOF-Peculiar Capacity Instrument.</strong> Establish the formal mechanism for SOCOM to reserve precursor capacity, including (where appropriate) in-kind resource access such as C-130 or MQ-9 time for payload characterization.</li>
     <li><strong>Broad Agency Announcement, Space-Based ISR.</strong> Quad chart submission aligned with SOCOM's listed priority capability, referencing this white paper for the full architecture.</li>
     <li><strong>Non-Competitive SBIR Phase III.</strong> DeepSat qualifies under SBIR statutory authority as a direct extension of the current AFRL D2P2 effort, an efficient vehicle for follow-on SOF-specific scope.</li>
-    <li><strong>SpaceWERX STRATFI Matching (Primary Ask).</strong> DeepSat is actively seeking a sponsor Letter of Intent for STRATFI matching funds from SOF PEO SDA or SOF PEO TIS. This is the fastest pathway for SOCOM to act both as operational end user and co-funder. Secondary sponsor pathways available from SSC Space Sensing, SSC BMC3, Army, Navy, and C5ISR.</li>
+    <li><strong>Additional STRATFI sponsor pathways.</strong> Beyond SOF PEO SDA / TIS (the primary ask above), STRATFI sponsorship is also available from SSC Space Sensing, SSC BMC3, Army, Navy, and C5ISR.</li>
   </ol>
 
   <div class="callout-warn">
