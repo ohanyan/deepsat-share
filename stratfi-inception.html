@@ -197,6 +197,73 @@
     color: var(--muted);
     font-size: 13px;
   }
+
+  .program-board { margin-top: 48px; padding-top: 24px; border-top: 2px solid var(--line); }
+  .program-board .lead {
+    color: var(--muted);
+    font-size: 14px;
+    margin: 0 0 20px;
+  }
+  .workstream {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-bottom: 14px;
+  }
+  .workstream h3.ws-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 4px;
+    color: var(--fg);
+    text-transform: none;
+    letter-spacing: 0;
+  }
+  .workstream .ws-sub {
+    color: var(--muted);
+    font-size: 13px;
+    margin: 0 0 12px;
+  }
+  table.board-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  table.board-table th {
+    text-align: left;
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: 600;
+    padding: 6px 8px;
+    border-bottom: 1px solid var(--line);
+  }
+  table.board-table td {
+    padding: 8px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  table.board-table tr:last-child td { border-bottom: none; }
+  table.board-table td.ref a {
+    color: var(--accent);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  table.board-table td.ref a:hover { text-decoration: underline; }
+  table.board-table td.owner { color: var(--muted); font-size: 13px; white-space: nowrap; }
+  .prio {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+  }
+  .prio-urgent { background: #ffdce0; color: var(--danger); }
+  .prio-high { background: #fff1cc; color: var(--warn); }
+  .prio-medium { background: var(--sticky-blue); color: var(--accent); }
 </style>
 </head>
 <body>
@@ -209,7 +276,7 @@
     <span><b>Target milestone:</b> STRATFI submission, end of May 2026</span>
     <span><b>Workshop date:</b> TBD</span>
     <span><b>Format:</b> 1-day board-based inception</span>
-    <span><b>Last updated:</b> 2026-04-19</span>
+    <span><b>Last updated:</b> 2026-04-20</span>
   </div>
   <div class="callout">
     STRATFI pairs a private-capital match with an AFWERX / SpaceWERX Phase III award.
@@ -280,8 +347,16 @@
       </div>
 
       <div class="sticky urgent">
-        <span class="when">2026-04-21</span>
-        <b>D2P2 extended timeline kickoff</b>
+        <span class="when">Monday 2026-04-20</span>
+        <b>Submission deadline, SOFWERX Tech Tuesday</b>
+        <span class="who">For Tuesday (April 28) pitch / showcase. Capability statement, white paper, quad chart already scoped in DEE-462.</span>
+        <span class="ref">DEE-462 + DEE-465..477, 480, 481</span>
+      </div>
+
+      <div class="sticky urgent">
+        <span class="when">Tuesday 2026-04-28</span>
+        <b>SOFWERX Tech Tuesday showcase</b>
+        <span class="who">SOCOM PEO stakeholders. Separate from SOF Week Tampa in May.</span>
       </div>
 
       <div class="sticky urgent">
@@ -336,20 +411,13 @@
       <div class="sticky urgent">
         <span class="when">2026-05-18 through 2026-05-21</span>
         <b>SOF Week 2026, Tampa</b>
-        <span class="who">Team: Craig, Eric, Sarkis, Nerses, Subbu. No conflict with AFRL Strategic Priorities day.</span>
+        <span class="who">Team: Craig, Eric, Sarkis, Nerses, Subbu. Opportunity to meet SOCOM PEOs. No conflict with AFRL Strategic Priorities day.</span>
       </div>
 
       <div class="sticky urgent">
-        <span class="when">Monday 2026-05-18</span>
-        <b>Submission deadline, SOFWERX SOF Tech</b>
-        <span class="who">For Tuesday (May 19) pitch / showcase. Capability statement, white paper, quad chart already scoped in DEE-462.</span>
-        <span class="ref">DEE-462 + DEE-465..477, 480, 481</span>
-      </div>
-
-      <div class="sticky">
-        <span class="when">Tuesday 2026-05-19</span>
-        SOF Tech event at SOF Week
-        <span class="who">SOCOM PEO stakeholders. Also vector for Tech Tuesday follow-on.</span>
+        <span class="when">Mid-May 2026</span>
+        <b>Compliance readiness complete</b>
+        <span class="who">Soft/hard target. Owner Ryan, with budget spike for additional coverage.</span>
       </div>
 
       <div class="sticky urgent">
@@ -375,7 +443,7 @@
       <div class="sticky green">Collect named government funding letters pointing to existing budgets: SSC, NASA/GSFC refresh, AFRL / AFWERX. Prioritize by budget and relevance to Space Systems Command / Space Force decision-makers.</div>
       <div class="sticky green">Develop the Package, transition plan, dollar value, timeline</div>
       <div class="sticky green">Secure End User signature / Customer Memorandum (own workstream)</div>
-      <div class="sticky green">Run compliance / legal workstream for submission package (Ryan, Subbu, Cecilia)</div>
+      <div class="sticky green">Run compliance / legal workstream for submission package (Ryan, Subbu, Cecilia, Kristina Botello)</div>
       <div class="sticky green">Land a SOCOM PEO champion out of SOF Week / Tech Tuesday track</div>
       <div class="sticky green">Hire Subbu</div>
     </div>
@@ -383,8 +451,9 @@
     <div class="panel">
       <h2>Product Goals</h2>
       <div class="sticky blue">Sharpen dual-use technical narrative, VLEO surveillance for DoW and commercial</div>
-      <div class="sticky blue">Update PMOD deck with SOCOM learnings, technology roadmap, whitepaper content, launches, COTS strategy (critical for PEO sign-up)</div>
-      <div class="sticky blue">Run SF254-D1204 pLEO fusion RFP and STRATFI past-performance case as parallel processes (not sequential)</div>
+      <div class="sticky blue">Update PMOD deck with SOCOM learnings, technology roadmap, whitepaper content, launches, COTS strategy (critical for PEO sign-up). Distribute to government stakeholders including Space Force South. Highlight STRATFI matching ask, mirroring the SOCOM whitepaper.</div>
+      <div class="sticky blue">Coordinate with Sarkis on the government deck workstream so PMOD and gov deck stay aligned</div>
+      <div class="sticky blue">Run SF254-D1204 pLEO fusion RFP and STRATFI past-performance case as parallel processes (not sequential). Hold a D2P2 playbook session with Subbu, Hayk, Nerses, Craig to structure the software-platform past-perf case.</div>
     </div>
 
     <div class="panel">
@@ -407,13 +476,15 @@
       <h3>AFWERX / SpaceWERX program office</h3>
       <ul class="clean">
         <li>Reviews STRATFI package, validates past performance and transition</li>
-        <li>Contacts: David Ryan, Marcus Bracey (DEE-105), Andrew at SpaceWERX (DEE-160)</li>
+        <li>Contacts: David Ryan, Marcus Bracey (DEE-105), Andrew at SpaceWERX (DEE-160). Review full list with Sarkis.</li>
       </ul>
 
       <h3>Space Systems Command (SSC) endorser</h3>
       <ul class="clean">
         <li>Issues letter of support, gates SpaceWERX decision</li>
         <li>Path: Tigran Tepenjian intro, Kevin follow-up (DEE-270), adjacent PEO SDA (Josh Bonhart, DEE-404)</li>
+        <li>Also: work with Sarkis for completeness. Route via Mitch to Marlin at RedWire (Spence optional first). All outreach Monday AM before Hayk flies out.</li>
+        <li>North-star goal: reach Seth Lacy, AFRL Chief of Space Directorate</li>
       </ul>
 
       <h3>SOCOM PEO champion</h3>
@@ -511,7 +582,7 @@
             <li>D2P2 extension submission (DEE-419), due Apr 20</li>
             <li>NASA/GSFC new funding letter email (DEE-487)</li>
             <li>Vahe $1M match call</li>
-            <li>SOFWERX SOF Tech submission pack, drive to 2026-05-18</li>
+            <li>SOFWERX Tech Tuesday submission pack, drive to 2026-04-20</li>
           </ul>
         </div>
         <div class="cell do-next">
@@ -553,6 +624,11 @@
         <div class="risk-title">SSC letter not secured in 2 weeks</div>
         <div class="mit">Parallel paths: Tigran T intro, Kevin via DEE-270, PEO SDA adjacent (Josh Bonhart), Aedan Yohannan (WH/NSC) for relay. Daily check-in until signed.</div>
         <div class="owner">Owner: Nerses</div>
+      </div>
+      <div class="risk-row">
+        <div class="risk-title">Ryan overloaded on compliance and STRATFI submission support</div>
+        <div class="mit">Budget a second person to own compliance readiness. Compliance readiness complete by mid-May 2026 (soft/hard). Ryan to produce a spike for the compliance budget. While in SF, prioritize meeting Jason Oulette Mon-Wed to scope how much he can absorb.</div>
+        <div class="owner">Owner: Ryan + Nerses</div>
       </div>
       <div class="risk-row">
         <div class="risk-title">Matching capital slips, STRATFI math breaks</div>
@@ -603,6 +679,7 @@
 
     <div class="panel">
       <h2>Action Items</h2>
+      <div class="sticky urgent">Ryan to reach out to Jason Oulette for Mon/Tue meeting in SF</div>
       <div class="sticky urgent">Create Linear ticket: SSC LOS outreach, 2-week deadline, owner Nerses</div>
       <div class="sticky urgent">Confirm exact STRATFI submission date with program office this week</div>
       <div class="sticky">Create Linear ticket: SF trip activities through 2026-04-24</div>
@@ -636,8 +713,174 @@
 
 </div>
 
+<section class="program-board">
+  <h2 class="section-heading">Program Board</h2>
+  <p class="lead">
+    Every STRATFI-gating task, grouped by workstream. All items live in the
+    <a href="https://linear.app/deepsat/project/sf-stratfi-39d2c246566f" target="_blank">SF STRATFI</a>
+    Linear project (DeepSat team). Click a ticket ID to open it.
+  </p>
+
+  <div class="workstream">
+    <h3 class="ws-title">1. Submission &amp; Package</h3>
+    <p class="ws-sub">The STRATFI submission itself: umbrella, notes, structure, red-team pass, date confirmation.</p>
+    <table class="board-table">
+      <thead><tr><th>Ticket</th><th>Title</th><th>Owner</th><th>Priority</th></tr></thead>
+      <tbody>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-457" target="_blank">DEE-457</a></td><td>RFP: STRATFI umbrella</td><td class="owner">Sarkis</td><td><span class="prio prio-urgent">Urgent</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-508" target="_blank">DEE-508</a></td><td>Confirm exact STRATFI submission date via Jesse at AFRL</td><td class="owner">Subbu</td><td><span class="prio prio-urgent">Urgent</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-502" target="_blank">DEE-502</a></td><td>Red-team review of STRATFI technical volume</td><td class="owner">Hayk</td><td><span class="prio prio-high">High</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-446" target="_blank">DEE-446</a></td><td>NOTES to clean up for Subbu</td><td class="owner">Subbu</td><td><span class="prio prio-high">High</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-447" target="_blank">DEE-447</a></td><td>Create tasks for each proposal and milestones</td><td class="owner">Subbu</td><td><span class="prio prio-medium">Medium</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="workstream">
+    <h3 class="ws-title">2. Funding Letters &amp; Government Endorsers</h3>
+    <p class="ws-sub">SSC LOS is the gating deliverable. Parallel paths through Tigran, Kevin, Josh Bonhart, Aedan, Seth Lacey. AFRL and NASA letters feed the submission package.</p>
+    <table class="board-table">
+      <thead><tr><th>Ticket</th><th>Title</th><th>Owner</th><th>Priority</th></tr></thead>
+      <tbody>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-507" target="_blank">DEE-507</a></td><td>SSC Letter of Support outreach, 2-week deadline</td><td class="owner">Nerses</td><td><span class="prio prio-urgent">Urgent</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-491" target="_blank">DEE-491</a></td><td>CONTACT: Tigran Tepenjian</td><td class="owner">Nerses</td><td><span class="prio prio-urgent">Urgent</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-270" target="_blank">DEE-270</a></td><td>Follow up with Kevin via Tigran T (SSC)</td><td class="owner">Nerses</td><td><span class="prio prio-high">High</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-404" target="_blank">DEE-404</a></td><td>Follow up with Josh Bonhart (PEO SDA)</td><td class="owner">Sarkis</td><td><span class="prio prio-medium">Medium</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-485" target="_blank">DEE-485</a></td><td>CONTACT: Aedan Yohannan (WH/NSC)</td><td class="owner">unassigned</td><td><span class="prio prio-medium">Medium</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-494" target="_blank">DEE-494</a></td><td>CONTACT: Seth Lacey (AFRL Chief of Space)</td><td class="owner">Hayk</td><td><span class="prio prio-urgent">Urgent</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-487" target="_blank">DEE-487</a></td><td>Email Nick (NASA/GSFC) for new STRATFI letter</td><td class="owner">Hayk</td><td><span class="prio prio-urgent">Urgent</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-486" target="_blank">DEE-486</a></td><td>Reach out to Marlin (RedWire) for STRATFI</td><td class="owner">Hayk</td><td><span class="prio prio-urgent">Urgent</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-66" target="_blank">DEE-66</a></td><td>STTR 2026 support letter from AFRL</td><td class="owner">Hayk</td><td><span class="prio prio-urgent">Urgent</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-489" target="_blank">DEE-489</a></td><td>CONTACT: Ben Tuttle (intro to McDonald)</td><td class="owner">unassigned</td><td><span class="prio prio-urgent">Urgent</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-490" target="_blank">DEE-490</a></td><td>CONTACT: COL Chris McDonald (SOCOM PEO)</td><td class="owner">unassigned</td><td><span class="prio prio-high">High</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-488" target="_blank">DEE-488</a></td><td>CONTACT: MAJ Cameron Ludeman</td><td class="owner">unassigned</td><td><span class="prio prio-high">High</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-492" target="_blank">DEE-492</a></td><td>CONTACT: Spence Wise</td><td class="owner">Nerses</td><td><span class="prio prio-urgent">Urgent</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-160" target="_blank">DEE-160</a></td><td>Follow up with Andrew at SpaceWERX</td><td class="owner">Sarkis</td><td><span class="prio prio-medium">Medium</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-235" target="_blank">DEE-235</a></td><td>AFRL / AFWERX Ohio (Wright-Patt May 13)</td><td class="owner">unassigned</td><td><span class="prio prio-high">High</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="workstream">
+    <h3 class="ws-title">3. Matching Capital</h3>
+    <p class="ws-sub">Private equity match, venture debt, and public-money paths. All feed the STRATFI match requirement.</p>
+    <table class="board-table">
+      <thead><tr><th>Ticket</th><th>Title</th><th>Owner</th><th>Priority</th></tr></thead>
+      <tbody>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-500" target="_blank">DEE-500</a></td><td>Vahe: equity match, IAN network, Bessemer intro</td><td class="owner">Nerses</td><td><span class="prio prio-urgent">Urgent</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-501" target="_blank">DEE-501</a></td><td>Paper the Leonid Capital LOI (advisor: Lusine Yeghiazarian)</td><td class="owner">Subbu</td><td><span class="prio prio-urgent">Urgent</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-493" target="_blank">DEE-493</a></td><td>CONTACT: Dominic Gallello (DARPA match backup)</td><td class="owner">Nerses</td><td><span class="prio prio-high">High</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-482" target="_blank">DEE-482</a></td><td>Ask Cody for public money matching sources</td><td class="owner">unassigned</td><td><span class="prio prio-high">High</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-50" target="_blank">DEE-50</a></td><td>STTR Submission (matching capital path)</td><td class="owner">Hayk</td><td><span class="prio prio-urgent">Urgent</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-386" target="_blank">DEE-386</a></td><td>NASA Science as a Service RFI, due 2026-04-28</td><td class="owner">Sarkis</td><td><span class="prio prio-urgent">Urgent</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="workstream">
+    <h3 class="ws-title">4. Transition &amp; Past-Performance</h3>
+    <p class="ws-sub">D2P2 is the anchor past-perf story. D1204 runs parallel. TacSRT and SOCOM BAA double as matching paths and past-perf signal.</p>
+    <table class="board-table">
+      <thead><tr><th>Ticket</th><th>Title</th><th>Owner</th><th>Priority</th></tr></thead>
+      <tbody>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-419" target="_blank">DEE-419</a></td><td>D2P2 extension submission, due 2026-04-20</td><td class="owner">Nerses</td><td><span class="prio prio-urgent">Urgent</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-505" target="_blank">DEE-505</a></td><td>D2P2 playbook session: Subbu, Hayk, Nerses, Craig</td><td class="owner">Subbu</td><td><span class="prio prio-high">High</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-451" target="_blank">DEE-451</a></td><td>SF254-D1204 pLEO fusion RFP, due 2026-05-13</td><td class="owner">Subbu</td><td><span class="prio prio-high">High</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-449" target="_blank">DEE-449</a></td><td>DAF26BZ01-NV501 TacSRT RFP</td><td class="owner">Sarkis</td><td><span class="prio prio-high">High</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-458" target="_blank">DEE-458</a></td><td>SOCOM BAA submission, $3-15M opp</td><td class="owner">Sarkis</td><td><span class="prio prio-high">High</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-429" target="_blank">DEE-429</a></td><td>Get SOCOM PR POC for publication approvals</td><td class="owner">Nerses</td><td><span class="prio prio-medium">Medium</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="workstream">
+    <h3 class="ws-title">5. SOF Week &amp; SOFWERX</h3>
+    <p class="ws-sub">SOFWERX Tech Tuesday is the April 20 / April 28 path. SOF Week Tampa (May 18-21) is the SOCOM PEO opportunity. 15 submission subtasks under DEE-462.</p>
+    <table class="board-table">
+      <thead><tr><th>Ticket</th><th>Title</th><th>Owner</th><th>Priority</th></tr></thead>
+      <tbody>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-462" target="_blank">DEE-462</a></td><td>SOCOM: SOFWERX Tech Tuesday submission</td><td class="owner">Sarkis</td><td><span class="prio prio-urgent">Urgent</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-465" target="_blank">DEE-465</a></td><td>Capability statement (1-2 sentences)</td><td class="owner">Sarkis</td><td><span class="prio prio-urgent">Urgent</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-466" target="_blank">DEE-466</a></td><td>What big problem does your technology solve?</td><td class="owner">Sarkis</td><td><span class="prio prio-urgent">Urgent</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-467" target="_blank">DEE-467</a></td><td>What makes your technology transformational?</td><td class="owner">Sarkis</td><td><span class="prio prio-urgent">Urgent</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-468" target="_blank">DEE-468</a></td><td>How does it help the Warfighter?</td><td class="owner">Sarkis</td><td><span class="prio prio-urgent">Urgent</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-469" target="_blank">DEE-469</a></td><td>Top two competitors and differentiators</td><td class="owner">Sarkis</td><td><span class="prio prio-urgent">Urgent</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-470" target="_blank">DEE-470</a></td><td>MVP / prototype and customer feedback</td><td class="owner">Sarkis</td><td><span class="prio prio-urgent">Urgent</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-471" target="_blank">DEE-471</a></td><td>Current TRL of the technology</td><td class="owner">Sarkis</td><td><span class="prio prio-urgent">Urgent</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-472" target="_blank">DEE-472</a></td><td>Cost / schedule to TRL 7</td><td class="owner">Sarkis</td><td><span class="prio prio-urgent">Urgent</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-473" target="_blank">DEE-473</a></td><td>Next key features and hurdles</td><td class="owner">Sarkis</td><td><span class="prio prio-urgent">Urgent</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-474" target="_blank">DEE-474</a></td><td>Current government / PE partners</td><td class="owner">Sarkis</td><td><span class="prio prio-urgent">Urgent</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-475" target="_blank">DEE-475</a></td><td>Quad chart</td><td class="owner">Sarkis</td><td><span class="prio prio-urgent">Urgent</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-476" target="_blank">DEE-476</a></td><td>White paper</td><td class="owner">Sarkis</td><td><span class="prio prio-urgent">Urgent</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-480" target="_blank">DEE-480</a></td><td>Email SOCOM for white paper template</td><td class="owner">Sarkis</td><td><span class="prio prio-urgent">Urgent</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-481" target="_blank">DEE-481</a></td><td>Create white paper for SOFWERX</td><td class="owner">Subbu</td><td><span class="prio prio-urgent">Urgent</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-477" target="_blank">DEE-477</a></td><td>Marketing material</td><td class="owner">Sarkis</td><td><span class="prio prio-urgent">Urgent</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-478" target="_blank">DEE-478</a></td><td>SOF Week logistics</td><td class="owner">unassigned</td><td><span class="prio prio-high">High</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-430" target="_blank">DEE-430</a></td><td>Reach Jason Mayer (PAO PO TIS) pre-SOF Week, due 2026-05-06</td><td class="owner">Sarkis</td><td><span class="prio prio-high">High</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-459" target="_blank">DEE-459</a></td><td>SOCOM eSOF submission on Vulcan</td><td class="owner">Sarkis</td><td><span class="prio prio-medium">Medium</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-511" target="_blank">DEE-511</a></td><td>Decide owners: AFRL Wright-Patt vs SOF Week Tampa</td><td class="owner">Sarkis</td><td><span class="prio prio-high">High</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="workstream">
+    <h3 class="ws-title">6. Compliance &amp; Legal</h3>
+    <p class="ws-sub">Ryan is overloaded. Mid-May readiness deadline. Scope Jason Oulette and bring in Kristina Botello.</p>
+    <table class="board-table">
+      <thead><tr><th>Ticket</th><th>Title</th><th>Owner</th><th>Priority</th></tr></thead>
+      <tbody>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-496" target="_blank">DEE-496</a></td><td>Compliance readiness complete by mid-May 2026</td><td class="owner">Ryan</td><td><span class="prio prio-urgent">Urgent</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-497" target="_blank">DEE-497</a></td><td>Ryan spike: compliance budget for additional coverage</td><td class="owner">Ryan</td><td><span class="prio prio-urgent">Urgent</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-498" target="_blank">DEE-498</a></td><td>Meet Jason Oulette in SF, prioritize Mon-Wed</td><td class="owner">Ryan</td><td><span class="prio prio-urgent">Urgent</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-499" target="_blank">DEE-499</a></td><td>Onboard Kristina Botello to compliance workstream</td><td class="owner">Subbu</td><td><span class="prio prio-high">High</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="workstream">
+    <h3 class="ws-title">7. Deck &amp; Narrative</h3>
+    <p class="ws-sub">PMOD deck, government deck, DoW investor materials, D2P2 playbook. Submission narrative must stay aligned across audiences.</p>
+    <table class="board-table">
+      <thead><tr><th>Ticket</th><th>Title</th><th>Owner</th><th>Priority</th></tr></thead>
+      <tbody>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-503" target="_blank">DEE-503</a></td><td>PMOD deck update: SOCOM learnings, gov distribution, STRATFI match ask</td><td class="owner">Sarkis</td><td><span class="prio prio-high">High</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-504" target="_blank">DEE-504</a></td><td>Coordinate PMOD with government deck workstream</td><td class="owner">Sarkis</td><td><span class="prio prio-medium">Medium</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-506" target="_blank">DEE-506</a></td><td>Audit all DoW investor materials</td><td class="owner">Sarkis</td><td><span class="prio prio-medium">Medium</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="workstream">
+    <h3 class="ws-title">8. Travel &amp; Logistics</h3>
+    <p class="ws-sub">SF window through April 24, Eureka field window April 24 to May 2. Keep STRATFI desk work covered daily.</p>
+    <table class="board-table">
+      <thead><tr><th>Ticket</th><th>Title</th><th>Owner</th><th>Priority</th></tr></thead>
+      <tbody>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-509" target="_blank">DEE-509</a></td><td>SF travel activities through 2026-04-24</td><td class="owner">Nerses</td><td><span class="prio prio-medium">Medium</span></td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-510" target="_blank">DEE-510</a></td><td>Eureka field window 2026-04-24 to 2026-05-02: owner split</td><td class="owner">Nerses</td><td><span class="prio prio-medium">Medium</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="workstream">
+    <h3 class="ws-title">No-Bid &amp; Parking Lot</h3>
+    <p class="ws-sub">Tracked, not actioned. Revisit post-submission.</p>
+    <table class="board-table">
+      <thead><tr><th>Ticket</th><th>Title</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-448" target="_blank">DEE-448</a></td><td>DAF26BZ01-NV006 Threat-Aware Autonomy</td><td class="owner">No-bid (3/10 fit)</td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-450" target="_blank">DEE-450</a></td><td>DAF26BZ01-DV005 AI Scene Construction</td><td class="owner">No-bid (3.5/10 fit)</td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-216" target="_blank">DEE-216</a></td><td>DoW education 1-pager for investors</td><td class="owner">Kept in Fundraising project</td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-456" target="_blank">DEE-456</a></td><td>TE-3 SOCOM maritime exercise, August Idaho</td><td class="owner">Post-submission</td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-428" target="_blank">DEE-428</a></td><td>Panther polarizer August exercise</td><td class="owner">Post-submission</td></tr>
+        <tr><td class="ref"><a href="https://linear.app/deepsat/issue/DEE-425" target="_blank">DEE-425</a></td><td>NRO CSPO program research</td><td class="owner">Strategic, post-submission</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
 <footer class="foot">
-  DeepSat StratFi Inception Board &middot; Seeded from Linear export (2026-04-19) and user-provided dates &middot; Edit during and after the workshop.
+  DeepSat StratFi Inception Board &middot; Seeded from Linear export (2026-04-19) and user-provided dates &middot; Program Board refreshed 2026-04-20 &middot; Edit during and after the workshop.
 </footer>
 
 </div>
