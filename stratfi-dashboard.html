@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>DeepSat StratFi Program Dashboard</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #1f2328;
+    --muted: #57606a;
+    --line: #d0d7de;
+    --line-strong: #8c959f;
+    --accent: #0969da;
+    --warn: #9a6700;
+    --ok: #1a7f37;
+    --danger: #cf222e;
+    --card: #f6f8fa;
+    --sticky-yellow: #fff8c5;
+    --sticky-green: #dafbe1;
+    --sticky-blue: #ddf4ff;
+    --sticky-orange: #ffe0c7;
+    --sticky-pink: #ffd6e0;
+    --sticky-gray: #eaeef2;
+    --bar-submission: #0969da;
+    --bar-letters: #8250df;
+    --bar-capital: #1a7f37;
+    --bar-pastperf: #bf8700;
+    --bar-sofwerx: #cf222e;
+    --bar-compliance: #9a6700;
+    --bar-deck: #6e7781;
+    --bar-travel: #218bff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--fg);
+    background: var(--bg);
+    margin: 0;
+    padding: 0;
+  }
+  .wrap { max-width: 1280px; margin: 0 auto; padding: 32px 24px 80px; }
+  a { color: var(--accent); }
+
+  header.hero {
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 20px;
+    margin-bottom: 28px;
+  }
+  .eyebrow {
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  h1 { font-size: 30px; margin: 0 0 10px; font-weight: 600; letter-spacing: -0.01em; }
+  h2.section-heading {
+    font-size: 24px;
+    margin: 40px 0 14px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--line);
+  }
+  h3 { font-size: 16px; margin: 16px 0 8px; font-weight: 600; }
+  h4 { font-size: 13px; margin: 14px 0 4px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+  p, li { font-size: 15px; }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+    color: var(--muted);
+    font-size: 14px;
+  }
+  .meta span b { color: var(--fg); }
+
+  .headline {
+    background: var(--sticky-yellow);
+    border-left: 4px solid var(--warn);
+    padding: 14px 18px;
+    border-radius: 4px;
+    margin: 14px 0 0;
+    font-size: 15px;
+  }
+  .headline b { color: var(--fg); }
+
+  .panel {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 18px 22px;
+    margin-bottom: 14px;
+  }
+
+  .twocol { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .threecol { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  @media (max-width: 860px) { .twocol, .threecol { grid-template-columns: 1fr; } }
+
+  ul.clean { margin: 6px 0; padding-left: 18px; }
+  ul.clean li { margin: 4px 0; font-size: 14px; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  th {
+    text-align: left;
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: 600;
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--line);
+  }
+  td {
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  td.owner, th.owner { white-space: nowrap; color: var(--muted); }
+  td.ref { white-space: nowrap; }
+  td.ref a {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+  }
+  td.ref a:hover { text-decoration: underline; }
+
+  .prio {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .prio-urgent { background: #ffdce0; color: var(--danger); }
+  .prio-high { background: #fff1cc; color: var(--warn); }
+  .prio-medium { background: var(--sticky-blue); color: var(--accent); }
+
+  /* Gantt */
+  .gantt-wrap { overflow-x: auto; }
+  .gantt-header, .gantt-row {
+    display: grid;
+    grid-template-columns: 200px repeat(30, 1fr);
+    gap: 0;
+    align-items: stretch;
+  }
+  .gantt-header {
+    border-bottom: 2px solid var(--line);
+    margin-bottom: 4px;
+  }
+  .gantt-header .gcell {
+    padding: 6px 4px;
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: 700;
+    border-left: 1px solid var(--line);
+    text-align: center;
+  }
+  .gantt-header .gcell:first-child { border-left: none; text-align: left; padding-left: 8px; }
+  .gantt-header .weekband {
+    grid-column: span 5;
+    border-left: 1px solid var(--line);
+  }
+  .gantt-week-dates {
+    display: grid;
+    grid-template-columns: 200px repeat(30, 1fr);
+    font-size: 10px;
+    color: var(--muted);
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 6px;
+  }
+  .gantt-week-dates .dcell {
+    padding: 2px 2px;
+    text-align: center;
+    border-left: 1px solid var(--line);
+  }
+  .gantt-week-dates .dcell:first-child { border-left: none; text-align: left; padding-left: 8px; }
+
+  .gantt-row {
+    min-height: 28px;
+    position: relative;
+  }
+  .gantt-row-label {
+    padding: 4px 8px;
+    font-size: 13px;
+    color: var(--fg);
+    display: flex;
+    align-items: center;
+  }
+  .gantt-row-label.ws { font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }
+  .gantt-row-label.sub { padding-left: 20px; font-size: 12px; color: var(--fg); }
+  .gantt-row-bg {
+    grid-column: 2 / -1;
+    background:
+      repeating-linear-gradient(
+        to right,
+        transparent 0,
+        transparent calc(100% / 30 - 1px),
+        var(--line) calc(100% / 30 - 1px),
+        var(--line) calc(100% / 30)
+      );
+  }
+  .gantt-bar {
+    margin: 4px 2px;
+    padding: 2px 8px;
+    border-radius: 3px;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex;
+    align-items: center;
+    min-height: 20px;
+  }
+  .gantt-bar.submission { background: var(--bar-submission); }
+  .gantt-bar.letters { background: var(--bar-letters); }
+  .gantt-bar.capital { background: var(--bar-capital); }
+  .gantt-bar.pastperf { background: var(--bar-pastperf); }
+  .gantt-bar.sofwerx { background: var(--bar-sofwerx); }
+  .gantt-bar.compliance { background: var(--bar-compliance); }
+  .gantt-bar.deck { background: var(--bar-deck); }
+  .gantt-bar.travel { background: var(--bar-travel); }
+  .gantt-milestone {
+    margin: 2px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--danger);
+    font-size: 14px;
+    font-weight: 700;
+    position: relative;
+  }
+  .gantt-milestone::before {
+    content: "◆";
+    font-size: 16px;
+  }
+  .gantt-milestone .ms-label {
+    position: absolute;
+    top: -14px;
+    font-size: 9px;
+    color: var(--danger);
+    white-space: nowrap;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  /* Legend */
+  .legend { display: flex; flex-wrap: wrap; gap: 16px; margin: 8px 0 16px; font-size: 12px; color: var(--muted); }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .legend-swatch { display: inline-block; width: 16px; height: 10px; border-radius: 2px; }
+
+  /* Milestones timeline */
+  .timeline {
+    display: flex;
+    overflow-x: auto;
+    gap: 8px;
+    padding: 8px 0;
+  }
+  .timeline .mstop {
+    flex: 0 0 auto;
+    min-width: 160px;
+    padding: 10px 12px;
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    border-radius: 4px;
+    background: #fff;
+  }
+  .timeline .mstop.critical { border-left-color: var(--danger); background: #fff5f6; }
+  .timeline .mstop .t-date { font-size: 11px; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
+  .timeline .mstop .t-title { font-size: 13px; font-weight: 600; margin-top: 2px; }
+  .timeline .mstop .t-ref { font-size: 11px; color: var(--muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; margin-top: 2px; }
+
+  /* Channels */
+  .channel-card {
+    padding: 14px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: #fff;
+  }
+  .channel-card h4 { margin: 0 0 6px; color: var(--fg); text-transform: none; letter-spacing: 0; font-size: 14px; }
+  .channel-card p { margin: 4px 0; font-size: 13px; color: var(--muted); }
+
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin: 8px 0 16px; }
+  .kpi {
+    padding: 12px 14px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+  }
+  .kpi .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; font-weight: 600; }
+  .kpi .value { font-size: 22px; font-weight: 700; margin-top: 4px; }
+  .kpi .sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .kpi.red .value { color: var(--danger); }
+  .kpi.amber .value { color: var(--warn); }
+  .kpi.green .value { color: var(--ok); }
+
+  .deps-list { list-style: none; padding: 0; margin: 0; }
+  .deps-list li {
+    padding: 8px 0;
+    border-bottom: 1px dashed var(--line);
+    font-size: 13px;
+    color: var(--fg);
+  }
+  .deps-list li:last-child { border-bottom: none; }
+  .deps-list code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 12px;
+    background: var(--card);
+    padding: 1px 4px;
+    border-radius: 3px;
+  }
+
+  footer.foot {
+    margin-top: 56px;
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 13px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="eyebrow">DeepSat &middot; Program Dashboard</div>
+  <h1>StratFi Readiness Program</h1>
+  <div class="meta">
+    <span><b>Program start:</b> 2026-04-20</span>
+    <span><b>Submission deadline:</b> 2026-05-29</span>
+    <span><b>Days remaining:</b> 39</span>
+    <span><b>Program Manager:</b> Nerses</span>
+    <span><b>Last updated:</b> 2026-04-20</span>
+  </div>
+  <div class="headline">
+    <b>Single objective.</b> Submit a competitive STRATFI package by 2026-05-29 with named matching capital (equity + venture debt + public match) and government letters of support from SSC, NASA/GSFC, and AFRL. Everything else in this dashboard ladders up to that objective.
+  </div>
+  <div class="meta" style="margin-top: 14px;">
+    <span>&rarr; <a href="https://share-ohanyans-projects.vercel.app/stratfi-inception.html" target="_blank">Inception Board (shareable)</a></span>
+    <span>&rarr; <a href="https://linear.app/deepsat/project/sf-stratfi-39d2c246566f" target="_blank">SF STRATFI (Linear)</a></span>
+    <span>&rarr; <a href="slack://channel?team=T&id=C094LPC766L" target="_blank">#stratfi (Slack)</a></span>
+    <span>&rarr; <a href="https://deepsat.ghe.com/deepsat/stratfi-inception" target="_blank">Source repo</a></span>
+  </div>
+</header>
+
+<h2 class="section-heading">1. Project Charter</h2>
+<div class="twocol">
+  <div class="panel">
+    <h3>Mission</h3>
+    <p>Close the STRATFI window on 2026-05-29 with the strongest possible package: a funded 1-1-2 match, a DoW end-user commitment, and government letters that unambiguously tie DeepSat's VLEO capability to a named defense need.</p>
+
+    <h3>In scope</h3>
+    <ul class="clean">
+      <li>STRATFI package authoring, red-team review, and submission</li>
+      <li>Matching capital (equity + venture debt + public match) in writing</li>
+      <li>Government letters of support: SSC, AFRL, NASA/GSFC, DARPA backup</li>
+      <li>SOF Week / SOFWERX Tech Tuesday, SOCOM PEO relationship-building</li>
+      <li>Compliance readiness (mid-May gate)</li>
+      <li>Narrative alignment across PMOD, government deck, DoW investor materials</li>
+    </ul>
+
+    <h3>Out of scope</h3>
+    <ul class="clean">
+      <li>No-bid RFPs (DEE-448 Threat-Aware Autonomy, DEE-450 Scene Construction)</li>
+      <li>Post-submission hiring plan, long-cycle SOCOM maritime exercise prep (post-submission)</li>
+      <li>Product strategy reopening or repositioning during the window</li>
+      <li>Any proposal or activity that does not advance submission, match, or letters</li>
+    </ul>
+  </div>
+
+  <div class="panel">
+    <h3>Success criteria</h3>
+    <ul class="clean">
+      <li>Package submitted on or before 2026-05-29, draft-complete by 2026-05-15, red-team pass by 2026-05-18</li>
+      <li>Match in writing by 2026-05-22: Vahe equity, Leonid venture debt up to 75%, at least one public-money source</li>
+      <li>Government letters: SSC LOS signed by 2026-05-03, NASA/GSFC and AFRL by 2026-05-20</li>
+      <li>At least one SOCOM PEO champion identified out of SOF Week</li>
+      <li>Compliance readiness complete by mid-May 2026</li>
+    </ul>
+
+    <h3>Top risks</h3>
+    <ul class="clean">
+      <li>SSC letter not secured in 2 weeks (owner: Nerses, mitigated by parallel paths)</li>
+      <li>Matching capital slips, breaks STRATFI math (owner: Nerses + Subbu)</li>
+      <li>Ryan overloaded on compliance + submission (owner: Ryan + Nerses)</li>
+      <li>Technical volume late for red-team pass (owner: Hayk + consultant)</li>
+      <li>Eureka field window absorbs STRATFI desk bandwidth (owner: CEO delegate)</li>
+    </ul>
+
+    <h3>Constraints</h3>
+    <ul class="clean">
+      <li>Cash: match must come from committed capital, not aspirational</li>
+      <li>Calendar: SOF Week May 18-21 and AFRL Wright-Patt May 13 compete for leadership time</li>
+      <li>Eureka field window Apr 24 - May 2 pulls Vrezh, Eric, Ryan, Nerses, Kostya</li>
+      <li>Compliance readiness is non-negotiable before submission</li>
+    </ul>
+  </div>
+</div>
+
+<h2 class="section-heading">2. Team &amp; RACI</h2>
+<div class="panel">
+  <p class="meta" style="margin-bottom: 10px;">R = Responsible (does the work). A = Accountable (owns the outcome). C = Consulted. I = Informed. One A per workstream.</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Workstream</th>
+        <th>Accountable</th>
+        <th>Responsible</th>
+        <th>Consulted</th>
+        <th>Informed</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><b>1. Submission &amp; Package</b></td><td class="owner">Subbu</td><td class="owner">Sarkis, Hayk</td><td class="owner">Nerses, Jesse (AFRL), Lusine</td><td class="owner">Team</td></tr>
+      <tr><td><b>2. Funding Letters</b></td><td class="owner">Nerses</td><td class="owner">Sarkis, Hayk</td><td class="owner">Tigran, Kevin, Mitch (RW), Anne</td><td class="owner">Subbu, Team</td></tr>
+      <tr><td><b>3. Matching Capital</b></td><td class="owner">Nerses</td><td class="owner">Subbu</td><td class="owner">Lusine (advisor), Vahe, Leonid, Cody</td><td class="owner">Team</td></tr>
+      <tr><td><b>4. Transition / Past-Perf</b></td><td class="owner">Hayk</td><td class="owner">Subbu, Craig</td><td class="owner">Nerses, Anne</td><td class="owner">Sarkis, Team</td></tr>
+      <tr><td><b>5. SOF Week / SOFWERX</b></td><td class="owner">Sarkis</td><td class="owner">Subbu, Hayk</td><td class="owner">Nerses, Jason Mayer, SOCOM PEOs</td><td class="owner">Eric, Craig</td></tr>
+      <tr><td><b>6. Compliance &amp; Legal</b></td><td class="owner">Ryan</td><td class="owner">Subbu, Kristina Botello</td><td class="owner">Cecilia, Jason Oulette, Ed Delano (Cytellix)</td><td class="owner">Nerses</td></tr>
+      <tr><td><b>7. Deck &amp; Narrative</b></td><td class="owner">Sarkis</td><td class="owner">Nerses, Subbu</td><td class="owner">Ben (GeoOutlook), Jason Fraser (advisor)</td><td class="owner">Team</td></tr>
+      <tr><td><b>8. Travel &amp; Logistics</b></td><td class="owner">Nerses</td><td class="owner">Sarkis, Eric</td><td class="owner">Team</td><td class="owner">Anne</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 class="section-heading">3. Six-Week Gantt</h2>
+<div class="legend">
+  <div class="legend-item"><span class="legend-swatch" style="background: var(--bar-submission);"></span> Submission</div>
+  <div class="legend-item"><span class="legend-swatch" style="background: var(--bar-letters);"></span> Letters</div>
+  <div class="legend-item"><span class="legend-swatch" style="background: var(--bar-capital);"></span> Capital</div>
+  <div class="legend-item"><span class="legend-swatch" style="background: var(--bar-pastperf);"></span> Past-Perf</div>
+  <div class="legend-item"><span class="legend-swatch" style="background: var(--bar-sofwerx);"></span> SOFWERX</div>
+  <div class="legend-item"><span class="legend-swatch" style="background: var(--bar-compliance);"></span> Compliance</div>
+  <div class="legend-item"><span class="legend-swatch" style="background: var(--bar-deck);"></span> Deck</div>
+  <div class="legend-item"><span class="legend-swatch" style="background: var(--bar-travel);"></span> Travel</div>
+  <div class="legend-item" style="color: var(--danger);">◆ Milestone</div>
+</div>
+
+<div class="gantt-wrap panel" style="padding: 14px;">
+  <div class="gantt-header">
+    <div class="gcell">Workstream / Task</div>
+    <div class="gcell weekband">W1 &middot; Apr 20-26</div>
+    <div class="gcell weekband">W2 &middot; Apr 27 - May 3</div>
+    <div class="gcell weekband">W3 &middot; May 4-10</div>
+    <div class="gcell weekband">W4 &middot; May 11-17</div>
+    <div class="gcell weekband">W5 &middot; May 18-24</div>
+    <div class="gcell weekband">W6 &middot; May 25-31</div>
+  </div>
+
+  <!-- 1. Submission -->
+  <div class="gantt-row"><div class="gantt-row-label ws">1. Submission &amp; Package</div><div class="gantt-row-bg"></div></div>
+  <div class="gantt-row">
+    <div class="gantt-row-label sub">Confirm date via Jesse</div>
+    <div class="gantt-row-bg"></div>
+    <div class="gantt-bar submission" style="grid-column: 2 / 5;">DEE-508</div>
+  </div>
+  <div class="gantt-row">
+    <div class="gantt-row-label sub">Draft technical + business volumes</div>
+    <div class="gantt-row-bg"></div>
+    <div class="gantt-bar submission" style="grid-column: 2 / 23;">Drafting (Hayk + Subbu + Sarkis)</div>
+  </div>
+  <div class="gantt-row">
+    <div class="gantt-row-label sub">Red-team review</div>
+    <div class="gantt-row-bg"></div>
+    <div class="gantt-bar submission" style="grid-column: 22 / 27;">DEE-502 Red-team</div>
+  </div>
+  <div class="gantt-row">
+    <div class="gantt-row-label sub">Final revisions + submit</div>
+    <div class="gantt-row-bg"></div>
+    <div class="gantt-bar submission" style="grid-column: 27 / 32;">Revise &rarr; Submit</div>
+    <div class="gantt-milestone" style="grid-column: 31 / 32;"><span class="ms-label">SUBMIT</span></div>
+  </div>
+
+  <!-- 2. Letters -->
+  <div class="gantt-row"><div class="gantt-row-label ws">2. Funding Letters</div><div class="gantt-row-bg"></div></div>
+  <div class="gantt-row">
+    <div class="gantt-row-label sub">SSC LOS outreach</div>
+    <div class="gantt-row-bg"></div>
+    <div class="gantt-bar letters" style="grid-column: 2 / 11;">DEE-507 SSC letter</div>
+    <div class="gantt-milestone" style="grid-column: 10 / 11;"><span class="ms-label">SSC SIGNED</span></div>
+  </div>
+  <div class="gantt-row">
+    <div class="gantt-row-label sub">NASA/GSFC letter (Nick)</div>
+    <div class="gantt-row-bg"></div>
+    <div class="gantt-bar letters" style="grid-column: 2 / 12;">DEE-487</div>
+  </div>
+  <div class="gantt-row">
+    <div class="gantt-row-label sub">AFRL letter (STTR support)</div>
+    <div class="gantt-row-bg"></div>
+    <div class="gantt-bar letters" style="grid-column: 2 / 17;">DEE-66</div>
+  </div>
+  <div class="gantt-row">
+    <div class="gantt-row-label sub">Marlin (Redwire) outreach</div>
+    <div class="gantt-row-bg"></div>
+    <div class="gantt-bar letters" style="grid-column: 2 / 12;">DEE-486</div>
+  </div>
+  <div class="gantt-row">
+    <div class="gantt-row-label sub">Seth Lacey + AFRL Ohio path</div>
+    <div class="gantt-row-bg"></div>
+    <div class="gantt-bar letters" style="grid-column: 2 / 22;">DEE-494, DEE-235</div>
+    <div class="gantt-milestone" style="grid-column: 21 / 22;"><span class="ms-label">WRIGHT-PATT</span></div>
+  </div>
+  <div class="gantt-row">
+    <div class="gantt-row-label sub">Consolidate &amp; package letters</div>
+    <div class="gantt-row-bg"></div>
+    <div class="gantt-bar letters" style="grid-column: 22 / 28;">Consolidate</div>
+  </div>
+
+  <!-- 3. Capital -->
+  <div class="gantt-row"><div class="gantt-row-label ws">3. Matching Capital</div><div class="gantt-row-bg"></div></div>
+  <div class="gantt-row">
+    <div class="gantt-row-label sub">Vahe: equity, IAN, Bessemer</div>
+    <div class="gantt-row-bg"></div>
+    <div class="gantt-bar capital" style="grid-column: 2 / 7;">DEE-500</div>
+  </div>
+  <div class="gantt-row">
+    <div class="gantt-row-label sub">Leonid LOI (advisor: Lusine)</div>
+    <div class="gantt-row-bg"></div>
+    <div class="gantt-bar capital" style="grid-column: 2 / 22;">DEE-501 (paper LOI)</div>
+  </div>
+  <div class="gantt-row">
+    <div class="gantt-row-label sub">Cody: public money matching</div>
+    <div class="gantt-row-bg"></div>
+    <div class="gantt-bar capital" style="grid-column: 2 / 17;">DEE-482</div>
+  </div>
+  <div class="gantt-row">
+    <div class="gantt-row-label sub">DARPA (Gallello) backup</div>
+    <div class="gantt-row-bg"></div>
+    <div class="gantt-bar capital" style="grid-column: 3 / 22;">DEE-493</div>
+  </div>
+  <div class="gantt-row">
+    <div class="gantt-row-label sub">STTR submission</div>
+    <div class="gantt-row-bg"></div>
+    <div class="gantt-bar capital" style="grid-column: 2 / 22;">DEE-50 draft &rarr; submit</div>
+    <div class="gantt-milestone" style="grid-column: 21 / 22;"><span class="ms-label">STTR DUE</span></div>
+  </div>
+  <div class="gantt-row">
+    <div class="gantt-row-label sub">Match commit in writing</div>
+    <div class="gantt-row-bg"></div>
+    <div class="gantt-bar capital" style="grid-column: 22 / 27;">Lock writing</div>
+    <div class="gantt-milestone" style="grid-column: 26 / 27;"><span class="ms-label">MATCH DONE</span></div>
+  </div>
+
+  <!-- 4. Past-Perf -->
+  <div class="gantt-row"><div class="gantt-row-label ws">4. Transition / Past-Perf</div><div class="gantt-row-bg"></div></div>
+  <div class="gantt-row">
+    <div class="gantt-row-label sub">D2P2 extension submission</div>
+    <div class="gantt-row-bg"></div>
+    <div class="gantt-bar pastperf" style="grid-column: 2 / 3;">DEE-419</div>
+    <div class="gantt-milestone" style="grid-column: 2 / 3;"><span class="ms-label">D2P2 DUE</span></div>
+  </div>
+  <div class="gantt-row">
+    <div class="gantt-row-label sub">D2P2 playbook session</div>
+    <div class="gantt-row-bg"></div>
+    <div class="gantt-bar pastperf" style="grid-column: 2 / 6;">DEE-505</div>
+  </div>
+  <div class="gantt-row">
+    <div class="gantt-row-label sub">SF254-D1204 pLEO fusion</div>
+    <div class="gantt-row-bg"></div>
+    <div class="gantt-bar pastperf" style="grid-column: 6 / 22;">DEE-451</div>
+    <div class="gantt-milestone" style="grid-column: 21 / 22;"><span class="ms-label">D1204 DUE</span></div>
+  </div>
+  <div class="gantt-row">
+    <div class="gantt-row-label sub">TacSRT RFP (matching money)</div>
+    <div class="gantt-row-bg"></div>
+    <div class="gantt-bar pastperf" style="grid-column: 6 / 27;">DEE-449</div>
+  </div>
+  <div class="gantt-row">
+    <div class="gantt-row-label sub">SOCOM BAA $3-15M</div>
+    <div class="gantt-row-bg"></div>
+    <div class="gantt-bar pastperf" style="grid-column: 6 / 27;">DEE-458</div>
+  </div>
+  <div class="gantt-row">
+    <div class="gantt-row-label sub">SOCOM PR POC + Vulcan scout card</div>
+    <div class="gantt-row-bg"></div>
+    <div class="gantt-bar pastperf" style="grid-column: 6 / 12;">DEE-429</div>
+    <div class="gantt-milestone" style="grid-column: 11 / 12;"><span class="ms-label">VULCAN</span></div>
+  </div>
+
+  <!-- 5. SOFWERX -->
+  <div class="gantt-row"><div class="gantt-row-label ws">5. SOF Week / SOFWERX</div><div class="gantt-row-bg"></div></div>
+  <div class="gantt-row">
+    <div class="gantt-row-label sub">Tech Tuesday submission pack</div>
+    <div class="gantt-row-bg"></div>
+    <div class="gantt-bar sofwerx" style="grid-column: 2 / 3;">DEE-462 + 15 subtasks</div>
+    <div class="gantt-milestone" style="grid-column: 2 / 3;"><span class="ms-label">SUBMIT</span></div>
+  </div>
+  <div class="gantt-row">
+    <div class="gantt-row-label sub">Tech Tuesday showcase</div>
+    <div class="gantt-row-bg"></div>
+    <div class="gantt-bar sofwerx" style="grid-column: 7 / 8;">Showcase</div>
+    <div class="gantt-milestone" style="grid-column: 7 / 8;"><span class="ms-label">SHOW</span></div>
+  </div>
+  <div class="gantt-row">
+    <div class="gantt-row-label sub">Jason Mayer pre-SOF outreach</div>
+    <div class="gantt-row-bg"></div>
+    <div class="gantt-bar sofwerx" style="grid-column: 12 / 18;">DEE-430</div>
+    <div class="gantt-milestone" style="grid-column: 17 / 18;"><span class="ms-label">JASON</span></div>
+  </div>
+  <div class="gantt-row">
+    <div class="gantt-row-label sub">SOF Week Tampa (PEOs)</div>
+    <div class="gantt-row-bg"></div>
+    <div class="gantt-bar sofwerx" style="grid-column: 22 / 26;">SOF Week</div>
+    <div class="gantt-milestone" style="grid-column: 22 / 23;"><span class="ms-label">TAMPA</span></div>
+  </div>
+  <div class="gantt-row">
+    <div class="gantt-row-label sub">eSOF submission</div>
+    <div class="gantt-row-bg"></div>
+    <div class="gantt-bar sofwerx" style="grid-column: 6 / 12;">DEE-459</div>
+  </div>
+
+  <!-- 6. Compliance -->
+  <div class="gantt-row"><div class="gantt-row-label ws">6. Compliance &amp; Legal</div><div class="gantt-row-bg"></div></div>
+  <div class="gantt-row">
+    <div class="gantt-row-label sub">Jason Oulette scoping (SF)</div>
+    <div class="gantt-row-bg"></div>
+    <div class="gantt-bar compliance" style="grid-column: 2 / 6;">DEE-498</div>
+  </div>
+  <div class="gantt-row">
+    <div class="gantt-row-label sub">Ryan compliance budget spike</div>
+    <div class="gantt-row-bg"></div>
+    <div class="gantt-bar compliance" style="grid-column: 2 / 8;">DEE-497</div>
+  </div>
+  <div class="gantt-row">
+    <div class="gantt-row-label sub">Kristina Botello onboard</div>
+    <div class="gantt-row-bg"></div>
+    <div class="gantt-bar compliance" style="grid-column: 6 / 12;">DEE-499</div>
+  </div>
+  <div class="gantt-row">
+    <div class="gantt-row-label sub">Readiness execution</div>
+    <div class="gantt-row-bg"></div>
+    <div class="gantt-bar compliance" style="grid-column: 8 / 22;">DEE-496 Readiness</div>
+    <div class="gantt-milestone" style="grid-column: 21 / 22;"><span class="ms-label">READY</span></div>
+  </div>
+
+  <!-- 7. Deck -->
+  <div class="gantt-row"><div class="gantt-row-label ws">7. Deck &amp; Narrative</div><div class="gantt-row-bg"></div></div>
+  <div class="gantt-row">
+    <div class="gantt-row-label sub">PMOD deck update</div>
+    <div class="gantt-row-bg"></div>
+    <div class="gantt-bar deck" style="grid-column: 3 / 17;">DEE-503</div>
+  </div>
+  <div class="gantt-row">
+    <div class="gantt-row-label sub">Coordinate with gov deck</div>
+    <div class="gantt-row-bg"></div>
+    <div class="gantt-bar deck" style="grid-column: 6 / 17;">DEE-504</div>
+  </div>
+  <div class="gantt-row">
+    <div class="gantt-row-label sub">DoW investor materials audit</div>
+    <div class="gantt-row-bg"></div>
+    <div class="gantt-bar deck" style="grid-column: 6 / 17;">DEE-506</div>
+  </div>
+
+  <!-- 8. Travel -->
+  <div class="gantt-row"><div class="gantt-row-label ws">8. Travel &amp; Logistics</div><div class="gantt-row-bg"></div></div>
+  <div class="gantt-row">
+    <div class="gantt-row-label sub">SF window</div>
+    <div class="gantt-row-bg"></div>
+    <div class="gantt-bar travel" style="grid-column: 2 / 6;">DEE-509 SF</div>
+  </div>
+  <div class="gantt-row">
+    <div class="gantt-row-label sub">Eureka field window</div>
+    <div class="gantt-row-bg"></div>
+    <div class="gantt-bar travel" style="grid-column: 6 / 13;">DEE-510 Eureka</div>
+  </div>
+  <div class="gantt-row">
+    <div class="gantt-row-label sub">AFRL Wright-Patt / SOF Week call</div>
+    <div class="gantt-row-bg"></div>
+    <div class="gantt-bar travel" style="grid-column: 2 / 6;">DEE-511</div>
+  </div>
+  <div class="gantt-row">
+    <div class="gantt-row-label sub">Wright-Patt event (May 13)</div>
+    <div class="gantt-row-bg"></div>
+    <div class="gantt-bar travel" style="grid-column: 21 / 22;">Event</div>
+  </div>
+</div>
+
+<h2 class="section-heading">4. Milestones Timeline</h2>
+<div class="timeline">
+  <div class="mstop critical"><div class="t-date">Mon 2026-04-20</div><div class="t-title">D2P2 extension submission</div><div class="t-ref">DEE-419</div></div>
+  <div class="mstop critical"><div class="t-date">Mon 2026-04-20</div><div class="t-title">SOFWERX Tech Tuesday submission</div><div class="t-ref">DEE-462 + 15 subtasks</div></div>
+  <div class="mstop"><div class="t-date">Tue 2026-04-28</div><div class="t-title">SOFWERX Tech Tuesday showcase</div><div class="t-ref">SOCOM PEO stakeholders</div></div>
+  <div class="mstop"><div class="t-date">Wed 2026-04-28</div><div class="t-title">NASA SaaS RFI submission</div><div class="t-ref">DEE-386</div></div>
+  <div class="mstop critical"><div class="t-date">Sun 2026-05-03</div><div class="t-title">SSC Letter of Support target</div><div class="t-ref">DEE-507</div></div>
+  <div class="mstop"><div class="t-date">Tue 2026-05-06</div><div class="t-title">Jason Mayer outreach (pre-SOF)</div><div class="t-ref">DEE-430</div></div>
+  <div class="mstop critical"><div class="t-date">Wed 2026-05-13</div><div class="t-title">AFRL Wright-Patt Strategic Priorities</div><div class="t-ref">DEE-235</div></div>
+  <div class="mstop critical"><div class="t-date">Wed 2026-05-13</div><div class="t-title">STTR SF25D-T1201 submission</div><div class="t-ref">DEE-50 / DE-66</div></div>
+  <div class="mstop critical"><div class="t-date">Wed 2026-05-13</div><div class="t-title">SF254-D1204 pLEO fusion due</div><div class="t-ref">DEE-451</div></div>
+  <div class="mstop critical"><div class="t-date">~Fri 2026-05-15</div><div class="t-title">Compliance readiness complete</div><div class="t-ref">DEE-496</div></div>
+  <div class="mstop"><div class="t-date">Mon 2026-05-18</div><div class="t-title">STRATFI technical volume red-team</div><div class="t-ref">DEE-502</div></div>
+  <div class="mstop critical"><div class="t-date">May 18-21</div><div class="t-title">SOF Week Tampa</div><div class="t-ref">SOCOM PEO track</div></div>
+  <div class="mstop critical"><div class="t-date">Fri 2026-05-29</div><div class="t-title">STRATFI PACKAGE SUBMIT</div><div class="t-ref">DEE-457</div></div>
+</div>
+
+<h2 class="section-heading">5. Dependencies</h2>
+<div class="panel">
+  <p class="meta" style="margin-bottom: 10px;">Critical-path dependencies. If any earlier item slips, the downstream items slip with it.</p>
+  <ol class="deps-list">
+    <li><code>DEE-508</code> confirm date via Jesse &rarr; every downstream deadline keys off this</li>
+    <li><code>DEE-419</code> D2P2 extension submission &rarr; <code>DEE-505</code> D2P2 playbook &rarr; past-perf narrative for <code>DEE-457</code> STRATFI + <code>DEE-451</code> D1204</li>
+    <li><code>DEE-491</code> Tigran + <code>DEE-270</code> Kevin &rarr; <code>DEE-507</code> SSC LOS &rarr; SpaceWERX decision &rarr; STRATFI submission</li>
+    <li><code>DEE-500</code> Vahe + <code>DEE-501</code> Leonid + <code>DEE-482</code> Cody &rarr; match commit in writing &rarr; STRATFI submission</li>
+    <li><code>DEE-462</code> SOFWERX pack (plus 15 subtasks) &rarr; Tech Tuesday showcase Apr 28 &rarr; SOCOM PEO relationships &rarr; <code>DEE-489/490/488</code> Ben Tuttle / McDonald / Ludeman letters</li>
+    <li><code>DEE-503</code> PMOD deck update &rarr; Wright-Patt + SOF Week outreach &rarr; Letters &amp; match conversations</li>
+    <li><code>DEE-497</code> Ryan compliance budget spike &rarr; <code>DEE-498</code> Jason Oulette + <code>DEE-499</code> Kristina Botello &rarr; <code>DEE-496</code> compliance readiness &rarr; STRATFI submission</li>
+    <li>Draft volumes (W1-W4) &rarr; <code>DEE-502</code> red-team (W5) &rarr; revisions &rarr; <code>DEE-457</code> submit</li>
+  </ol>
+</div>
+
+<h2 class="section-heading">6. Cadence</h2>
+<div class="twocol">
+  <div class="panel">
+    <h3>Daily</h3>
+    <ul class="clean">
+      <li><b>09:00 PT General Daily Standup</b> &middot; M-F &middot; existing &middot; STRATFI blockers lead the standup every day until submission. Add explicit check: "who is STRATFI desk owner today?"</li>
+    </ul>
+
+    <h3>Weekly (new STRATFI cadence, overlays existing)</h3>
+    <ul class="clean">
+      <li><b>Mon 09:30 PT STRATFI Kickoff &rarr; Weekly Review</b> &middot; 60 min &middot; Program review: submission status, match status, letters status, red/amber/green risks, week-ahead actions. <b>Starts today 2026-04-20.</b></li>
+      <li><b>Tue 14:00 PT BD Meeting</b> &middot; existing &middot; Subbu + Sarkis + Nerses &middot; proposal pipeline + partnerships focus</li>
+      <li><b>Thu 14:30 PT Sarkis/Nerses 1:1</b> &middot; existing &middot; SOFWERX + SOF Week + BD tactical</li>
+      <li><b>Fri 16:00 PT STRATFI End-of-Week Retro</b> &middot; 30 min &middot; What shipped, what slipped, what's at risk Monday. Async OK if nothing is red.</li>
+    </ul>
+
+    <h3>Bi-weekly</h3>
+    <ul class="clean">
+      <li><b>Bi-Weekly AFRL Sync</b> &middot; existing &middot; Nerses, Hayk, Anne, Mitch (RW), Ed Delano (Cytellix), Jesse Olson (AFRL) &middot; submission conduit, past-perf, letter, compliance</li>
+    </ul>
+
+    <h3>Event-driven</h3>
+    <ul class="clean">
+      <li><b>Red-team review block</b> &middot; W5 (May 11-18) &middot; external reviewer, 4 hour block</li>
+      <li><b>Submission dry-run</b> &middot; Wed 2026-05-27 &middot; all artifacts packaged, team sign-off, sleep on it, submit Thu/Fri</li>
+    </ul>
+  </div>
+
+  <div class="panel">
+    <h3>Meeting agendas (keep tight, kill drift)</h3>
+    <h4>Weekly Review (Mon 09:30)</h4>
+    <ul class="clean">
+      <li>Status: RAG for each of 8 workstreams (90s each)</li>
+      <li>Critical path: what must land this week or the submission date slips</li>
+      <li>Decisions needed from the CEO</li>
+      <li>Asks and blockers</li>
+      <li>Next week preview</li>
+    </ul>
+    <h4>EOW Retro (Fri 16:00)</h4>
+    <ul class="clean">
+      <li>Shipped this week</li>
+      <li>Slipped this week and why</li>
+      <li>Top 3 risks Monday</li>
+    </ul>
+    <h4>Daily Standup STRATFI segment (first 5 min of 09:00)</h4>
+    <ul class="clean">
+      <li>STRATFI desk owner today</li>
+      <li>Any item sliding out of this week</li>
+      <li>Any decision Nerses needs to make today</li>
+    </ul>
+
+    <h3>Operating principles</h3>
+    <ul class="clean">
+      <li>Single source of truth: SF STRATFI Linear project. If it is not a ticket, it does not exist.</li>
+      <li>Every blocker has an owner and a date. No floating TODOs.</li>
+      <li>Anti-goals are enforced at Weekly Review. No new scope inside the submission window.</li>
+      <li>Async &gt; meetings for status. Meetings only for decisions.</li>
+    </ul>
+  </div>
+</div>
+
+<h2 class="section-heading">7. Communication Channels</h2>
+<div class="threecol">
+  <div class="channel-card">
+    <h4>#stratfi (Slack, private)</h4>
+    <p><b>Use for:</b> Async status, wins, blockers, ad-hoc coordination.</p>
+    <p><b>Members:</b> Core STRATFI team only.</p>
+    <p><b>Rule:</b> Write updates, not chats. Threads for anything longer than 2 messages.</p>
+  </div>
+  <div class="channel-card">
+    <h4>SF STRATFI (Linear)</h4>
+    <p><b>Use for:</b> Every task, every assignment, every due date.</p>
+    <p><b>Rule:</b> Status changes in Linear are the real status. Slack is commentary.</p>
+  </div>
+  <div class="channel-card">
+    <h4>Inception Board (shareable)</h4>
+    <p><b>Use for:</b> External sharing with reviewers, investors, advisors. Email-gated, comments tracked.</p>
+    <p><b>Rule:</b> Edits in share copy only. Comments triaged at Weekly Review.</p>
+  </div>
+  <div class="channel-card">
+    <h4>Bi-Weekly AFRL Sync (calendar)</h4>
+    <p><b>Use for:</b> Program-office communication, submission conduit via Jesse.</p>
+    <p><b>Rule:</b> Bring a punch list. Exit with action items and owners.</p>
+  </div>
+  <div class="channel-card">
+    <h4>Email (nerses@, sarkis.karabashian@)</h4>
+    <p><b>Use for:</b> External partner outreach, letters, advisors, investors.</p>
+    <p><b>Rule:</b> CC the other for anything letter-related. No solo threads on match or letters.</p>
+  </div>
+  <div class="channel-card">
+    <h4>This dashboard</h4>
+    <p><b>Use for:</b> Cross-team snapshot, ritual pre-reads before Weekly Review.</p>
+    <p><b>Rule:</b> Refreshed before each Monday kickoff.</p>
+  </div>
+</div>
+
+<h2 class="section-heading">8. KPIs &amp; Health</h2>
+<div class="kpi-grid">
+  <div class="kpi"><div class="label">Days to submission</div><div class="value">39</div><div class="sub">Target: 2026-05-29</div></div>
+  <div class="kpi amber"><div class="label">SF STRATFI tickets</div><div class="value">~64</div><div class="sub">Open; Linear source of truth</div></div>
+  <div class="kpi red"><div class="label">Letters signed</div><div class="value">0 / 3</div><div class="sub">SSC, NASA/GSFC, AFRL</div></div>
+  <div class="kpi red"><div class="label">Match in writing</div><div class="value">$0 / target</div><div class="sub">Vahe, Leonid, public</div></div>
+  <div class="kpi amber"><div class="label">SOFWERX subtasks</div><div class="value">0 / 15</div><div class="sub">All Urgent</div></div>
+  <div class="kpi amber"><div class="label">Compliance readiness</div><div class="value">In flight</div><div class="sub">Target: mid-May</div></div>
+  <div class="kpi"><div class="label">Top risks (RAG)</div><div class="value">2 R / 2 A</div><div class="sub">SSC, match, compliance, red-team</div></div>
+</div>
+<p class="meta">Refresh these numbers at each Monday Weekly Review. If any red persists two weeks, the submission plan itself is at risk and warrants an escalation.</p>
+
+<h2 class="section-heading">9. Escalation</h2>
+<div class="panel">
+  <ul class="clean">
+    <li><b>Submission date slips</b> &rarr; Nerses + Subbu convene inside 24 hours. Decision: accept slip or cut scope to hold the date.</li>
+    <li><b>Match gap &gt; 20% unresolved at W4</b> &rarr; DARPA backup path activated, public-money outreach doubled.</li>
+    <li><b>Compliance blocked</b> &rarr; external counsel engaged the same day.</li>
+    <li><b>Technical volume not draft-complete by W4</b> &rarr; reviewer booked earlier, scope trimmed to core capability.</li>
+    <li><b>Key-person illness or departure</b> &rarr; Nerses assumes Accountable on the affected workstream; Subbu backstops.</li>
+  </ul>
+</div>
+
+<footer class="foot">
+  DeepSat StratFi Program Dashboard &middot; Initialized 2026-04-20 &middot; Source: <a href="https://deepsat.ghe.com/deepsat/stratfi-inception" target="_blank">deepsat/stratfi-inception</a> &middot; Refreshed weekly before the Monday STRATFI Review.
+</footer>
+
+</div>
+<script type="module">
+  import { createViewer } from './viewer.js';
+  createViewer({
+    docId: 'stratfi-dashboard',
+    brandName: 'DeepSat',
+    brandTagline: 'Defense Intelligence from VLEO',
+    requireEmail: true,
+    supabaseUrl: 'https://wpyuqnuekzbcsirkrjsk.supabase.co',
+    supabaseKey: 'sb_publishable_lATEOVSdeb8pkbeicOskRA_UumFSWuw',
+  }).init();
+</script>
+</body>
+</html>
