@@ -348,20 +348,12 @@
     margin-top: 1px;
   }
   .agency-row > div { flex: 1; min-width: 0; }
-  .agency-row .status-badge {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    flex-shrink: 0;
-    margin-left: 6px;
-    box-shadow: 0 0 0 2px var(--bg), 0 0 0 3px currentColor;
-  }
-  .status-active { background: #16a34a; color: #16a34a; }
-  .status-pipeline { background: #d97706; color: #d97706; }
-  .status-alignment { background: #94a3b8; color: #94a3b8; }
-  .agency-row.row-active { border-left: 3px solid #16a34a; }
-  .agency-row.row-pipeline { border-left: 3px solid #d97706; }
-  .agency-row.row-alignment { border-left: 3px solid #94a3b8; }
+  .status-active { color: #16a34a; }
+  .status-pipeline { color: #d97706; }
+  .status-alignment { color: #64748b; }
+  .agency-row.row-active { border-left: 5px solid #16a34a; }
+  .agency-row.row-pipeline { border-left: 5px solid #d97706; }
+  .agency-row.row-alignment { border-left: 5px solid #94a3b8; }
 
   .pipeline-legend {
     display: flex;
@@ -377,12 +369,6 @@
     border-radius: 6px;
   }
   .pipeline-legend .lg-item { display: inline-flex; align-items: center; gap: 6px; }
-  .pipeline-legend .lg-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
 
   .highlight-box {
     background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
@@ -1180,30 +1166,12 @@
     </div>
   </div>
 
-  <h2>1. DeepSat in One Paragraph</h2>
+  <h2>1. DeepSat Summary</h2>
   <p>DeepSat is a dual-use national security space company building <strong>Orion's Belt</strong>, a Very Low Earth Orbit (VLEO) ISR constellation with onboard AI, multi-modal sensing, and laser backhaul, delivered as an end-to-end platform rather than raw imagery. Founded by operators with Silicon Valley scale-up experience and aerospace heritage (CTO led Armenia's first national satellite), DeepSat is under active contract with the Department of the Air Force (<em>DAF X25.5 CSO Direct-to-Phase II, Contract FA864925P0298</em>), holds a prime position on the MDA SHIELD IDIQ, and is manifested to fly a precursor mission Q4 2027 on SpaceX. Our commercial, COTS-driven architecture, integrating Redwire's VLEO bus, Satlantis &lt;1m VNIR+SWIR optics, Kepler laser backhaul, and NVIDIA onboard compute, lets us move at startup speed while meeting defense-grade security and reliability.</p>
+  <p>The platform rests on four pillars: <strong>speed</strong> (onboard AI at the edge, &lt;30 min revisit, &lt;30 sec data latency, agile re-tasking), <strong>quality</strong> (multi-modal fusion across optical, RF, AIS, and polarimetry with ~4× higher SNR from low look angles), <strong>resilience</strong> (VLEO self-cleaning orbit, rapid re-deployment, COTS-abstracted supply chain), and <strong>orchestration</strong> (agentic workflows, tip-and-cue automation, chain of custody, direct command integration).</p>
 
   <h2>2. What We Understand About Special Operations Forces</h2>
   <p>SOF account for <strong>3% of U.S. military personnel but roughly 35% of casualties</strong>. Intelligence is not a force multiplier for SOF, it is a survival requirement. Three operational realities drive our platform design:</p>
-
-  <div class="stat-row">
-    <div class="stat">
-      <div class="stat-num">22</div>
-      <div class="stat-label">Partner nations & agencies<br>across EastPac & Caribbean</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">6–12 hr</div>
-      <div class="stat-label">Legacy satellite update<br>latency on moving objects</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">44 hr</div>
-      <div class="stat-label">Typical MQ-9 refuel cycle<br>where custody is lost</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">36K+</div>
-      <div class="stat-label">Tracked objects in LEO<br>(growing counter-space threat)</div>
-    </div>
-  </div>
 
   <ul>
     <li><strong>A fight measured in minutes, intelligence measured in hours.</strong> Semi-submersibles, go-fast vessels, and low-profile craft disappear before legacy ISR cycles complete. Adversaries exploit geography, weather, and jurisdictional seams.</li>
@@ -1213,7 +1181,7 @@
 
   <div class="page-footer">
     <div>DeepSat, Inc. · nerses@deepsat.com · CAGE 9XB24</div>
-    <div>Capability White Paper · Page 1 of 9</div>
+    <div>Capability White Paper · Page 1 of 10</div>
   </div>
 </div>
 
@@ -1262,7 +1230,7 @@
 
   <div class="page-footer">
     <div>DeepSat, Inc. · nerses@deepsat.com · CAGE 9XB24</div>
-    <div>Capability White Paper · Page 2 of 9</div>
+    <div>Capability White Paper · Page 2 of 10</div>
   </div>
 </div>
 
@@ -1273,14 +1241,12 @@
       <img src="logos/deepsat-logo-dark.svg" class="logo" alt="DeepSat">
     </div>
     <div class="meta">
-      <div><strong>The Platform, Four Pillars, Six Layers</strong></div>
+      <div><strong>The Platform</strong></div>
       <div>Proprietary · Not for Public Release</div>
     </div>
   </div>
 
-  <h2>4. Three Layers, One System</h2>
-  <p class="platform-visual-lede" style="font-weight: 600; font-size: 11.5pt; color: var(--accent); margin-bottom: 6px;">Rapid and resilient space intelligence, delivered directly to the warfighter.</p>
-  <p>DeepSat's architecture is a <strong>horizontal integration strategy</strong>. We do not rebuild what industry already does well. Best-in-class commercial space hardware at the platform layer, DeepSat's proprietary intelligence core in the middle, and operator-facing products on top. This is how we move at commercial pace while delivering defense-grade capability: integrate, secure, make it programmable.</p>
+  <h2>4. The Platform</h2>
 
   <div class="workflow-strip">
     <div class="workflow-cell"><div class="w-name">Capture</div><div class="w-desc">Things that are hard to find</div></div>
@@ -1328,71 +1294,12 @@
 
   <p>The intelligence layer is where DeepSat is proprietary and defensible. The platform and products layers are composed from deliberately chosen commercial components, the <em>same</em> approach that has let Anduril, SpaceX, and Palantir out-execute traditional primes. Swapping a partner does not change the intelligence core; adding a new sensor does not change the AI stack. Horizontal integration is how we stay fast.</p>
 
-  <h3>Four Pillars</h3>
-  <div class="pillars">
-    <div class="pillar">
-      <div class="pillar-name">SPEED</div>
-      <div class="pillar-desc">Onboard AI at the edge, &lt;30 min revisit, &lt;30 sec data latency, agile re-tasking. Built for battle rhythm, not legacy collection cycles.</div>
-    </div>
-    <div class="pillar">
-      <div class="pillar-name">QUALITY</div>
-      <div class="pillar-desc">Multi-modal fusion (optical, RF, AIS, polarimetry), ~4× higher SNR from low look angles, foundational AI reducing false positives.</div>
-    </div>
-    <div class="pillar">
-      <div class="pillar-name">RESILIENCE</div>
-      <div class="pillar-desc">VLEO self-cleaning orbit, rapid re-deployment, COTS-abstracted supply chain.</div>
-    </div>
-    <div class="pillar">
-      <div class="pillar-name">ORCHESTRATION</div>
-      <div class="pillar-desc">Agentic workflows, tip &amp; cue automation, chain of custody, hardware-abstracted payload integration, direct command integration.</div>
-    </div>
-  </div>
-
-  <h3>Six-Layer Architecture</h3>
-  <table class="stack-table">
-    <tr>
-      <th style="width: 140px;">Layer</th>
-      <th>What it does</th>
-      <th style="width: 180px;">Key components</th>
-    </tr>
-    <tr>
-      <td class="layer">Hardware</td>
-      <td>VLEO-optimized satellite bus with modular payload bays; commercial launch cadence, rapid replenishment.</td>
-      <td>Redwire VLEO bus, Satlantis &lt;1m VNIR+SWIR camera, NVIDIA IGX Orin 500 GPU</td>
-    </tr>
-    <tr>
-      <td class="layer">Payload Abstraction</td>
-      <td>Standardized interface lets new sensors (polarimetric, RF, SIGINT, hyperspectral) integrate without redesigning the bus or AI stack.</td>
-      <td>Active polarimetry study (Panthier/Jayada), RF/AIS receivers, UHF/LoRa decoders</td>
-    </tr>
-    <tr>
-      <td class="layer">Software Platform</td>
-      <td>AI models run onboard (~200 ms detection), with continuous learning and mission-aligned model swaps. Agentic / MCP-compatible for agent-to-agent integration.</td>
-      <td>Vessel &amp; cloud detection AI, vision transformers, agentic runtime</td>
-    </tr>
-    <tr>
-      <td class="layer">Network</td>
-      <td>Proliferated VLEO constellation with inter-satellite laser backhaul. "Always connected to the internet", data retrievable while over the event, not just a ground station.</td>
-      <td>Kepler laser comms constellation, commercial launch</td>
-    </tr>
-    <tr>
-      <td class="layer">Intelligence Layer</td>
-      <td>Pub-Sub anomaly notifications, REST data engine, multi-source data fusion, chain of custody for traceability and compliance.</td>
-      <td>DeepSat Real-time API, Notification Center, Data Engine</td>
-    </tr>
-    <tr>
-      <td class="layer">Operator Delivery</td>
-      <td>Intelligence, not imagery, delivered to the operator's existing C2 and edge devices. Cross-cueing between DeepSat and aerial/surface assets.</td>
-      <td>TAK/ATAK integration (AFRL-sponsored SDK), command integration, agentic UI</td>
-    </tr>
-  </table>
-
   <h3>Commercial-Pace Execution</h3>
   <p>DeepSat operates on a commercial cadence, not a 10-to-15-year traditional acquisition arc. We use COTS components wherever space heritage exists, integrate through standard interfaces, and iterate software independently of hardware. The result is a <strong>precursor satellite scheduled to launch Q4 2027 on SpaceX</strong>, less than four years after company founding, with follow-on proliferation paced by government and commercial demand rather than program timelines.</p>
 
   <div class="page-footer">
     <div>DeepSat, Inc. · nerses@deepsat.com · CAGE 9XB24</div>
-    <div>Capability White Paper · Page 3 of 9</div>
+    <div>Capability White Paper · Page 3 of 10</div>
   </div>
 </div>
 
@@ -1440,7 +1347,7 @@
 
   <div class="page-footer">
     <div>DeepSat, Inc. · nerses@deepsat.com · CAGE 9XB24</div>
-    <div>Capability White Paper · Page 4 of 9</div>
+    <div>Capability White Paper · Page 4 of 10</div>
   </div>
 </div>
 
@@ -1639,11 +1546,68 @@
 
   <div class="page-footer">
     <div>DeepSat, Inc. · nerses@deepsat.com · CAGE 9XB24</div>
-    <div>Capability White Paper · Page 5 of 9</div>
+    <div>Capability White Paper · Page 5 of 10</div>
   </div>
 </div>
 
-<!-- ============================== PAGE 6: PARTNERS + GOVT ============================== -->
+<!-- ============================== PAGE 6: SIX-LAYER ARCHITECTURE ============================== -->
+<div class="page">
+  <div class="page-header">
+    <div class="brand">
+      <img src="logos/deepsat-logo-dark.svg" class="logo" alt="DeepSat">
+    </div>
+    <div class="meta">
+      <div><strong>Six-Layer Architecture</strong></div>
+      <div>Proprietary · Not for Public Release</div>
+    </div>
+  </div>
+
+  <h3>Six-Layer Architecture</h3>
+  <table class="stack-table">
+    <tr>
+      <th style="width: 140px;">Layer</th>
+      <th>What it does</th>
+      <th style="width: 180px;">Key components</th>
+    </tr>
+    <tr>
+      <td class="layer">Hardware</td>
+      <td>VLEO-optimized satellite bus with modular payload bays; commercial launch cadence, rapid replenishment.</td>
+      <td>Redwire VLEO bus, Satlantis &lt;1m VNIR+SWIR camera, NVIDIA IGX Orin 500 GPU</td>
+    </tr>
+    <tr>
+      <td class="layer">Payload Abstraction</td>
+      <td>Standardized interface lets new sensors (polarimetric, RF, SIGINT, hyperspectral) integrate without redesigning the bus or AI stack.</td>
+      <td>Active polarimetry study (Panthier/Jayada), RF/AIS receivers, UHF/LoRa decoders</td>
+    </tr>
+    <tr>
+      <td class="layer">Software Platform</td>
+      <td>AI models run onboard (~200 ms detection), with continuous learning and mission-aligned model swaps. Agentic / MCP-compatible for agent-to-agent integration.</td>
+      <td>Vessel &amp; cloud detection AI, vision transformers, agentic runtime</td>
+    </tr>
+    <tr>
+      <td class="layer">Network</td>
+      <td>Proliferated VLEO constellation with inter-satellite laser backhaul. "Always connected to the internet", data retrievable while over the event, not just a ground station.</td>
+      <td>Kepler laser comms constellation, commercial launch</td>
+    </tr>
+    <tr>
+      <td class="layer">Intelligence Layer</td>
+      <td>Pub-Sub anomaly notifications, REST data engine, multi-source data fusion, chain of custody for traceability and compliance.</td>
+      <td>DeepSat Real-time API, Notification Center, Data Engine</td>
+    </tr>
+    <tr>
+      <td class="layer">Operator Delivery</td>
+      <td>Intelligence, not imagery, delivered to the operator's existing C2 and edge devices. Cross-cueing between DeepSat and aerial/surface assets.</td>
+      <td>TAK/ATAK integration (AFRL-sponsored SDK), command integration, agentic UI</td>
+    </tr>
+  </table>
+
+  <div class="page-footer">
+    <div>DeepSat, Inc. · nerses@deepsat.com · CAGE 9XB24</div>
+    <div>Capability White Paper · Page 6 of 10</div>
+  </div>
+</div>
+
+<!-- ============================== PAGE 7: PARTNERS + GOVT ============================== -->
 <div class="page">
   <div class="page-header">
     <div class="brand">
@@ -1695,9 +1659,9 @@
   <p>DeepSat's government engagements span active contract, signed LOI, operational experimentation, submitted proposals, and theater alignment. Status reflects April 2026.</p>
 
   <div class="pipeline-legend">
-    <span class="lg-item"><span class="lg-dot status-active"></span><strong>Active</strong>&nbsp;— contract, LOI, or flight hardware in motion</span>
-    <span class="lg-item"><span class="lg-dot status-pipeline"></span><strong>In Progress</strong>&nbsp;— submitted or under evaluation</span>
-    <span class="lg-item"><span class="lg-dot status-alignment"></span><strong>Theater Alignment</strong></span>
+    <span class="lg-item"><strong class="status-active">Active</strong>&nbsp;— contract, LOI, or flight hardware in motion</span>
+    <span class="lg-item"><strong class="status-pipeline">In Progress</strong>&nbsp;— submitted or under evaluation</span>
+    <span class="lg-item"><strong class="status-alignment">Theater Alignment</strong></span>
   </div>
 
   <div class="agency-grid">
@@ -1707,7 +1671,6 @@
         <div class="a-name">Air Force Research Laboratory (AFRL)</div>
         <div class="a-status">Active D2P2 contract (DAF X25.5 CSO #FA864925P0298, $1.25M). Government sponsor unlocking TAK SDK.</div>
       </div>
-      <div class="status-badge status-active"></div>
     </div>
     <div class="agency-row row-active">
       <img src="logos/mda.png" alt="MDA">
@@ -1715,7 +1678,6 @@
         <div class="a-name">Missile Defense Agency (MDA)</div>
         <div class="a-status">Prime on MDA SHIELD IDIQ. MDA-sponsored facility clearance pathway.</div>
       </div>
-      <div class="status-badge status-active"></div>
     </div>
     <div class="agency-row row-active">
       <img src="logos/socom.png" alt="USSOCOM">
@@ -1723,7 +1685,6 @@
         <div class="a-name">USSOCOM — SOF AT&amp;L / PEO SDA</div>
         <div class="a-status">Participated in USSOCOM TE 26-2 (April 2026); Maritime TE August 2026 in planning; active engagement with PEO SDA and S&amp;T.</div>
       </div>
-      <div class="status-badge status-active"></div>
     </div>
     <div class="agency-row row-active">
       <img src="logos/jiatf_south.png" alt="JIATF-South">
@@ -1731,7 +1692,6 @@
         <div class="a-name">JIATF-South</div>
         <div class="a-status">Counter-narcotics maritime engagement; dark-vessel detection validation.</div>
       </div>
-      <div class="status-badge status-active"></div>
     </div>
     <div class="agency-row row-active">
       <img src="logos/nasa_goddard.png" alt="NASA Goddard">
@@ -1739,7 +1699,6 @@
         <div class="a-name">NASA Goddard Space Flight Center</div>
         <div class="a-status">Signed Letter of Intent — atmospheric / space-weather data products from VLEO overflight regimes unavailable elsewhere.</div>
       </div>
-      <div class="status-badge status-active"></div>
     </div>
     <div class="agency-row row-pipeline">
       <img src="logos/ssc.png" alt="SSC">
@@ -1747,7 +1706,6 @@
         <div class="a-name">Space Systems Command (SSC)</div>
         <div class="a-status">STTR 2025.D SF25D-T1201 submission via USC ISI; SSC Space Sensing and SSC BMC3 identified as follow-on matching pathways.</div>
       </div>
-      <div class="status-badge status-pipeline"></div>
     </div>
     <div class="agency-row row-alignment">
       <img src="logos/indopacom.png" alt="INDOPACOM">
@@ -1755,7 +1713,6 @@
         <div class="a-name">INDOPACOM</div>
         <div class="a-status">Named priority theater for VLEO maritime domain awareness; persistent ISR for peer-competition standoff.</div>
       </div>
-      <div class="status-badge status-alignment"></div>
     </div>
     <div class="agency-row row-alignment">
       <img src="logos/space_force.png" alt="Space Force South">
@@ -1763,13 +1720,12 @@
         <div class="a-name">Space Force South (SpOC-S)</div>
         <div class="a-status">Regional coordination partner for SOUTHCOM-aligned operational experimentation.</div>
       </div>
-      <div class="status-badge status-alignment"></div>
     </div>
   </div>
 
   <div class="page-footer">
     <div>DeepSat, Inc. · nerses@deepsat.com · CAGE 9XB24</div>
-    <div>Capability White Paper · Page 6 of 9</div>
+    <div>Capability White Paper · Page 7 of 10</div>
   </div>
 </div>
 
@@ -1795,7 +1751,7 @@
 
   <div class="page-footer">
     <div>DeepSat, Inc. · nerses@deepsat.com · CAGE 9XB24</div>
-    <div>Capability White Paper · Page 7 of 9</div>
+    <div>Capability White Paper · Page 8 of 10</div>
   </div>
 </div>
 
@@ -1860,7 +1816,7 @@
 
   <div class="page-footer">
     <div>DeepSat, Inc. · nerses@deepsat.com · CAGE 9XB24</div>
-    <div>Capability White Paper · Page 8 of 9</div>
+    <div>Capability White Paper · Page 9 of 10</div>
   </div>
 </div>
 
@@ -1923,7 +1879,7 @@
 
   <div class="page-footer">
     <div>DeepSat, Inc. · nerses@deepsat.com · CAGE 9XB24</div>
-    <div>Capability White Paper · Page 9 of 9</div>
+    <div>Capability White Paper · Page 10 of 10</div>
   </div>
 </div>
 
