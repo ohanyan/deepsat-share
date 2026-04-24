@@ -2681,6 +2681,7 @@
 <script type="module">
 
 // ---- format.mjs ----
+const __mod_format = (() => {
 const WEEKDAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -2700,8 +2701,12 @@ function formatDateTime(iso) {
   return `${WEEKDAYS[d.getUTCDay()]}, ${MONTHS[d.getUTCMonth()]} ${d.getUTCDate()} · ${hh}:${mm}`;
 }
 
+return { formatDate, formatDateTime };
+})();
+const { formatDate, formatDateTime } = __mod_format;
 
 // ---- header-meta.mjs ----
+const __mod_header_meta = (() => {
 
 function renderHeaderMeta(data, opts = {}) {
   const now = opts.now ?? new Date();
@@ -2724,8 +2729,12 @@ function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
 
+return { renderHeaderMeta };
+})();
+const { renderHeaderMeta } = __mod_header_meta;
 
 // ---- kpis.mjs ----
+const __mod_kpis = (() => {
 function renderKPIs(data) {
   const el = document.createElement('div');
   el.className = 'kpi-grid';
@@ -2752,8 +2761,12 @@ function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
 
+return { renderKPIs };
+})();
+const { renderKPIs } = __mod_kpis;
 
 // ---- raci.mjs ----
+const __mod_raci = (() => {
 function renderRACI(data) {
   const el = document.createElement('div');
   el.className = 'panel';
@@ -2792,8 +2805,12 @@ function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
 
+return { renderRACI };
+})();
+const { renderRACI } = __mod_raci;
 
 // ---- gantt.mjs ----
+const __mod_gantt = (() => {
 function renderGantt(data) {
   const el = document.createElement('div');
   el.className = 'gantt';
@@ -2828,8 +2845,12 @@ function renderGantt(data) {
   return el;
 }
 
+return { renderGantt };
+})();
+const { renderGantt } = __mod_gantt;
 
 // ---- milestones.mjs ----
+const __mod_milestones = (() => {
 
 const STATUS_LABEL = {
   pending: 'Pending',
@@ -2866,8 +2887,12 @@ function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
 
+return { renderMilestones };
+})();
+const { renderMilestones } = __mod_milestones;
 
 // ---- dependencies.mjs ----
+const __mod_dependencies = (() => {
 const RISK_LABEL = { green: 'On track', amber: 'At risk', red: 'Critical' };
 
 function renderDependencies(data) {
@@ -2900,8 +2925,12 @@ function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
 
+return { renderDependencies };
+})();
+const { renderDependencies } = __mod_dependencies;
 
 // ---- kanban.mjs ----
+const __mod_kanban = (() => {
 
 const STATES = ['Backlog', 'Todo', 'In Progress', 'Done'];
 
@@ -2975,8 +3004,12 @@ function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
 
+return { renderKanban };
+})();
+const { renderKanban } = __mod_kanban;
 
 // ---- changelog.mjs ----
+const __mod_changelog = (() => {
 
 function renderChangelog(data) {
   const el = document.createElement('div');
@@ -3005,8 +3038,12 @@ function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
 
+return { renderChangelog };
+})();
+const { renderChangelog } = __mod_changelog;
 
 // ---- recent-activity.mjs ----
+const __mod_recent_activity = (() => {
 
 const ICON = {
   milestone: '◆',
@@ -3205,8 +3242,12 @@ function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
 
+return { renderRecentActivity };
+})();
+const { renderRecentActivity } = __mod_recent_activity;
 
 // ---- notes.mjs ----
+const __mod_notes = (() => {
 
 const DISMISS_STORAGE_KEY = 'stratfi-notes-dismissed';
 
@@ -3317,8 +3358,12 @@ function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
 
+return { renderNotes };
+})();
+const { renderNotes } = __mod_notes;
 
 // ---- index.mjs ----
+const __mod_index = (() => {
 
 
 
@@ -3352,6 +3397,9 @@ function renderAll(data, mounts, opts = {}) {
   if (mounts.changelog) mounts.changelog.replaceChildren(renderChangelog(data));
 }
 
+return { renderAll };
+})();
+const { renderAll } = __mod_index;
 
 
 const mountSelectors = {
