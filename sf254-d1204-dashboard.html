@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>DeepSat - SBIR 25.4 Space Force Direct-to-Phase II (D2P2)</title>
+<style>
+  :root {
+    --nav: #1e3a5f;
+    --nav-dark: #0a1929;
+    --band-a: #ffffff;
+    --band-b: #f5f6f7;
+    --ink: #111418;
+    --mute: #4b5563;
+    --blue: #0070c0;
+    --green: #92d050;
+    --yellow: #fff1ac;
+    --amber: #ffc000;
+    --red: #ff0000;
+    --grid: #d7d9dc;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font: 14px/1.35 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
+    color: var(--ink);
+    background: #e8eaed;
+    padding: 24px;
+  }
+  .wrap { max-width: 1700px; margin: 0 auto; }
+  header.doc-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  header.doc-head h1 { font-size: 20px; margin: 0; font-weight: 700; }
+  header.doc-head .meta { color: var(--mute); font-size: 13px; }
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 220px;
+    gap: 18px;
+    align-items: start;
+  }
+  table.board {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border: 1px solid var(--grid);
+    font-size: 13px;
+    table-layout: fixed;
+  }
+  table.board thead th {
+    background: var(--nav);
+    color: #fff;
+    font-weight: 700;
+    text-align: left;
+    padding: 10px 8px;
+    border-right: 1px solid #2b4a73;
+    vertical-align: middle;
+    letter-spacing: 0.02em;
+  }
+  table.board thead th.date {
+    background: var(--nav-dark);
+    text-align: center;
+    font-weight: 600;
+    padding: 8px 2px;
+    font-size: 12px;
+    white-space: pre-line;
+    width: 32px;
+  }
+  table.board thead th.col-vol { width: 60px; }
+  table.board thead th.col-lead { width: 100px; }
+  table.board thead th.col-del { width: 380px; }
+  table.board thead th.col-status { width: 160px; }
+  table.board tbody td {
+    border-right: 1px solid var(--grid);
+    border-bottom: 1px solid var(--grid);
+    padding: 6px 8px;
+    vertical-align: middle;
+    background: #fff;
+  }
+  table.board tbody td:nth-child(3) {
+    white-space: normal;
+    word-break: normal;
+    overflow-wrap: break-word;
+    line-height: 1.3;
+  }
+  table.board tbody tr:nth-child(even) td { background: var(--band-b); }
+  table.board tbody td.cell-bar { padding: 0; height: 30px; }
+  .bar {
+    display: block;
+    height: 100%;
+    width: 100%;
+  }
+  .bar.yellow { background: var(--yellow); }
+  .bar.blue   { background: var(--blue); }
+  .bar.red    { background: var(--red); }
+  .bar.green  { background: var(--green); }
+
+  /* Status pill */
+  .status { display: inline-block; padding: 2px 8px; border-radius: 2px; font-weight: 600; }
+  .status.done    { background: #cfe2f3; color: #0a3c66; }
+  .status.in-work { background: var(--amber); color: #000; }
+  .status.need    { background: #ffff00; color: #000; }
+  .status.missing { background: #f4b084; color: #000; }
+  .status.na      { background: #d9d9d9; color: #555; font-style: italic; }
+  .status.complete{ background: var(--green); color: #0a3d0a; }
+  .status.not-submitting { color: var(--mute); font-style: italic; }
+
+  /* Row variants */
+  tr.section-head td {
+    background: #c9d4e4 !important;
+    font-weight: 700;
+    color: #0a1929;
+  }
+  tr.final-review td {
+    background: #f4e3d4 !important;
+    font-weight: 700;
+  }
+  tr.na-row td { background: #e2efda !important; color: #385723; text-decoration: line-through; }
+  tr.na-row td.cell-status, tr.na-row td.cell-bar { text-decoration: none; }
+
+  /* Legend */
+  aside.legend {
+    background: #fff;
+    border: 1px solid var(--grid);
+    padding: 12px;
+    position: sticky;
+    top: 24px;
+  }
+  aside.legend h3 { font-size: 13px; margin: 0 0 10px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--mute); }
+  aside.legend .item {
+    display: block;
+    padding: 6px 10px;
+    margin-bottom: 6px;
+    font-weight: 700;
+    font-size: 12px;
+  }
+  aside.legend .item.to-complete { background: var(--blue); color: #fff; }
+  aside.legend .item.in-work-leg { background: var(--yellow); color: #000; }
+  aside.legend .item.deadline   { background: var(--red); color: #fff; }
+  aside.legend .item.complete   { background: var(--green); color: #0a3d0a; }
+
+  .summary {
+    background: #fff;
+    border: 1px solid var(--grid);
+    padding: 12px;
+    margin-top: 12px;
+    font-size: 12px;
+  }
+  .summary .counter {
+    display: flex; justify-content: space-between;
+    padding: 3px 0;
+  }
+  .summary .counter b { font-variant-numeric: tabular-nums; }
+
+  section.cso-vs-baa-notes {
+    margin-top: 32px;
+    background: #fff;
+    border: 1px solid var(--grid);
+    border-left: 4px solid var(--amber);
+    padding: 18px 22px;
+    font-size: 13px;
+  }
+  section.cso-vs-baa-notes h2 {
+    margin: 0 0 10px 0;
+    font-size: 16px;
+    color: var(--nav);
+  }
+  section.cso-vs-baa-notes p.caveat {
+    color: var(--mute);
+    margin: 6px 0 12px 0;
+    line-height: 1.5;
+  }
+  section.cso-vs-baa-notes p.caveat code {
+    background: #f3f4f6;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 12px;
+  }
+  table.diff {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 8px;
+    font-size: 12.5px;
+  }
+  table.diff th, table.diff td {
+    border: 1px solid var(--grid);
+    padding: 8px 10px;
+    vertical-align: top;
+    text-align: left;
+  }
+  table.diff th {
+    background: var(--nav);
+    color: #fff;
+    font-weight: 700;
+  }
+  table.diff td:first-child { font-weight: 600; width: 22%; }
+  table.diff td:nth-child(2) { width: 32%; background: #fafafa; }
+  table.diff td:nth-child(3) { width: 46%; }
+
+  @media print {
+    body { background: #fff; padding: 0; }
+    aside.legend { position: static; page-break-inside: avoid; }
+    .grid { grid-template-columns: 1fr; }
+    table.board { font-size: 10px; }
+    section.cso-vs-baa-notes { page-break-before: always; }
+  }
+</style>
+</head>
+<body>
+
+<!--
+  D2P2 SUBMISSION DASHBOARD TEMPLATE
+  -----------------------------------
+  Edit the `DATA` block below. Structure:
+
+  - title:      proposal title / topic code
+  - subtitle:   any subtitle (program, cycle, etc.)
+  - deadline:   human-readable deadline
+  - dates:      array of day labels shown across the Gantt columns (e.g. "Thu 2/27")
+  - rows:       the deliverable rows; each has:
+      kind:        "section" | "final-review" | "deliverable" | "na"
+      vol:         volume label ("Vol 1", "Vol 2", ...) or ""
+      lead:        person/owner
+      deliverable: description
+      status:      free-text status shown in STATUS column
+      statusClass: "done" | "in-work" | "need" | "missing" | "complete" | "not-submitting" | "na" | ""
+      bars:        array, one entry per date column, value is "" | "yellow" | "blue" | "red" | "green"
+                   Convention: "yellow" = in-flight work window; "blue" = target due date; "red" = hard deadline.
+
+  The template renders nothing meaningful without data; populate it for your proposal.
+-->
+
+<script>
+// DoD SBIR 25.4 BAA D2P2 deliverable seed (per DAF Component Instructions v5, Release 12).
+// Structure differs from AFWERX Open-Topic CSO D2P2: NO Customer Memorandum, 25-pg V2 (not 15), $1.8M cap (not $1.25M), 24mo PoP.
+// Owners default to "TBD" until explicitly assigned — do not invent owners.
+// dates[] is the 19-day working window from today (2026-04-24) through deadline (2026-05-13).
+// bars[] is same length as dates[]: "" | "yellow" (in-work) | "blue" (target day) | "red" (hard deadline).
+const DATA = {
+  title: "DeepSat - SBIR 25.4 Space Force Direct-to-Phase II (D2P2)",
+  subtitle: "DoD SBIR 25.4 BAA · Release 12 (open 04/13/26, close 05/13/26) · Topic SF254-D1204 · $1.8M cap · 24mo PoP · 25-pg V2",
+  deadline: "May 13, 2026 — confirm close time on DSIP",
+  dates: [
+    "Fri\n4/24","Sat\n4/25","Sun\n4/26","Mon\n4/27","Tue\n4/28","Wed\n4/29","Thu\n4/30",
+    "Fri\n5/1","Sat\n5/2","Sun\n5/3","Mon\n5/4","Tue\n5/5","Wed\n5/6","Thu\n5/7",
+    "Fri\n5/8","Sat\n5/9","Sun\n5/10","Mon\n5/11","Tue\n5/12","Wed\n5/13"
+  ],
+  rows: [
+    { kind: "final-review", vol: "", lead: "", deliverable: "FINAL REVIEW + DSIP CERTIFICATION (target T-48h)", status: "", statusClass: "", bars: ["","","","","","","","","","","","","","","","","","yellow","blue","red"] },
+
+    { kind: "deliverable", vol: "Vol 1", lead: "TBD", deliverable: "Cover Sheet content (DSIP webform)", status: "", statusClass: "", bars: [] },
+
+    { kind: "section", vol: "Vol 2", lead: "", deliverable: "Technical Volume — 25-page PDF (per DAF 25.4 component instructions)", status: "", statusClass: "", bars: [] },
+    { kind: "deliverable", vol: "",      lead: "TBD", deliverable: "Title Page", status: "", statusClass: "", bars: [] },
+    { kind: "deliverable", vol: "",      lead: "TBD", deliverable: "(1) Table of Contents", status: "", statusClass: "", bars: [] },
+    { kind: "deliverable", vol: "",      lead: "TBD", deliverable: "(2) Glossary of acronyms/abbreviations", status: "", statusClass: "", bars: [] },
+    { kind: "deliverable", vol: "",      lead: "TBD", deliverable: "(3) Milestone Identification (program schedule)", status: "", statusClass: "", bars: [] },
+    { kind: "deliverable", vol: "",      lead: "TBD", deliverable: "(4) Identification & Significance of the Problem / Opportunity", status: "", statusClass: "", bars: [] },
+    { kind: "deliverable", vol: "",      lead: "TBD", deliverable: "(5) Phase II Technical Objectives (detail + commercial app assessment)", status: "", statusClass: "", bars: [] },
+    { kind: "deliverable", vol: "",      lead: "TBD", deliverable: "(6) Work Plan — START ON NEW PAGE · NO PROPRIETARY INFO (incorporated into contract)", status: "", statusClass: "", bars: [] },
+    { kind: "deliverable", vol: "",      lead: "TBD", deliverable: "     (6a) 1.0 Objective", status: "", statusClass: "", bars: [] },
+    { kind: "deliverable", vol: "",      lead: "TBD", deliverable: "     (6b) 2.0 Scope (tasks, deliverables, milestones)", status: "", statusClass: "", bars: [] },
+    { kind: "deliverable", vol: "",      lead: "TBD", deliverable: "     (6c) 3.0 Background (specs/standards/references)", status: "", statusClass: "", bars: [] },
+    { kind: "deliverable", vol: "",      lead: "TBD", deliverable: "     (6d) 4.0 Task/Technical Requirements (numbered tasks + subtasks)", status: "", statusClass: "", bars: [] },
+    { kind: "deliverable", vol: "",      lead: "TBD", deliverable: "(7) Deliverables (hardware/software + reports)", status: "", statusClass: "", bars: [] },
+    { kind: "deliverable", vol: "",      lead: "TBD", deliverable: "(8) Related Work (prior PI/firm/consultant efforts)", status: "", statusClass: "", bars: [] },
+    { kind: "deliverable", vol: "",      lead: "TBD", deliverable: "(9) Commercialization Potential (5 questions + plan)", status: "", statusClass: "", bars: [] },
+    { kind: "deliverable", vol: "",      lead: "TBD", deliverable: "(10) Relationship with Future R&D / Phase III Plans", status: "", statusClass: "", bars: [] },
+    { kind: "deliverable", vol: "",      lead: "TBD", deliverable: "D. Key Personnel (PI + staff, incl. resumes + citizenship)", status: "", statusClass: "", bars: [] },
+    { kind: "deliverable", vol: "",      lead: "TBD", deliverable: "E. Facilities/Equipment (environmental compliance statement)", status: "", statusClass: "", bars: [] },
+    { kind: "deliverable", vol: "",      lead: "TBD", deliverable: "F. Consultants/Subcontractors (incl. Raytheon LOI + SOW — does not count toward page limit)", status: "", statusClass: "", bars: [] },
+    { kind: "deliverable", vol: "",      lead: "TBD", deliverable: "G. Prior, Current, or Pending Support of Similar Proposals/Awards", status: "", statusClass: "", bars: [] },
+
+    { kind: "deliverable", vol: "Vol 3", lead: "TBD", deliverable: "Cost Volume — DSIP form + detailed cost proposal (per-FY, proprietary OK)", status: "", statusClass: "", bars: [] },
+    { kind: "deliverable", vol: "Vol 4", lead: "TBD", deliverable: "Company Commercialization Report (CCR) — required, NOT evaluated", status: "", statusClass: "", bars: [] },
+
+    { kind: "section", vol: "Vol 5", lead: "", deliverable: "Supporting Documents (per 25.4 DAF Component Instructions)", status: "", statusClass: "", bars: [] },
+    { kind: "deliverable", vol: "", lead: "TBD", deliverable: "Feasibility Documentation — required all submissions (NOT page-limited)", status: "", statusClass: "", bars: [] },
+    { kind: "deliverable", vol: "", lead: "TBD", deliverable: "  → Phase I-equivalent evidence: SOCOM exercise + Orion's Belt + Avon Park", status: "", statusClass: "", bars: [] },
+    { kind: "deliverable", vol: "", lead: "TBD", deliverable: "  → Product-mission fit: Space Force South customer/end-user narrative", status: "", statusClass: "", bars: [] },
+    { kind: "deliverable", vol: "", lead: "TBD", deliverable: "  → IP rights assertions for feasibility-doc tech", status: "", statusClass: "", bars: [] },
+    { kind: "deliverable", vol: "", lead: "TBD", deliverable: "DD Form 2345 — REQUIRED (topic is ITAR-controlled)", status: "", statusClass: "", bars: [] },
+    { kind: "deliverable", vol: "", lead: "TBD", deliverable: "Technical Data Rights Assertions (if asserting restrictions)", status: "", statusClass: "", bars: [] },
+    { kind: "deliverable", vol: "", lead: "TBD", deliverable: "Small Business JV Verification (N/A — DeepSat is not a JV)", status: "N/A", statusClass: "na", bars: [] },
+
+    { kind: "deliverable", vol: "Vol 6", lead: "TBD", deliverable: "FWA Training — complete in DSIP annually (gates submission)", status: "", statusClass: "", bars: [] },
+    { kind: "deliverable", vol: "Vol 7", lead: "TBD", deliverable: "Foreign Affiliations Disclosure — DSIP webform (NOT in V5)", status: "", statusClass: "", bars: [] },
+
+    { kind: "section", vol: "PRE-SUB", lead: "", deliverable: "Pre-submission prerequisites", status: "", statusClass: "", bars: [] },
+    { kind: "deliverable", vol: "", lead: "TBD", deliverable: "Raytheon teaming agreement / LOI for TAK Server integration sub", status: "", statusClass: "", bars: [] },
+    { kind: "deliverable", vol: "", lead: "TBD", deliverable: "Space Force South stakeholder engagement (feasibility-doc support)", status: "", statusClass: "", bars: [] },
+    { kind: "deliverable", vol: "", lead: "TBD", deliverable: "SAM.gov registration current + DSIP profile verified", status: "", statusClass: "", bars: [] },
+    { kind: "deliverable", vol: "", lead: "TBD", deliverable: "VCOC/hedge/PE ownership bar — confirm DeepSat eligibility", status: "", statusClass: "", bars: [] },
+    { kind: "deliverable", vol: "", lead: "TBD", deliverable: "Performance-of-Work deviation request (if Raytheon sub >50%) — pre-submission", status: "", statusClass: "", bars: [] },
+  ]
+};
+</script>
+
+<div class="wrap">
+  <header class="doc-head">
+    <div>
+      <h1 id="title">D2P2 Submission Dashboard</h1>
+      <div class="meta" id="subtitle"></div>
+    </div>
+    <div class="meta"><span id="deadlineLabel"></span></div>
+  </header>
+
+  <div class="grid">
+    <div>
+      <table class="board" id="board">
+        <thead>
+          <tr>
+            <th class="col-vol">VOL</th>
+            <th class="col-lead">LEAD</th>
+            <th class="col-del">DELIVERABLE</th>
+            <th class="col-status">STATUS — BGYR</th>
+            <!-- date columns injected -->
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+    <aside class="legend">
+      <h3>Legend</h3>
+      <div class="item to-complete">TO BE COMPLETED</div>
+      <div class="item in-work-leg">IN WORK / NEED HELP</div>
+      <div class="item deadline">DEADLINE TO COMPLETE</div>
+      <div class="item complete">COMPLETE</div>
+      <div class="summary" id="summary">
+        <div class="counter"><span>Deliverables</span><b id="count-total">0</b></div>
+        <div class="counter"><span>Done</span><b id="count-done">0</b></div>
+        <div class="counter"><span>In-work</span><b id="count-inwork">0</b></div>
+        <div class="counter"><span>Missing / Need help</span><b id="count-missing">0</b></div>
+        <div class="counter"><span>Not applicable</span><b id="count-na">0</b></div>
+      </div>
+    </aside>
+  </div>
+
+  <section class="cso-vs-baa-notes">
+    <h2>Verification note — 25.4 BAA D2P2 vs prior CSO D2P2 differences</h2>
+    <p class="caveat">
+      The prior DeepSat D2P2 win (Orion's Belt, F2D-16348) was submitted under the <b>DAF X25.5 CSO</b> (AFWERX/SpaceWERX monthly Open Topic). This submission is under the
+      <b>DoD SBIR 25.4 Annual BAA, Release 12</b>, with <b>DAF Component Instructions v5</b>. The two solicitation vehicles have materially different rules.
+      <b>Verify this table with Kristina Borthelo</b> (<i>spelling TBC</i>) before we rely on it — she's our reference for AFWERX/DSIP process knowledge.
+    </p>
+    <table class="diff">
+      <thead>
+        <tr><th>Item</th><th>CSO D2P2 (Orion's Belt)</th><th>25.4 BAA D2P2 (this submission)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>V2 Technical Volume page limit</td><td>15 pages</td><td><b>25 pages</b> (per DAF 25.4 Topic Index for SF254-D1204)</td></tr>
+        <tr><td>Funding cap</td><td>$1.25M</td><td><b>$1.8M</b></td></tr>
+        <tr><td>Max PoP</td><td>21 months (recent) / 24 earlier</td><td><b>24 months</b></td></tr>
+        <tr><td>Customer Memorandum</td><td><b>Required</b> (3 CAC signatures: Customer, End-User, TPOC — disqualifier if missing)</td><td><b>Not required</b>. Feasibility Documentation in V5 is the substitute — narrative evidence of Phase I-equivalent work, stakeholder ID, integration pathway.</td></tr>
+        <tr><td>V2 structure</td><td>16 sections incl. Critical Activities, DAF Operational Imperatives, §4.2 Solution-vs-Company</td><td>10 numbered items + D/E/F/G (Key Personnel, Facilities, Subcontractors, Prior/Current/Pending). <b>No DAF OI section. No Critical Activities. No §4.2.</b></td></tr>
+        <tr><td>Work Plan location + rules</td><td>Integrated into technical narrative</td><td><b>Separate section on new page.</b> Incorporated into resulting contract by reference. <b>DO NOT include proprietary info</b> in the Work Plan.</td></tr>
+        <tr><td>V1 Anticipated Benefits formula</td><td>Playbook-mandated: "We solved [problem] by providing [advantage], to help [end-user] accomplish [goal]. We will recognize profit by charging [commercial customers] to get [commercial benefit]."</td><td>Not mandated; standard SBIR abstract conventions apply.</td></tr>
+        <tr><td>V5 required attachments</td><td>CM + Regulatory Compliance + SBIR Funding Agreement Cert + Lifecycle Cert + Data Rights + DD 2345 + Resumes + NPWP</td><td><b>Feasibility Documentation (required).</b> Conditional: DD 2345 (if ITAR — applies here), Tech Data Rights (if asserting), JV Verification (if JV). Fewer attachments overall.</td></tr>
+        <tr><td>V4 Company Commercialization Report</td><td>"Confirm applicability"</td><td><b>Required to complete, NOT considered in evaluation</b> (explicit per DAF-10).</td></tr>
+        <tr><td>TABA (Technical &amp; Business Assistance)</td><td>May apply</td><td><b>DAF does NOT participate.</b> Do not include TABA in proposal (DAF-11).</td></tr>
+        <tr><td>Key Personnel resumes</td><td>V5 attachment</td><td><b>Inside V2</b> ("In the technical volume, identify all key personnel…"). Counts toward V2 page budget for PI; concise resumes for subs/consultants.</td></tr>
+        <tr><td>Consultant/Sub LOI + SOW</td><td>V5 attachment</td><td>Attached to proposal; explicitly stated <b>does NOT count against V2 page limit</b> (DAF-8).</td></tr>
+        <tr><td>VCOC / hedge fund / PE majority ownership</td><td>Ineligible</td><td>Ineligible (same — DAF-12).</td></tr>
+        <tr><td>Performance-of-Work deviation (sub &gt; 50%)</td><td>Request with CO post-award</td><td><b>Request twice: pre-submission during open period AND with initial proposal</b> (DAF-12). Must approve before DSIP submission.</td></tr>
+        <tr><td>Evaluation criteria</td><td>3-factor: Technical / Defense Need / Commercial</td><td>Per 25.4 BAA §6.0: Technical merit, PI qualifications, stakeholder product-mission fit, transition plan, commercial potential. Different framing and no explicit "Defense Need" factor; stakeholder fit is the substitute.</td></tr>
+        <tr><td>DoD → DoW terminology</td><td>"DoD" used throughout</td><td>"DoW" (Department of War) used throughout 25.4 DAF instructions. Match terminology in our response.</td></tr>
+      </tbody>
+    </table>
+    <p class="caveat">
+      Sources: <code>reference/SBIR 25.4 2026/DoD 25.4 SBIR BAA Preface_R12_04132026.pdf</code>, <code>reference/SBIR 25.4 2026/DAF_SBIR_254_D2P2_R12_v5.pdf</code>, <code>reference/SBIR 25.4 2026/topic_SF254-D1204.md</code>, and the CSO playbook at <code>knowledge-base/playbooks/d2p2-playbook.md</code>.
+    </p>
+  </section>
+</div>
+
+<script>
+(function render() {
+  const headRow = document.querySelector("table.board thead tr");
+  DATA.dates.forEach(d => {
+    const th = document.createElement("th");
+    th.className = "date";
+    th.textContent = d.replace(" ", "\n");
+    headRow.appendChild(th);
+  });
+
+  document.getElementById("title").textContent = DATA.title || "D2P2 Submission Dashboard";
+  document.getElementById("subtitle").textContent = DATA.subtitle || "";
+  document.getElementById("deadlineLabel").textContent = DATA.deadline ? "Deadline: " + DATA.deadline : "";
+
+  const tbody = document.getElementById("rows");
+  const counts = { total: 0, done: 0, inwork: 0, missing: 0, na: 0 };
+
+  DATA.rows.forEach(r => {
+    const tr = document.createElement("tr");
+    if (r.kind === "section") tr.className = "section-head";
+    if (r.kind === "final-review") tr.className = "final-review";
+    if (r.kind === "na") tr.className = "na-row";
+
+    const tdVol = document.createElement("td"); tdVol.textContent = r.vol || ""; tr.appendChild(tdVol);
+    const tdLead = document.createElement("td"); tdLead.textContent = r.lead || ""; tr.appendChild(tdLead);
+    const tdDel = document.createElement("td"); tdDel.textContent = r.deliverable || ""; tr.appendChild(tdDel);
+
+    const tdStatus = document.createElement("td"); tdStatus.className = "cell-status";
+    if (r.status) {
+      const span = document.createElement("span");
+      span.className = "status " + (r.statusClass || "");
+      span.textContent = r.status;
+      tdStatus.appendChild(span);
+    }
+    tr.appendChild(tdStatus);
+
+    const bars = r.bars || [];
+    for (let i = 0; i < DATA.dates.length; i++) {
+      const td = document.createElement("td"); td.className = "cell-bar";
+      const c = bars[i];
+      if (c) {
+        const bar = document.createElement("span");
+        bar.className = "bar " + c;
+        td.appendChild(bar);
+      }
+      tr.appendChild(td);
+    }
+
+    tbody.appendChild(tr);
+
+    if (r.kind === "deliverable") {
+      counts.total++;
+      if (r.statusClass === "done" || r.statusClass === "complete") counts.done++;
+      else if (r.statusClass === "in-work") counts.inwork++;
+      else if (r.statusClass === "missing" || r.statusClass === "need") counts.missing++;
+    }
+    if (r.kind === "na") counts.na++;
+  });
+
+  document.getElementById("count-total").textContent = counts.total;
+  document.getElementById("count-done").textContent = counts.done;
+  document.getElementById("count-inwork").textContent = counts.inwork;
+  document.getElementById("count-missing").textContent = counts.missing;
+  document.getElementById("count-na").textContent = counts.na;
+})();
+</script>
+</body>
+</html>
