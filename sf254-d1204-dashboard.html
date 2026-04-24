@@ -438,5 +438,16 @@ const DATA = {
   document.getElementById("count-na").textContent = counts.na;
 })();
 </script>
+<script type="module">
+  import { createViewer } from './viewer.js';
+  createViewer({
+    docId: 'sf254-d1204-dashboard',
+    brandName: 'DeepSat',
+    brandTagline: 'Defense Intelligence from VLEO',
+    requireEmail: true,
+    supabaseUrl: 'https://wpyuqnuekzbcsirkrjsk.supabase.co',
+    supabaseKey: 'sb_publishable_lATEOVSdeb8pkbeicOskRA_UumFSWuw',
+  }).init();
+</script>
 </body>
 </html>
