@@ -334,6 +334,335 @@
     color: var(--muted);
     font-size: 13px;
   }
+
+  /* Recent Activity */
+  .section-sub { font-size: 14px; font-weight: 500; color: var(--muted); letter-spacing: 0; text-transform: none; margin-left: 6px; }
+  .recent-activity { display: flex; flex-direction: column; gap: 6px; margin: 8px 0 16px; }
+  .recent-empty { padding: 12px 14px; color: var(--muted); font-size: 14px; background: var(--card); border-radius: 6px; }
+  .recent-empty code { background: #fff; padding: 1px 5px; border-radius: 3px; border: 1px solid var(--line); font-size: 12px; }
+  .recent-activity .activity {
+    padding: 10px 14px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--muted);
+    border-radius: 6px;
+    font-size: 14px;
+  }
+  .recent-activity .activity-main {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .recent-activity .activity-main .target {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  .recent-activity .activity-main .ts { white-space: nowrap; }
+  .recent-activity .rationale {
+    margin-top: 4px;
+    padding-left: 34px;
+    font-size: 12px;
+    color: var(--muted);
+    font-style: italic;
+  }
+  .recent-activity .activity .dismiss {
+    flex: none;
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--muted);
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: background 0.12s, color 0.12s, border-color 0.12s;
+  }
+  .recent-activity .activity .dismiss:hover {
+    background: #f6f8fa;
+    color: var(--fg);
+    border-color: var(--line);
+  }
+  .recent-activity .activity .dismiss:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+  }
+  .recent-footer {
+    padding: 4px 0 0;
+    text-align: right;
+  }
+  .recent-footer .show-dismissed-btn,
+  .recent-empty .show-dismissed-btn {
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 4px 10px;
+    font-size: 12px;
+    color: var(--muted);
+    cursor: pointer;
+  }
+  .recent-footer .show-dismissed-btn:hover,
+  .recent-empty .show-dismissed-btn:hover {
+    background: var(--card);
+    color: var(--fg);
+  }
+  .recent-activity .icon { font-size: 14px; color: var(--muted); text-align: center; }
+  .recent-activity .kind-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); font-weight: 600; }
+  .recent-activity .target { color: var(--fg); font-weight: 500; min-width: 0; overflow-wrap: anywhere; }
+  .recent-activity .transition { font-size: 12px; color: var(--muted); white-space: nowrap; }
+  .recent-activity .transition .from { color: var(--muted); }
+  .recent-activity .transition .arrow { margin: 0 4px; }
+  .recent-activity .transition .to { color: var(--fg); font-weight: 600; }
+  .recent-activity .ts { font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .recent-activity .rationale { grid-column: 3 / -1; font-size: 12px; color: var(--muted); font-style: italic; }
+  .recent-activity .activity.state-done { border-left-color: var(--ok); }
+  .recent-activity .activity.state-done .icon { color: var(--ok); }
+  .recent-activity .activity.state-in-progress { border-left-color: var(--warn); }
+  .recent-activity .activity.state-in-progress .icon { color: var(--warn); }
+  .recent-activity .activity.state-blocked { border-left-color: var(--danger); }
+  .recent-activity .activity.state-blocked .icon { color: var(--danger); }
+
+  /* Milestones — status-indicator rows */
+  .milestones { display: flex; flex-direction: column; gap: 6px; margin: 8px 0 16px; }
+  .milestones .milestone {
+    display: grid;
+    grid-template-columns: 14px 180px 1fr auto;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--muted);
+    border-radius: 6px;
+    font-size: 14px;
+  }
+  .milestones .status-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--muted);
+    box-shadow: 0 0 0 2px rgba(0,0,0,0.04);
+  }
+  .milestones .date { color: var(--muted); font-variant-numeric: tabular-nums; }
+  .milestones .label { color: var(--fg); font-weight: 500; }
+  .milestones .status-pill {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em;
+    padding: 3px 8px; border-radius: 999px;
+    background: var(--card); color: var(--muted);
+    font-weight: 600;
+  }
+  .milestones .milestone.status-done { border-left-color: var(--ok); }
+  .milestones .milestone.status-done .status-dot { background: var(--ok); }
+  .milestones .milestone.status-done .status-pill { background: #dafbe1; color: var(--ok); }
+  .milestones .milestone.status-in-progress { border-left-color: var(--warn); }
+  .milestones .milestone.status-in-progress .status-dot { background: var(--warn); box-shadow: 0 0 0 3px rgba(154,103,0,0.15); }
+  .milestones .milestone.status-in-progress .status-pill { background: #fff8c5; color: var(--warn); }
+  .milestones .milestone.status-blocked { border-left-color: var(--danger); }
+  .milestones .milestone.status-blocked .status-dot { background: var(--danger); }
+  .milestones .milestone.status-blocked .status-pill { background: #ffd6e0; color: var(--danger); }
+  .milestones .milestone.status-pending .status-dot { background: var(--line-strong, #8c959f); }
+  @media (max-width: 720px) {
+    .milestones .milestone { grid-template-columns: 14px 1fr auto; }
+    .milestones .date { grid-column: 2; }
+    .milestones .label { grid-column: 2 / -1; margin-top: 2px; }
+  }
+
+  /* Notes to resolve */
+  .notes { display: flex; flex-direction: column; gap: 6px; margin: 8px 0 16px; }
+  .notes-empty { padding: 12px 14px; color: var(--muted); font-size: 14px; background: var(--card); border-radius: 6px; }
+  .notes .note {
+    padding: 10px 14px;
+    background: #fffbea;
+    border: 1px solid #eac54f;
+    border-left: 3px solid var(--warn);
+    border-radius: 6px;
+    font-size: 14px;
+  }
+  .notes .note-main { display: flex; align-items: flex-start; gap: 10px; }
+  .notes .note-icon { flex: none; font-size: 16px; line-height: 1.4; }
+  .notes .note-text { flex: 1 1 auto; min-width: 0; color: var(--fg); line-height: 1.5; overflow-wrap: anywhere; }
+  .notes .note-resolve {
+    flex: none;
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--muted);
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+    width: 24px; height: 24px;
+    border-radius: 4px;
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 0;
+    transition: background 0.12s, color 0.12s, border-color 0.12s;
+  }
+  .notes .note-resolve:hover { background: rgba(154,103,0,0.1); color: var(--fg); border-color: #eac54f; }
+  .notes .note-meta {
+    margin-top: 4px;
+    padding-left: 26px;
+    display: flex;
+    gap: 12px;
+    font-size: 12px;
+    color: var(--muted);
+    font-style: italic;
+  }
+  .notes-footer { padding: 4px 0 0; text-align: right; }
+  .notes-footer .show-resolved-btn,
+  .notes-empty .show-resolved-btn {
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 4px 10px;
+    font-size: 12px;
+    color: var(--muted);
+    cursor: pointer;
+  }
+  .notes-footer .show-resolved-btn:hover,
+  .notes-empty .show-resolved-btn:hover {
+    background: var(--card);
+    color: var(--fg);
+  }
+
+  /* Kanban */
+  .kanban { margin: 8px 0 16px; }
+  .kanban-selector { margin-bottom: 10px; }
+  .kanban-person {
+    padding: 4px 10px;
+    font-size: 13px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: #fff;
+    color: var(--fg);
+    cursor: pointer;
+  }
+  .kanban-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+    align-items: start;
+  }
+  .kanban-col {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 10px 10px 12px;
+    min-height: 80px;
+  }
+  .kanban-col h4 {
+    font-size: 11px;
+    margin: 0 0 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    font-weight: 700;
+  }
+  .kanban-card {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    column-gap: 6px;
+    row-gap: 4px;
+    align-items: center;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--muted);
+    border-radius: 6px;
+    padding: 8px 10px;
+    margin-bottom: 6px;
+    text-decoration: none;
+    color: var(--fg);
+    font-size: 13px;
+    line-height: 1.35;
+    transition: border-color 0.12s, box-shadow 0.12s;
+  }
+  .kanban-card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 1px 3px rgba(9,105,218,0.1);
+  }
+  .kanban-card .kid {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 600;
+  }
+  .kanban-card .ktitle {
+    grid-column: 1 / -1;
+    color: var(--fg);
+    font-weight: 500;
+    overflow-wrap: anywhere;
+  }
+  .kanban-card .kprio {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--muted);
+    flex: none;
+    justify-self: end;
+  }
+  .kanban-card .kprio.prio-1 { background: var(--danger); }
+  .kanban-card .kprio.prio-2 { background: var(--warn); }
+  .kanban-card .kprio.prio-3 { background: var(--accent); }
+  .kanban-card .kprio.prio-4 { background: var(--muted); }
+  .kanban-card .kprio.prio-0 { background: transparent; }
+  .kanban-card .kdue {
+    grid-column: 1 / -1;
+    font-size: 11px;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .kanban-card.overdue { border-left-color: var(--danger); }
+  .kanban-card.overdue .kdue { color: var(--danger); font-weight: 600; }
+  @media (max-width: 900px) {
+    .kanban-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 560px) {
+    .kanban-grid { grid-template-columns: 1fr; }
+  }
+
+  /* Dependencies — risk-traffic-light rows */
+  .deps { display: flex; flex-direction: column; gap: 6px; margin: 8px 0 16px; }
+  .deps .dep {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--muted);
+    border-radius: 6px;
+    font-size: 14px;
+  }
+  .deps .risk-dot {
+    flex: none;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--muted);
+  }
+  .deps .chain {
+    flex: 1 1 auto;
+    min-width: 0;
+    color: var(--fg);
+    line-height: 1.5;
+  }
+  .deps .chain .from, .deps .chain .to { font-weight: 500; }
+  .deps .chain .arrow {
+    color: var(--muted);
+    margin: 0 8px;
+    font-weight: 600;
+  }
+  .deps .risk-pill {
+    flex: none;
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em;
+    padding: 3px 8px; border-radius: 999px;
+    font-weight: 600;
+  }
+  .deps .dep.risk-green { border-left-color: var(--ok); }
+  .deps .dep.risk-green .risk-dot { background: var(--ok); }
+  .deps .dep.risk-green .risk-pill { background: #dafbe1; color: var(--ok); }
+  .deps .dep.risk-amber { border-left-color: var(--warn); }
+  .deps .dep.risk-amber .risk-dot { background: var(--warn); box-shadow: 0 0 0 3px rgba(154,103,0,0.15); }
+  .deps .dep.risk-amber .risk-pill { background: #fff8c5; color: var(--warn); }
+  .deps .dep.risk-red { border-left-color: var(--danger); }
+  .deps .dep.risk-red .risk-dot { background: var(--danger); box-shadow: 0 0 0 3px rgba(207,34,46,0.15); }
+  .deps .dep.risk-red .risk-pill { background: #ffd6e0; color: var(--danger); }
 </style>
 </head>
 <body>
@@ -342,13 +671,7 @@
 <header class="hero">
   <div class="eyebrow">DeepSat &middot; Program Dashboard</div>
   <h1>StratFi Readiness Program</h1>
-  <div class="meta">
-    <span><b>Program start:</b> 2026-04-20</span>
-    <span><b>Submission deadline:</b> 2026-05-29</span>
-    <span><b>Days remaining:</b> 39</span>
-    <span><b>Program Manager:</b> Nerses</span>
-    <span><b>Last updated:</b> 2026-04-20</span>
-  </div>
+  <div class="meta" data-section="header-meta"></div>
   <div class="headline">
     <b>Single objective.</b> Submit a competitive STRATFI package by 2026-05-29 with named matching capital (equity + venture debt + public match) and government funding letters from SSC, NASA/GSFC, and AFRL. Everything else in this dashboard ladders up to that objective.
   </div>
@@ -358,19 +681,21 @@
     <span>&rarr; <a href="slack://channel?team=T&id=C094LPC766L" target="_blank">#stratfi (Slack)</a></span>
     <span>&rarr; <a href="https://deepsat.ghe.com/deepsat/stratfi-inception" target="_blank">Source repo</a></span>
   </div>
+  <div class="history-controls" style="margin-top: 10px; font-size: 13px;">
+    <label>View: <select id="history-select"><option value="__current__">Current</option></select></label>
+    <button id="history-back" style="display:none; margin-left: 8px;">Back to current</button>
+    <span id="history-banner" style="margin-left: 12px; color: var(--warn); display: none;"></span>
+  </div>
 </header>
 
 <h2 class="section-heading">1. KPIs &amp; Health</h2>
-<div class="kpi-grid">
-  <div class="kpi"><div class="label">Days to submission</div><div class="value">39</div><div class="sub">Target: 2026-05-29</div></div>
-  <div class="kpi amber"><div class="label">SF STRATFI tickets</div><div class="value">~64</div><div class="sub">Open; Linear source of truth</div></div>
-  <div class="kpi red"><div class="label">Letters signed</div><div class="value">0 / 3</div><div class="sub">SSC, NASA/GSFC, AFRL</div></div>
-  <div class="kpi red"><div class="label">Match in writing</div><div class="value">$0 / target</div><div class="sub">Vahe, Leonid, public</div></div>
-  <div class="kpi amber"><div class="label">SOFWERX subtasks</div><div class="value">0 / 15</div><div class="sub">All Urgent</div></div>
-  <div class="kpi amber"><div class="label">Compliance readiness</div><div class="value">In flight</div><div class="sub">Target: mid-May</div></div>
-  <div class="kpi"><div class="label">Top risks (RAG)</div><div class="value">2 R / 2 A</div><div class="sub">SSC, match, compliance, red-team</div></div>
-</div>
-<p class="meta">Refresh these numbers at each Monday Weekly Review. If any red persists two weeks, the submission plan itself is at risk and warrants an escalation.</p>
+<div class="kpi-grid" data-section="kpis"></div>
+
+<h2 class="section-heading">Recent Activity <span class="section-sub">(last 3 days)</span></h2>
+<div data-section="recent-activity"></div>
+
+<h2 class="section-heading">Notes to Resolve <span class="section-sub">(surfaced by skill, acknowledge with ×)</span></h2>
+<div data-section="notes"></div>
 
 <h2 class="section-heading">2. Project Charter</h2>
 <div class="twocol">
@@ -429,312 +754,17 @@
 <h2 class="section-heading">3. Team &amp; RACI</h2>
 <div class="panel">
   <p class="meta" style="margin-bottom: 10px;">R = Responsible (does the work). A = Accountable (owns the outcome). C = Consulted. I = Informed. One A per workstream.</p>
-  <table>
-    <thead>
-      <tr>
-        <th>Workstream</th>
-        <th>Accountable</th>
-        <th>Responsible</th>
-        <th>Consulted</th>
-        <th>Informed</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td><b>1. Submission &amp; Package</b></td><td class="owner">Subbu</td><td class="owner">Sarkis, Hayk</td><td class="owner">Nerses, Jesse (AFRL), Lusine</td><td class="owner">Team</td></tr>
-      <tr><td><b>2. Funding Letters</b></td><td class="owner">Nerses</td><td class="owner">Sarkis, Hayk</td><td class="owner">Tigran, Kevin, Mitch (RW), Anne</td><td class="owner">Subbu, Team</td></tr>
-      <tr><td><b>3. Matching Capital</b></td><td class="owner">Nerses</td><td class="owner">Subbu</td><td class="owner">Lusine (advisor), Vahe, Leonid, Cody</td><td class="owner">Team</td></tr>
-      <tr><td><b>4. Transition / Past-Perf</b></td><td class="owner">Hayk</td><td class="owner">Subbu, Craig</td><td class="owner">Nerses, Anne</td><td class="owner">Sarkis, Team</td></tr>
-      <tr><td><b>5. SOF Week / SOFWERX</b></td><td class="owner">Sarkis</td><td class="owner">Subbu, Hayk</td><td class="owner">Nerses, Jason Mayer, SOCOM PEOs</td><td class="owner">Eric, Craig</td></tr>
-      <tr><td><b>6. Compliance &amp; Legal</b></td><td class="owner">Ryan</td><td class="owner">Subbu, Kristina Botello (needs intro via Ryan)</td><td class="owner">Cecilia, Jason Oulette, Eniola (Eni) Delano (Cytellix)</td><td class="owner">Nerses</td></tr>
-      <tr><td><b>7. Deck &amp; Narrative</b></td><td class="owner">Sarkis</td><td class="owner">Nerses, Subbu</td><td class="owner">Ben (GeoOutlook), Jason Fraser (advisor)</td><td class="owner">Team</td></tr>
-      <tr><td><b>8. Travel &amp; Logistics</b></td><td class="owner">Nerses</td><td class="owner">Sarkis, Eric</td><td class="owner">Team</td><td class="owner">Anne</td></tr>
-    </tbody>
-  </table>
+  <div data-section="raci"></div>
 </div>
 
 <h2 class="section-heading">4. Six-Week Gantt</h2>
-<div class="legend">
-  <div class="legend-item"><span class="legend-swatch" style="background: var(--bar-submission);"></span> Submission</div>
-  <div class="legend-item"><span class="legend-swatch" style="background: var(--bar-letters);"></span> Letters</div>
-  <div class="legend-item"><span class="legend-swatch" style="background: var(--bar-capital);"></span> Capital</div>
-  <div class="legend-item"><span class="legend-swatch" style="background: var(--bar-pastperf);"></span> Past-Perf</div>
-  <div class="legend-item"><span class="legend-swatch" style="background: var(--bar-sofwerx);"></span> SOFWERX</div>
-  <div class="legend-item"><span class="legend-swatch" style="background: var(--bar-compliance);"></span> Compliance</div>
-  <div class="legend-item"><span class="legend-swatch" style="background: var(--bar-deck);"></span> Deck</div>
-  <div class="legend-item"><span class="legend-swatch" style="background: var(--bar-travel);"></span> Travel</div>
-  <div class="legend-item" style="color: var(--danger);">◆ Milestone</div>
-</div>
-
-<div class="gantt-wrap panel" style="padding: 14px;">
-  <div class="gantt-header">
-    <div class="gcell">Workstream / Task</div>
-    <div class="gcell weekband">W1 &middot; Apr 20-26</div>
-    <div class="gcell weekband">W2 &middot; Apr 27 - May 3</div>
-    <div class="gcell weekband">W3 &middot; May 4-10</div>
-    <div class="gcell weekband">W4 &middot; May 11-17</div>
-    <div class="gcell weekband">W5 &middot; May 18-24</div>
-    <div class="gcell weekband">W6 &middot; May 25-31</div>
-  </div>
-
-  <!-- 1. Submission -->
-  <div class="gantt-row"><div class="gantt-row-label ws">1. Submission &amp; Package</div><div class="gantt-row-bg"></div></div>
-  <div class="gantt-row">
-    <div class="gantt-row-label sub">Confirm date via Jesse</div>
-    <div class="gantt-row-bg"></div>
-    <div class="gantt-bar submission" style="grid-column: 2 / 5;">DEE-508</div>
-  </div>
-  <div class="gantt-row">
-    <div class="gantt-row-label sub">Draft technical + business volumes</div>
-    <div class="gantt-row-bg"></div>
-    <div class="gantt-bar submission" style="grid-column: 2 / 23;">Drafting (Hayk + Subbu + Sarkis)</div>
-  </div>
-  <div class="gantt-row">
-    <div class="gantt-row-label sub">Red-team review</div>
-    <div class="gantt-row-bg"></div>
-    <div class="gantt-bar submission" style="grid-column: 22 / 27;">DEE-502 Red-team</div>
-  </div>
-  <div class="gantt-row">
-    <div class="gantt-row-label sub">Final revisions + submit</div>
-    <div class="gantt-row-bg"></div>
-    <div class="gantt-bar submission" style="grid-column: 27 / 32;">Revise &rarr; Submit</div>
-    <div class="gantt-milestone" style="grid-column: 31 / 32;"><span class="ms-label">SUBMIT</span></div>
-  </div>
-
-  <!-- 2. Letters -->
-  <div class="gantt-row"><div class="gantt-row-label ws">2. Funding Letters</div><div class="gantt-row-bg"></div></div>
-  <div class="gantt-row">
-    <div class="gantt-row-label sub">SSC funding letter outreach</div>
-    <div class="gantt-row-bg"></div>
-    <div class="gantt-bar letters" style="grid-column: 2 / 11;">DEE-507 SSC letter</div>
-    <div class="gantt-milestone" style="grid-column: 10 / 11;"><span class="ms-label">SSC SIGNED</span></div>
-  </div>
-  <div class="gantt-row">
-    <div class="gantt-row-label sub">NASA/GSFC letter (Nick)</div>
-    <div class="gantt-row-bg"></div>
-    <div class="gantt-bar letters" style="grid-column: 2 / 12;">DEE-487</div>
-  </div>
-  <div class="gantt-row">
-    <div class="gantt-row-label sub">AFRL letter (STTR support)</div>
-    <div class="gantt-row-bg"></div>
-    <div class="gantt-bar letters" style="grid-column: 2 / 17;">DEE-66</div>
-  </div>
-  <div class="gantt-row">
-    <div class="gantt-row-label sub">Marlin (Redwire) outreach</div>
-    <div class="gantt-row-bg"></div>
-    <div class="gantt-bar letters" style="grid-column: 2 / 12;">DEE-486</div>
-  </div>
-  <div class="gantt-row">
-    <div class="gantt-row-label sub">Seth Lacey + AFRL Ohio path</div>
-    <div class="gantt-row-bg"></div>
-    <div class="gantt-bar letters" style="grid-column: 2 / 22;">DEE-494, DEE-235</div>
-    <div class="gantt-milestone" style="grid-column: 21 / 22;"><span class="ms-label">WRIGHT-PATT</span></div>
-  </div>
-  <div class="gantt-row">
-    <div class="gantt-row-label sub">Consolidate &amp; package letters</div>
-    <div class="gantt-row-bg"></div>
-    <div class="gantt-bar letters" style="grid-column: 22 / 28;">Consolidate</div>
-  </div>
-
-  <!-- 3. Capital -->
-  <div class="gantt-row"><div class="gantt-row-label ws">3. Matching Capital</div><div class="gantt-row-bg"></div></div>
-  <div class="gantt-row">
-    <div class="gantt-row-label sub">Vahe: equity, IAN, Bessemer</div>
-    <div class="gantt-row-bg"></div>
-    <div class="gantt-bar capital" style="grid-column: 2 / 7;">DEE-500</div>
-  </div>
-  <div class="gantt-row">
-    <div class="gantt-row-label sub">Leonid LOI (advisor: Lusine)</div>
-    <div class="gantt-row-bg"></div>
-    <div class="gantt-bar capital" style="grid-column: 2 / 22;">DEE-501 (paper LOI)</div>
-  </div>
-  <div class="gantt-row">
-    <div class="gantt-row-label sub">Cody: public money matching</div>
-    <div class="gantt-row-bg"></div>
-    <div class="gantt-bar capital" style="grid-column: 2 / 17;">DEE-482</div>
-  </div>
-  <div class="gantt-row">
-    <div class="gantt-row-label sub">DARPA (Gallello) backup</div>
-    <div class="gantt-row-bg"></div>
-    <div class="gantt-bar capital" style="grid-column: 3 / 22;">DEE-493</div>
-  </div>
-  <div class="gantt-row">
-    <div class="gantt-row-label sub">STTR submission</div>
-    <div class="gantt-row-bg"></div>
-    <div class="gantt-bar capital" style="grid-column: 2 / 22;">DEE-50 draft &rarr; submit</div>
-    <div class="gantt-milestone" style="grid-column: 21 / 22;"><span class="ms-label">STTR DUE</span></div>
-  </div>
-  <div class="gantt-row">
-    <div class="gantt-row-label sub">Match commit in writing</div>
-    <div class="gantt-row-bg"></div>
-    <div class="gantt-bar capital" style="grid-column: 22 / 27;">Lock writing</div>
-    <div class="gantt-milestone" style="grid-column: 26 / 27;"><span class="ms-label">MATCH DONE</span></div>
-  </div>
-
-  <!-- 4. Past-Perf -->
-  <div class="gantt-row"><div class="gantt-row-label ws">4. Transition / Past-Perf</div><div class="gantt-row-bg"></div></div>
-  <div class="gantt-row">
-    <div class="gantt-row-label sub">D2P2 extension submission</div>
-    <div class="gantt-row-bg"></div>
-    <div class="gantt-bar pastperf" style="grid-column: 2 / 3;">DEE-419</div>
-    <div class="gantt-milestone" style="grid-column: 2 / 3;"><span class="ms-label">D2P2 DUE</span></div>
-  </div>
-  <div class="gantt-row">
-    <div class="gantt-row-label sub">D2P2 playbook session</div>
-    <div class="gantt-row-bg"></div>
-    <div class="gantt-bar pastperf" style="grid-column: 2 / 6;">DEE-505</div>
-  </div>
-  <div class="gantt-row">
-    <div class="gantt-row-label sub">SF254-D1204 pLEO fusion</div>
-    <div class="gantt-row-bg"></div>
-    <div class="gantt-bar pastperf" style="grid-column: 6 / 22;">DEE-451</div>
-    <div class="gantt-milestone" style="grid-column: 21 / 22;"><span class="ms-label">D1204 DUE</span></div>
-  </div>
-  <div class="gantt-row">
-    <div class="gantt-row-label sub">TacSRT RFP (matching money)</div>
-    <div class="gantt-row-bg"></div>
-    <div class="gantt-bar pastperf" style="grid-column: 6 / 27;">DEE-449</div>
-  </div>
-  <div class="gantt-row">
-    <div class="gantt-row-label sub">SOCOM BAA $3-15M</div>
-    <div class="gantt-row-bg"></div>
-    <div class="gantt-bar pastperf" style="grid-column: 6 / 27;">DEE-458</div>
-  </div>
-  <div class="gantt-row">
-    <div class="gantt-row-label sub">SOCOM PR POC + Vulcan scout card</div>
-    <div class="gantt-row-bg"></div>
-    <div class="gantt-bar pastperf" style="grid-column: 6 / 12;">DEE-429</div>
-    <div class="gantt-milestone" style="grid-column: 11 / 12;"><span class="ms-label">VULCAN</span></div>
-  </div>
-
-  <!-- 5. SOFWERX -->
-  <div class="gantt-row"><div class="gantt-row-label ws">5. SOF Week / SOFWERX</div><div class="gantt-row-bg"></div></div>
-  <div class="gantt-row">
-    <div class="gantt-row-label sub">Tech Tuesday submission pack</div>
-    <div class="gantt-row-bg"></div>
-    <div class="gantt-bar sofwerx" style="grid-column: 2 / 3;">DEE-462 + 15 subtasks</div>
-    <div class="gantt-milestone" style="grid-column: 2 / 3;"><span class="ms-label">SUBMIT</span></div>
-  </div>
-  <div class="gantt-row">
-    <div class="gantt-row-label sub">Tech Tuesday showcase</div>
-    <div class="gantt-row-bg"></div>
-    <div class="gantt-bar sofwerx" style="grid-column: 7 / 8;">Showcase</div>
-    <div class="gantt-milestone" style="grid-column: 7 / 8;"><span class="ms-label">SHOW</span></div>
-  </div>
-  <div class="gantt-row">
-    <div class="gantt-row-label sub">Jason Mayer pre-SOF outreach</div>
-    <div class="gantt-row-bg"></div>
-    <div class="gantt-bar sofwerx" style="grid-column: 12 / 18;">DEE-430</div>
-    <div class="gantt-milestone" style="grid-column: 17 / 18;"><span class="ms-label">JASON</span></div>
-  </div>
-  <div class="gantt-row">
-    <div class="gantt-row-label sub">SOF Week Tampa (PEOs)</div>
-    <div class="gantt-row-bg"></div>
-    <div class="gantt-bar sofwerx" style="grid-column: 22 / 26;">SOF Week</div>
-    <div class="gantt-milestone" style="grid-column: 22 / 23;"><span class="ms-label">TAMPA</span></div>
-  </div>
-  <div class="gantt-row">
-    <div class="gantt-row-label sub">eSOF submission</div>
-    <div class="gantt-row-bg"></div>
-    <div class="gantt-bar sofwerx" style="grid-column: 6 / 12;">DEE-459</div>
-  </div>
-
-  <!-- 6. Compliance -->
-  <div class="gantt-row"><div class="gantt-row-label ws">6. Compliance &amp; Legal</div><div class="gantt-row-bg"></div></div>
-  <div class="gantt-row">
-    <div class="gantt-row-label sub">Jason Oulette scoping (SF)</div>
-    <div class="gantt-row-bg"></div>
-    <div class="gantt-bar compliance" style="grid-column: 2 / 6;">DEE-498</div>
-  </div>
-  <div class="gantt-row">
-    <div class="gantt-row-label sub">Ryan compliance budget spike</div>
-    <div class="gantt-row-bg"></div>
-    <div class="gantt-bar compliance" style="grid-column: 2 / 8;">DEE-497</div>
-  </div>
-  <div class="gantt-row">
-    <div class="gantt-row-label sub">Kristina Botello onboard</div>
-    <div class="gantt-row-bg"></div>
-    <div class="gantt-bar compliance" style="grid-column: 6 / 12;">DEE-499</div>
-  </div>
-  <div class="gantt-row">
-    <div class="gantt-row-label sub">Readiness execution</div>
-    <div class="gantt-row-bg"></div>
-    <div class="gantt-bar compliance" style="grid-column: 8 / 22;">DEE-496 Readiness</div>
-    <div class="gantt-milestone" style="grid-column: 21 / 22;"><span class="ms-label">READY</span></div>
-  </div>
-
-  <!-- 7. Deck -->
-  <div class="gantt-row"><div class="gantt-row-label ws">7. Deck &amp; Narrative</div><div class="gantt-row-bg"></div></div>
-  <div class="gantt-row">
-    <div class="gantt-row-label sub">PMOD deck update</div>
-    <div class="gantt-row-bg"></div>
-    <div class="gantt-bar deck" style="grid-column: 3 / 17;">DEE-503</div>
-  </div>
-  <div class="gantt-row">
-    <div class="gantt-row-label sub">Coordinate with gov deck</div>
-    <div class="gantt-row-bg"></div>
-    <div class="gantt-bar deck" style="grid-column: 6 / 17;">DEE-504</div>
-  </div>
-  <div class="gantt-row">
-    <div class="gantt-row-label sub">DoW investor materials audit</div>
-    <div class="gantt-row-bg"></div>
-    <div class="gantt-bar deck" style="grid-column: 6 / 17;">DEE-506</div>
-  </div>
-
-  <!-- 8. Travel -->
-  <div class="gantt-row"><div class="gantt-row-label ws">8. Travel &amp; Logistics</div><div class="gantt-row-bg"></div></div>
-  <div class="gantt-row">
-    <div class="gantt-row-label sub">SF window</div>
-    <div class="gantt-row-bg"></div>
-    <div class="gantt-bar travel" style="grid-column: 2 / 6;">DEE-509 SF</div>
-  </div>
-  <div class="gantt-row">
-    <div class="gantt-row-label sub">Eureka field window</div>
-    <div class="gantt-row-bg"></div>
-    <div class="gantt-bar travel" style="grid-column: 6 / 13;">DEE-510 Eureka</div>
-  </div>
-  <div class="gantt-row">
-    <div class="gantt-row-label sub">AFRL Wright-Patt / SOF Week call</div>
-    <div class="gantt-row-bg"></div>
-    <div class="gantt-bar travel" style="grid-column: 2 / 6;">DEE-511</div>
-  </div>
-  <div class="gantt-row">
-    <div class="gantt-row-label sub">Wright-Patt event (May 13)</div>
-    <div class="gantt-row-bg"></div>
-    <div class="gantt-bar travel" style="grid-column: 21 / 22;">Event</div>
-  </div>
-</div>
+<div data-section="gantt"></div>
 
 <h2 class="section-heading">5. Milestones Timeline</h2>
-<div class="timeline">
-  <div class="mstop critical"><div class="t-date">Mon 2026-04-20</div><div class="t-title">D2P2 extension submission</div><div class="t-ref">DEE-419</div></div>
-  <div class="mstop critical"><div class="t-date">Mon 2026-04-20</div><div class="t-title">SOFWERX Tech Tuesday submission</div><div class="t-ref">DEE-462 + 15 subtasks</div></div>
-  <div class="mstop"><div class="t-date">Tue 2026-04-28</div><div class="t-title">SOFWERX Tech Tuesday showcase</div><div class="t-ref">SOCOM PEO stakeholders</div></div>
-  <div class="mstop"><div class="t-date">Wed 2026-04-28</div><div class="t-title">NASA SaaS RFI submission</div><div class="t-ref">DEE-386</div></div>
-  <div class="mstop critical"><div class="t-date">Sun 2026-05-03</div><div class="t-title">SSC funding letter target</div><div class="t-ref">DEE-507</div></div>
-  <div class="mstop"><div class="t-date">Tue 2026-05-06</div><div class="t-title">Jason Mayer outreach (pre-SOF)</div><div class="t-ref">DEE-430</div></div>
-  <div class="mstop critical"><div class="t-date">Wed 2026-05-13</div><div class="t-title">AFRL Wright-Patt Strategic Priorities</div><div class="t-ref">DEE-235</div></div>
-  <div class="mstop critical"><div class="t-date">Wed 2026-05-13</div><div class="t-title">STTR SF25D-T1201 submission</div><div class="t-ref">DEE-50 / DE-66</div></div>
-  <div class="mstop critical"><div class="t-date">Wed 2026-05-13</div><div class="t-title">SF254-D1204 pLEO fusion due</div><div class="t-ref">DEE-451</div></div>
-  <div class="mstop critical"><div class="t-date">~Fri 2026-05-15</div><div class="t-title">Compliance readiness complete</div><div class="t-ref">DEE-496</div></div>
-  <div class="mstop"><div class="t-date">Mon 2026-05-18</div><div class="t-title">STRATFI technical volume red-team</div><div class="t-ref">DEE-502</div></div>
-  <div class="mstop critical"><div class="t-date">May 18-21</div><div class="t-title">SOF Week Tampa</div><div class="t-ref">SOCOM PEO track</div></div>
-  <div class="mstop critical"><div class="t-date">Fri 2026-05-29</div><div class="t-title">STRATFI PACKAGE SUBMIT</div><div class="t-ref">DEE-457</div></div>
-</div>
+<div data-section="milestones"></div>
 
 <h2 class="section-heading">6. Dependencies</h2>
-<div class="panel">
-  <p class="meta" style="margin-bottom: 10px;">Critical-path dependencies. If any earlier item slips, the downstream items slip with it.</p>
-  <ol class="deps-list">
-    <li><code>DEE-508</code> confirm date via Jesse &rarr; every downstream deadline keys off this</li>
-    <li><code>DEE-419</code> D2P2 extension submission &rarr; <code>DEE-505</code> D2P2 playbook &rarr; past-perf narrative for <code>DEE-457</code> STRATFI + <code>DEE-451</code> D1204</li>
-    <li><code>DEE-491</code> Tigran + <code>DEE-270</code> Kevin &rarr; <code>DEE-507</code> SSC funding letter &rarr; SpaceWERX decision &rarr; STRATFI submission</li>
-    <li><code>DEE-500</code> Vahe + <code>DEE-501</code> Leonid + <code>DEE-482</code> Cody &rarr; match commit in writing &rarr; STRATFI submission</li>
-    <li><code>DEE-462</code> SOFWERX pack (plus 15 subtasks) &rarr; Tech Tuesday showcase Apr 28 &rarr; SOCOM PEO relationships &rarr; <code>DEE-489/490/488</code> Ben Tuttle / McDonald / Ludeman letters</li>
-    <li><code>DEE-503</code> PMOD deck update &rarr; Wright-Patt + SOF Week outreach &rarr; Letters &amp; match conversations</li>
-    <li><code>DEE-497</code> Ryan compliance budget spike &rarr; <code>DEE-498</code> Jason Oulette + <code>DEE-499</code> Kristina Botello &rarr; <code>DEE-496</code> compliance readiness &rarr; STRATFI submission</li>
-    <li>Draft volumes (W1-W4) &rarr; <code>DEE-502</code> red-team (W5) &rarr; revisions &rarr; <code>DEE-457</code> submit</li>
-  </ol>
-</div>
+<div data-section="dependencies"></div>
 
 <h2 class="section-heading">7. Cadence</h2>
 <div class="twocol">
@@ -754,7 +784,7 @@
 
     <h3>Bi-weekly</h3>
     <ul class="clean">
-      <li><b>Bi-Weekly AFRL Sync</b> &middot; existing &middot; Nerses, Hayk, Anne, Mitch (RW), Eniola (Eni) Delano (Cytellix), Jesse Olson (AFRL) &middot; submission conduit, past-perf, letter, compliance</li>
+      <li><b>Bi-Weekly AFRL Sync</b> &middot; existing &middot; Nerses, Hayk, Mitch (RW), Eniola (Eni) Delano (Cytellix), Jesse Olson (AFRL) &middot; submission conduit, past-perf, letter, compliance</li>
     </ul>
 
     <h3>Event-driven</h3>
@@ -848,11 +878,2519 @@
   </ul>
 </div>
 
+<h2 class="section-heading">10. Kanban (per person)</h2>
+<div data-section="kanban" class="kanban-mount"></div>
+
+<h2 class="section-heading">Changelog</h2>
+<div data-section="changelog"></div>
+
 <footer class="foot">
   DeepSat StratFi Program Dashboard &middot; Initialized 2026-04-20 &middot; Source: <a href="https://deepsat.ghe.com/deepsat/stratfi-inception" target="_blank">deepsat/stratfi-inception</a> &middot; Refreshed weekly before the Monday STRATFI Review.
 </footer>
 
 </div>
+
+<script type="application/json" id="dashboard-data-inline">{
+  "meta": {
+    "programStart": "2026-04-20",
+    "submissionDeadline": "2026-05-29",
+    "programManager": "Nerses",
+    "lastUpdated": "2026-04-24T10:05:57.327Z"
+  },
+  "kpis": [
+    {
+      "id": "days-to-submission",
+      "label": "Days to submission",
+      "value": "35",
+      "sub": "Target: 2026-05-29",
+      "rag": null
+    },
+    {
+      "id": "stratfi-tickets",
+      "label": "SF STRATFI tickets",
+      "value": "66",
+      "sub": "Open; Linear source of truth",
+      "rag": "amber"
+    },
+    {
+      "id": "letters-signed",
+      "label": "Letters signed",
+      "value": "0 / 3",
+      "sub": "SSC, NASA/GSFC, AFRL",
+      "rag": "red"
+    },
+    {
+      "id": "match-in-writing",
+      "label": "Match in writing",
+      "value": "$0 / target",
+      "sub": "Vahe, Leonid, public",
+      "rag": "red"
+    },
+    {
+      "id": "sofwerx-subtasks",
+      "label": "SOFWERX subtasks",
+      "value": "0 / 15",
+      "sub": "All Urgent",
+      "rag": "amber"
+    },
+    {
+      "id": "compliance-readiness",
+      "label": "Compliance readiness",
+      "value": "In flight",
+      "sub": "Target: mid-May",
+      "rag": "amber"
+    },
+    {
+      "id": "top-risks-rag",
+      "label": "Top risks (RAG)",
+      "value": "2 R / 2 A",
+      "sub": "SSC, match, compliance, red-team",
+      "rag": null
+    }
+  ],
+  "raci": [
+    {
+      "workstream": "1. STRATFI Submission Package (inc. financials, travel, logistics)",
+      "accountable": "Subbu",
+      "responsible": [
+        "Sarkis",
+        "Hayk"
+      ],
+      "consulted": [
+        "Nerses",
+        "Jesse (AFRL)",
+        "Lusine"
+      ],
+      "informed": [
+        "Team"
+      ]
+    },
+    {
+      "workstream": "2. Funding Letters",
+      "accountable": "Nerses",
+      "responsible": [
+        "Sarkis",
+        "Hayk"
+      ],
+      "consulted": [
+        "Tigran",
+        "Kevin",
+        "Mitch (RW)"
+      ],
+      "informed": [
+        "Subbu",
+        "Team"
+      ]
+    },
+    {
+      "workstream": "3. Matching Capital",
+      "accountable": "Nerses",
+      "responsible": [
+        "Subbu",
+        "Davit",
+        "Sarkis"
+      ],
+      "consulted": [
+        "Lusine (advisor)",
+        "Vahe",
+        "Leonid",
+        "Cody"
+      ],
+      "informed": [
+        "Team"
+      ]
+    },
+    {
+      "workstream": "4. Proposals & Opportunities for Matching Funding Letters",
+      "accountable": "Subbu",
+      "responsible": [
+        "Hayk",
+        "Craig"
+      ],
+      "consulted": [
+        "Nerses",
+        "Kristina Botello"
+      ],
+      "informed": [
+        "Sarkis",
+        "Team"
+      ]
+    },
+    {
+      "workstream": "5. SOF Week / SOFWERX",
+      "accountable": "Sarkis",
+      "responsible": [
+        "Subbu",
+        "Hayk"
+      ],
+      "consulted": [
+        "Nerses",
+        "Jason Mayer",
+        "SOCOM PEOs"
+      ],
+      "informed": [
+        "Eric",
+        "Craig"
+      ]
+    },
+    {
+      "workstream": "6. Compliance & Legal",
+      "accountable": "Ryan",
+      "responsible": [
+        "Subbu",
+        "Kristina Botello (needs intro via Ryan)"
+      ],
+      "consulted": [
+        "Cecilia",
+        "Jason Oulette",
+        "Eniola (Eni) Delano (Cytellix)"
+      ],
+      "informed": [
+        "Nerses"
+      ]
+    },
+    {
+      "workstream": "7. Deck & Narrative",
+      "accountable": "Sarkis",
+      "responsible": [
+        "Nerses",
+        "Subbu"
+      ],
+      "consulted": [
+        "Ben (GeoOutlook)",
+        "Jason Fraser (advisor)"
+      ],
+      "informed": [
+        "Team"
+      ]
+    }
+  ],
+  "gantt": {
+    "weeks": [
+      "W1 · Apr 20-26",
+      "W2 · Apr 27 - May 3",
+      "W3 · May 4-10",
+      "W4 · May 11-17",
+      "W5 · May 18-24",
+      "W6 · May 25-31"
+    ],
+    "bars": [
+      {
+        "track": "submission",
+        "label": "DEE-508",
+        "startWeek": 1,
+        "endWeek": 1,
+        "status": "active"
+      },
+      {
+        "track": "submission",
+        "label": "Drafting (Hayk + Subbu + Sarkis)",
+        "startWeek": 1,
+        "endWeek": 5,
+        "status": "active"
+      },
+      {
+        "track": "submission",
+        "label": "DEE-502 Red-team",
+        "startWeek": 5,
+        "endWeek": 5,
+        "status": "active"
+      },
+      {
+        "track": "submission",
+        "label": "Revise → Submit",
+        "startWeek": 6,
+        "endWeek": 6,
+        "status": "active"
+      },
+      {
+        "track": "letters",
+        "label": "DEE-507 SSC letter",
+        "startWeek": 1,
+        "endWeek": 2,
+        "status": "active"
+      },
+      {
+        "track": "letters",
+        "label": "DEE-487",
+        "startWeek": 1,
+        "endWeek": 2,
+        "status": "active"
+      },
+      {
+        "track": "letters",
+        "label": "DEE-66",
+        "startWeek": 1,
+        "endWeek": 3,
+        "status": "active"
+      },
+      {
+        "track": "letters",
+        "label": "DEE-486",
+        "startWeek": 1,
+        "endWeek": 2,
+        "status": "active"
+      },
+      {
+        "track": "letters",
+        "label": "DEE-494, DEE-235",
+        "startWeek": 1,
+        "endWeek": 4,
+        "status": "active"
+      },
+      {
+        "track": "letters",
+        "label": "Consolidate",
+        "startWeek": 5,
+        "endWeek": 6,
+        "status": "active"
+      },
+      {
+        "track": "capital",
+        "label": "DEE-500",
+        "startWeek": 1,
+        "endWeek": 1,
+        "status": "active"
+      },
+      {
+        "track": "capital",
+        "label": "DEE-501 (paper LOI)",
+        "startWeek": 1,
+        "endWeek": 4,
+        "status": "active"
+      },
+      {
+        "track": "capital",
+        "label": "DEE-482",
+        "startWeek": 1,
+        "endWeek": 3,
+        "status": "active"
+      },
+      {
+        "track": "capital",
+        "label": "DEE-493",
+        "startWeek": 1,
+        "endWeek": 4,
+        "status": "active"
+      },
+      {
+        "track": "capital",
+        "label": "DEE-50 draft → submit",
+        "startWeek": 1,
+        "endWeek": 4,
+        "status": "active"
+      },
+      {
+        "track": "capital",
+        "label": "Lock writing",
+        "startWeek": 5,
+        "endWeek": 5,
+        "status": "active"
+      },
+      {
+        "track": "pastperf",
+        "label": "DEE-419",
+        "startWeek": 1,
+        "endWeek": 1,
+        "status": "active"
+      },
+      {
+        "track": "pastperf",
+        "label": "DEE-505",
+        "startWeek": 1,
+        "endWeek": 1,
+        "status": "active"
+      },
+      {
+        "track": "pastperf",
+        "label": "DEE-451",
+        "startWeek": 1,
+        "endWeek": 4,
+        "status": "active"
+      },
+      {
+        "track": "pastperf",
+        "label": "DEE-449",
+        "startWeek": 1,
+        "endWeek": 5,
+        "status": "active"
+      },
+      {
+        "track": "pastperf",
+        "label": "DEE-458",
+        "startWeek": 1,
+        "endWeek": 5,
+        "status": "active"
+      },
+      {
+        "track": "pastperf",
+        "label": "DEE-429",
+        "startWeek": 1,
+        "endWeek": 2,
+        "status": "active"
+      },
+      {
+        "track": "sofwerx",
+        "label": "DEE-462 + 15 subtasks",
+        "startWeek": 1,
+        "endWeek": 1,
+        "status": "active"
+      },
+      {
+        "track": "sofwerx",
+        "label": "Showcase",
+        "startWeek": 2,
+        "endWeek": 2,
+        "status": "active"
+      },
+      {
+        "track": "sofwerx",
+        "label": "DEE-430",
+        "startWeek": 3,
+        "endWeek": 4,
+        "status": "active"
+      },
+      {
+        "track": "sofwerx",
+        "label": "SOF Week",
+        "startWeek": 5,
+        "endWeek": 5,
+        "status": "active"
+      },
+      {
+        "track": "sofwerx",
+        "label": "DEE-459",
+        "startWeek": 1,
+        "endWeek": 2,
+        "status": "active"
+      },
+      {
+        "track": "compliance",
+        "label": "DEE-498",
+        "startWeek": 1,
+        "endWeek": 1,
+        "status": "active"
+      },
+      {
+        "track": "compliance",
+        "label": "DEE-497",
+        "startWeek": 1,
+        "endWeek": 2,
+        "status": "active"
+      },
+      {
+        "track": "compliance",
+        "label": "DEE-499",
+        "startWeek": 1,
+        "endWeek": 2,
+        "status": "active"
+      },
+      {
+        "track": "compliance",
+        "label": "DEE-496 Readiness",
+        "startWeek": 2,
+        "endWeek": 4,
+        "status": "active"
+      },
+      {
+        "track": "deck",
+        "label": "DEE-503",
+        "startWeek": 1,
+        "endWeek": 3,
+        "status": "active"
+      },
+      {
+        "track": "deck",
+        "label": "DEE-504",
+        "startWeek": 1,
+        "endWeek": 3,
+        "status": "active"
+      },
+      {
+        "track": "deck",
+        "label": "DEE-506",
+        "startWeek": 1,
+        "endWeek": 3,
+        "status": "active"
+      }
+    ]
+  },
+  "milestones": [
+    {
+      "date": "2026-04-20",
+      "label": "D2P2 extension submission",
+      "status": "in-progress"
+    },
+    {
+      "date": "2026-04-20",
+      "label": "SOFWERX Tech Tuesday submission",
+      "status": "in-progress"
+    },
+    {
+      "date": "2026-04-28",
+      "label": "SOFWERX Tech Tuesday showcase",
+      "status": "pending"
+    },
+    {
+      "date": "2026-04-28",
+      "label": "NASA SaaS RFI submission",
+      "status": "pending"
+    },
+    {
+      "date": "2026-05-03",
+      "label": "SSC funding letter target",
+      "status": "in-progress"
+    },
+    {
+      "date": "2026-05-06",
+      "label": "Jason Mayer outreach (pre-SOF)",
+      "status": "pending"
+    },
+    {
+      "date": "2026-05-13",
+      "label": "AFRL Wright-Patt Strategic Priorities",
+      "status": "in-progress"
+    },
+    {
+      "date": "2026-05-13",
+      "label": "STTR SF25D-T1201 submission",
+      "status": "in-progress"
+    },
+    {
+      "date": "2026-05-13",
+      "label": "SF254-D1204 pLEO fusion due",
+      "status": "in-progress"
+    },
+    {
+      "date": "2026-05-15",
+      "label": "Compliance readiness complete",
+      "status": "in-progress"
+    },
+    {
+      "date": "2026-05-18",
+      "label": "STRATFI technical volume red-team",
+      "status": "pending"
+    },
+    {
+      "date": "2026-05-29",
+      "label": "STRATFI PACKAGE SUBMIT",
+      "status": "in-progress"
+    }
+  ],
+  "dependencies": [
+    {
+      "from": "DEE-508 Jesse date confirmation",
+      "to": "All downstream deadlines",
+      "risk": "red"
+    },
+    {
+      "from": "DEE-419 D2P2 extension",
+      "to": "DEE-505 D2P2 playbook",
+      "risk": "amber"
+    },
+    {
+      "from": "DEE-505 D2P2 playbook",
+      "to": "DEE-457 STRATFI past-perf narrative",
+      "risk": "amber"
+    },
+    {
+      "from": "DEE-505 D2P2 playbook",
+      "to": "DEE-451 D1204 past-perf",
+      "risk": "amber"
+    },
+    {
+      "from": "DEE-491 Tigran (NASA/GSFC)",
+      "to": "DEE-507 SSC funding letter",
+      "risk": "red"
+    },
+    {
+      "from": "DEE-270 Kevin (AFRL)",
+      "to": "DEE-507 SSC funding letter",
+      "risk": "red"
+    },
+    {
+      "from": "DEE-507 SSC funding letter",
+      "to": "SpaceWERX decision",
+      "risk": "red"
+    },
+    {
+      "from": "SpaceWERX decision",
+      "to": "DEE-457 STRATFI submission",
+      "risk": "red"
+    },
+    {
+      "from": "DEE-500 Vahe equity",
+      "to": "Match commit in writing",
+      "risk": "red"
+    },
+    {
+      "from": "DEE-501 Leonid venture debt",
+      "to": "Match commit in writing",
+      "risk": "red"
+    },
+    {
+      "from": "DEE-482 Cody public match",
+      "to": "Match commit in writing",
+      "risk": "red"
+    },
+    {
+      "from": "Match commit in writing",
+      "to": "DEE-457 STRATFI submission",
+      "risk": "red"
+    },
+    {
+      "from": "DEE-462 SOFWERX pack (+ 15 subtasks)",
+      "to": "Tech Tuesday showcase 2026-04-28",
+      "risk": "amber"
+    },
+    {
+      "from": "Tech Tuesday showcase 2026-04-28",
+      "to": "SOCOM PEO relationships",
+      "risk": "amber"
+    },
+    {
+      "from": "SOCOM PEO relationships",
+      "to": "Tuttle / McDonald / Ludeman letters (DEE-489/490/488)",
+      "risk": "amber"
+    },
+    {
+      "from": "DEE-503 PMOD deck update",
+      "to": "Wright-Patt + SOF Week outreach",
+      "risk": "amber"
+    },
+    {
+      "from": "Wright-Patt + SOF Week outreach",
+      "to": "Letters & match conversations",
+      "risk": "amber"
+    },
+    {
+      "from": "DEE-497 Ryan compliance budget spike",
+      "to": "DEE-498 Jason Oulette",
+      "risk": "amber"
+    },
+    {
+      "from": "DEE-498 Jason Oulette",
+      "to": "DEE-496 compliance readiness",
+      "risk": "amber"
+    },
+    {
+      "from": "DEE-499 Kristina Botello",
+      "to": "DEE-496 compliance readiness",
+      "risk": "amber"
+    },
+    {
+      "from": "DEE-496 compliance readiness",
+      "to": "DEE-457 STRATFI submission",
+      "risk": "red"
+    },
+    {
+      "from": "Draft volumes (W1-W4)",
+      "to": "DEE-502 red-team (W5)",
+      "risk": "red"
+    },
+    {
+      "from": "DEE-502 red-team",
+      "to": "Revisions",
+      "risk": "red"
+    },
+    {
+      "from": "Revisions",
+      "to": "DEE-457 STRATFI submission",
+      "risk": "red"
+    }
+  ],
+  "kanban": {
+    "fetchedAt": "2026-04-24T09:23:10.517Z",
+    "people": [
+      "(unassigned)",
+      "Hayk Martirosyan",
+      "Nerses Ohanyan",
+      "Ryan Southwick",
+      "Sarkis Karabashian",
+      "Subbu Viswanathan"
+    ],
+    "issues": [
+      {
+        "id": "DEE-659",
+        "title": "Get STRATFI Docs from Jesse Olson",
+        "state": "Done",
+        "linearStatus": "Done",
+        "assignee": "Nerses Ohanyan",
+        "priority": 1,
+        "due": null,
+        "updated": "2026-04-24T08:47:01.332Z",
+        "url": "https://linear.app/deepsat/issue/DEE-659/get-stratfi-docs-from-jesse-olson",
+        "createdAt": "2026-04-23T16:08:55.472Z",
+        "startedAt": "2026-04-23T16:08:55.523Z",
+        "completedAt": "2026-04-24T08:47:01.305Z",
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-451",
+        "title": "RFP: SF254-D1204: Secure Multi-Source Data Fusion Environment for pLEO Constellations",
+        "state": "In Progress",
+        "linearStatus": "In Progress",
+        "assignee": "Subbu Viswanathan",
+        "priority": 2,
+        "due": "2026-04-24",
+        "updated": "2026-04-24T07:25:02.560Z",
+        "url": "https://linear.app/deepsat/issue/DEE-451/rfp-sf254-d1204-secure-multi-source-data-fusion-environment-for-pleo",
+        "createdAt": "2026-04-17T01:43:34.014Z",
+        "startedAt": "2026-04-17T18:46:35.759Z",
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-386",
+        "title": "RFI: Advancement of “Science as a Service” for NASA and Commercial Partners DEADLINE IMMINENT",
+        "state": "In Progress",
+        "linearStatus": "In Progress",
+        "assignee": "Sarkis Karabashian",
+        "priority": 1,
+        "due": "2026-04-22",
+        "updated": "2026-04-23T22:05:27.919Z",
+        "url": "https://linear.app/deepsat/issue/DEE-386/rfi-advancement-of-science-as-a-service-for-nasa-and-commercial",
+        "createdAt": "2026-04-13T22:58:04.987Z",
+        "startedAt": "2026-04-13T22:58:05.039Z",
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-655",
+        "title": "Kristina Botelho - Advisor Agreement",
+        "state": "In Progress",
+        "linearStatus": "In Progress",
+        "assignee": "Nerses Ohanyan",
+        "priority": 1,
+        "due": null,
+        "updated": "2026-04-23T16:33:57.620Z",
+        "url": "https://linear.app/deepsat/issue/DEE-655/kristina-botelho-advisor-agreement",
+        "createdAt": "2026-04-23T01:42:31.991Z",
+        "startedAt": "2026-04-23T01:42:32.033Z",
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-474",
+        "title": "Are you currently working with the government or private equity? If Yes, please tell us whom.",
+        "state": "In Progress",
+        "linearStatus": "Needs Review",
+        "assignee": "(unassigned)",
+        "priority": 1,
+        "due": null,
+        "updated": "2026-04-23T02:17:44.477Z",
+        "url": "https://linear.app/deepsat/issue/DEE-474/are-you-currently-working-with-the-government-or-private-equity-if-yes",
+        "createdAt": "2026-04-17T21:06:16.150Z",
+        "startedAt": null,
+        "completedAt": "2026-04-23T02:17:44.461Z",
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-473",
+        "title": "What are the next key features you'd like to add to your technology and what are the hurdles?",
+        "state": "In Progress",
+        "linearStatus": "Needs Review",
+        "assignee": "(unassigned)",
+        "priority": 1,
+        "due": null,
+        "updated": "2026-04-23T02:16:00.233Z",
+        "url": "https://linear.app/deepsat/issue/DEE-473/what-are-the-next-key-features-youd-like-to-add-to-your-technology-and",
+        "createdAt": "2026-04-17T21:05:54.673Z",
+        "startedAt": null,
+        "completedAt": "2026-04-23T02:16:00.216Z",
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-471",
+        "title": "What is the current TRL of your technology?",
+        "state": "In Progress",
+        "linearStatus": "Needs Review",
+        "assignee": "(unassigned)",
+        "priority": 1,
+        "due": null,
+        "updated": "2026-04-23T02:13:28.305Z",
+        "url": "https://linear.app/deepsat/issue/DEE-471/what-is-the-current-trl-of-your-technology",
+        "createdAt": "2026-04-17T21:05:14.638Z",
+        "startedAt": null,
+        "completedAt": "2026-04-23T02:13:28.283Z",
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-472",
+        "title": "What is the estimated cost and schedule to get it to TRL 7?",
+        "state": "Todo",
+        "linearStatus": "Not Started",
+        "assignee": "(unassigned)",
+        "priority": 1,
+        "due": null,
+        "updated": "2026-04-23T02:12:52.612Z",
+        "url": "https://linear.app/deepsat/issue/DEE-472/what-is-the-estimated-cost-and-schedule-to-get-it-to-trl-7",
+        "createdAt": "2026-04-17T21:05:29.798Z",
+        "startedAt": null,
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-470",
+        "title": "Do you have an Minimum Viable Product (MVP)/Prototype and what is the customer feedback you've received?",
+        "state": "In Progress",
+        "linearStatus": "Needs Review",
+        "assignee": "(unassigned)",
+        "priority": 1,
+        "due": null,
+        "updated": "2026-04-23T02:09:05.548Z",
+        "url": "https://linear.app/deepsat/issue/DEE-470/do-you-have-an-minimum-viable-product-mvpprototype-and-what-is-the",
+        "createdAt": "2026-04-17T21:04:11.986Z",
+        "startedAt": null,
+        "completedAt": "2026-04-23T02:09:03.124Z",
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-469",
+        "title": "Name your top two competitors and list the key differentiators of your technology/service.",
+        "state": "In Progress",
+        "linearStatus": "Needs Review",
+        "assignee": "(unassigned)",
+        "priority": 1,
+        "due": null,
+        "updated": "2026-04-23T02:06:46.361Z",
+        "url": "https://linear.app/deepsat/issue/DEE-469/name-your-top-two-competitors-and-list-the-key-differentiators-of-your",
+        "createdAt": "2026-04-17T21:03:37.127Z",
+        "startedAt": null,
+        "completedAt": "2026-04-23T02:06:46.340Z",
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-468",
+        "title": "Briefly explain how your transformational technology could be used to help the Warfighter.",
+        "state": "In Progress",
+        "linearStatus": "Needs Review",
+        "assignee": "(unassigned)",
+        "priority": 1,
+        "due": null,
+        "updated": "2026-04-23T02:03:26.265Z",
+        "url": "https://linear.app/deepsat/issue/DEE-468/briefly-explain-how-your-transformational-technology-could-be-used-to",
+        "createdAt": "2026-04-17T21:03:27.788Z",
+        "startedAt": null,
+        "completedAt": "2026-04-23T02:03:26.247Z",
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-467",
+        "title": "Explain what makes your technology transformational. How does it meet that threshold?",
+        "state": "In Progress",
+        "linearStatus": "Needs Review",
+        "assignee": "(unassigned)",
+        "priority": 1,
+        "due": null,
+        "updated": "2026-04-23T02:03:06.486Z",
+        "url": "https://linear.app/deepsat/issue/DEE-467/explain-what-makes-your-technology-transformational-how-does-it-meet",
+        "createdAt": "2026-04-17T21:03:16.248Z",
+        "startedAt": null,
+        "completedAt": "2026-04-23T02:03:06.467Z",
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-466",
+        "title": "What big problem does your technology solve? (3 Sentences)",
+        "state": "In Progress",
+        "linearStatus": "Needs Review",
+        "assignee": "(unassigned)",
+        "priority": 1,
+        "due": null,
+        "updated": "2026-04-23T01:59:37.240Z",
+        "url": "https://linear.app/deepsat/issue/DEE-466/what-big-problem-does-your-technology-solve-3-sentences",
+        "createdAt": "2026-04-17T21:03:08.970Z",
+        "startedAt": null,
+        "completedAt": "2026-04-23T01:59:37.216Z",
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-465",
+        "title": "Capability Statement (1-2 sentences max)",
+        "state": "In Progress",
+        "linearStatus": "Needs Review",
+        "assignee": "Sarkis Karabashian",
+        "priority": 1,
+        "due": null,
+        "updated": "2026-04-23T01:58:09.977Z",
+        "url": "https://linear.app/deepsat/issue/DEE-465/capability-statement-1-2-sentences-max",
+        "createdAt": "2026-04-17T21:02:33.419Z",
+        "startedAt": null,
+        "completedAt": "2026-04-23T01:58:09.954Z",
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-649",
+        "title": "Kristina Botello's contact info",
+        "state": "Done",
+        "linearStatus": "Done",
+        "assignee": "Nerses Ohanyan",
+        "priority": 2,
+        "due": null,
+        "updated": "2026-04-23T01:40:21.063Z",
+        "url": "https://linear.app/deepsat/issue/DEE-649/kristina-botellos-contact-info",
+        "createdAt": "2026-04-21T16:53:50.248Z",
+        "startedAt": "2026-04-21T17:46:44.114Z",
+        "completedAt": "2026-04-23T01:40:21.046Z",
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-499",
+        "title": "Onboard Kristina Botello to compliance workstream",
+        "state": "Backlog",
+        "linearStatus": "Inbox",
+        "assignee": "(unassigned)",
+        "priority": 2,
+        "due": null,
+        "updated": "2026-04-21T16:49:19.009Z",
+        "url": "https://linear.app/deepsat/issue/DEE-499/onboard-kristina-botello-to-compliance-workstream",
+        "createdAt": "2026-04-20T06:30:56.088Z",
+        "startedAt": null,
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-647",
+        "title": "DARPA ERIS Submission",
+        "state": "Backlog",
+        "linearStatus": "Inbox",
+        "assignee": "(unassigned)",
+        "priority": 1,
+        "due": null,
+        "updated": "2026-04-21T00:56:02.484Z",
+        "url": "https://linear.app/deepsat/issue/DEE-647/darpa-eris-submission",
+        "createdAt": "2026-04-21T00:56:02.062Z",
+        "startedAt": null,
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-646",
+        "title": "Rewrite dual-use economics framing for SOFWERX white paper",
+        "state": "Backlog",
+        "linearStatus": "Inbox",
+        "assignee": "Sarkis Karabashian",
+        "priority": 0,
+        "due": null,
+        "updated": "2026-04-21T00:16:12.886Z",
+        "url": "https://linear.app/deepsat/issue/DEE-646/rewrite-dual-use-economics-framing-for-sofwerx-white-paper",
+        "createdAt": "2026-04-21T00:16:12.886Z",
+        "startedAt": null,
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-507",
+        "title": "SSC funding letter outreach, 2-week deadline",
+        "state": "Backlog",
+        "linearStatus": "Inbox",
+        "assignee": "Nerses Ohanyan",
+        "priority": 1,
+        "due": null,
+        "updated": "2026-04-20T22:11:21.354Z",
+        "url": "https://linear.app/deepsat/issue/DEE-507/ssc-funding-letter-outreach-2-week-deadline",
+        "createdAt": "2026-04-20T06:31:23.067Z",
+        "startedAt": null,
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-508",
+        "title": "Confirm exact STRATFI submission date with program office via Jesse at AFRL",
+        "state": "Backlog",
+        "linearStatus": "Inbox",
+        "assignee": "(unassigned)",
+        "priority": 1,
+        "due": null,
+        "updated": "2026-04-20T19:30:30.403Z",
+        "url": "https://linear.app/deepsat/issue/DEE-508/confirm-exact-stratfi-submission-date-with-program-office-via-jesse-at",
+        "createdAt": "2026-04-20T06:31:26.184Z",
+        "startedAt": null,
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-482",
+        "title": "Ask Cody who has money now we can approach for public $ matching",
+        "state": "Todo",
+        "linearStatus": "Not Started",
+        "assignee": "Sarkis Karabashian",
+        "priority": 2,
+        "due": null,
+        "updated": "2026-04-20T19:30:30.403Z",
+        "url": "https://linear.app/deepsat/issue/DEE-482/ask-cody-who-has-money-now-we-can-approach-for-public-dollardollar",
+        "createdAt": "2026-04-17T22:56:45.617Z",
+        "startedAt": null,
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-478",
+        "title": "SOF Week Logistics",
+        "state": "In Progress",
+        "linearStatus": "In Progress",
+        "assignee": "Sarkis Karabashian",
+        "priority": 2,
+        "due": null,
+        "updated": "2026-04-20T19:29:16.863Z",
+        "url": "https://linear.app/deepsat/issue/DEE-478/sof-week-logistics",
+        "createdAt": "2026-04-17T21:40:21.340Z",
+        "startedAt": "2026-04-17T21:40:21.387Z",
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-446",
+        "title": "NOTES to clean up for Subbu",
+        "state": "In Progress",
+        "linearStatus": "In Progress",
+        "assignee": "Subbu Viswanathan",
+        "priority": 2,
+        "due": null,
+        "updated": "2026-04-20T19:27:27.022Z",
+        "url": "https://linear.app/deepsat/issue/DEE-446/notes-to-clean-up-for-subbu",
+        "createdAt": "2026-04-17T00:29:25.319Z",
+        "startedAt": "2026-04-17T00:29:25.360Z",
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-494",
+        "title": "CONTACT: Seth Lacey",
+        "state": "In Progress",
+        "linearStatus": "In Progress",
+        "assignee": "Hayk Martirosyan",
+        "priority": 1,
+        "due": null,
+        "updated": "2026-04-20T16:24:48.195Z",
+        "url": "https://linear.app/deepsat/issue/DEE-494/contact-seth-lacey",
+        "createdAt": "2026-04-19T06:49:26.931Z",
+        "startedAt": "2026-04-20T15:34:53.919Z",
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-486",
+        "title": "Reaach out to Marlin for STRATFI",
+        "state": "Done",
+        "linearStatus": "Done",
+        "assignee": "Hayk Martirosyan",
+        "priority": 1,
+        "due": null,
+        "updated": "2026-04-20T16:11:55.028Z",
+        "url": "https://linear.app/deepsat/issue/DEE-486/reaach-out-to-marlin-for-stratfi",
+        "createdAt": "2026-04-19T05:36:27.507Z",
+        "startedAt": "2026-04-19T05:36:27.549Z",
+        "completedAt": "2026-04-20T16:11:55.011Z",
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-492",
+        "title": "CONTACT: Spence Wise",
+        "state": "Done",
+        "linearStatus": "Done",
+        "assignee": "Hayk Martirosyan",
+        "priority": 1,
+        "due": null,
+        "updated": "2026-04-20T16:11:22.172Z",
+        "url": "https://linear.app/deepsat/issue/DEE-492/contact-spence-wise",
+        "createdAt": "2026-04-19T06:15:09.063Z",
+        "startedAt": "2026-04-20T15:35:44.661Z",
+        "completedAt": "2026-04-20T16:11:22.153Z",
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-641",
+        "title": "DIU - Ric Momer",
+        "state": "In Progress",
+        "linearStatus": "In Progress",
+        "assignee": "Nerses Ohanyan",
+        "priority": 1,
+        "due": null,
+        "updated": "2026-04-20T15:52:54.689Z",
+        "url": "https://linear.app/deepsat/issue/DEE-641/diu-ric-momer",
+        "createdAt": "2026-04-20T15:52:54.689Z",
+        "startedAt": "2026-04-20T15:52:54.743Z",
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-459",
+        "title": "SOCOM: eSOF Submission",
+        "state": "In Progress",
+        "linearStatus": "In Progress",
+        "assignee": "Sarkis Karabashian",
+        "priority": 1,
+        "due": null,
+        "updated": "2026-04-20T07:07:55.522Z",
+        "url": "https://linear.app/deepsat/issue/DEE-459/socom-esof-submission",
+        "createdAt": "2026-04-17T20:47:00.933Z",
+        "startedAt": "2026-04-17T20:47:18.266Z",
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-511",
+        "title": "Decide owners: AFRL Wright-Patt (May 13) vs SOF Week Tampa (May 18-21)",
+        "state": "Backlog",
+        "linearStatus": "Inbox",
+        "assignee": "(unassigned)",
+        "priority": 2,
+        "due": null,
+        "updated": "2026-04-20T06:31:37.247Z",
+        "url": "https://linear.app/deepsat/issue/DEE-511/decide-owners-afrl-wright-patt-may-13-vs-sof-week-tampa-may-18-21",
+        "createdAt": "2026-04-20T06:31:37.247Z",
+        "startedAt": null,
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-510",
+        "title": "Eureka field window 2026-04-24 to 2026-05-02: owner split",
+        "state": "Backlog",
+        "linearStatus": "Inbox",
+        "assignee": "Nerses Ohanyan",
+        "priority": 0,
+        "due": null,
+        "updated": "2026-04-20T06:31:33.616Z",
+        "url": "https://linear.app/deepsat/issue/DEE-510/eureka-field-window-2026-04-24-to-2026-05-02-owner-split",
+        "createdAt": "2026-04-20T06:31:33.616Z",
+        "startedAt": null,
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-509",
+        "title": "SF travel activities through 2026-04-24",
+        "state": "Backlog",
+        "linearStatus": "Inbox",
+        "assignee": "Nerses Ohanyan",
+        "priority": 0,
+        "due": null,
+        "updated": "2026-04-20T06:31:30.139Z",
+        "url": "https://linear.app/deepsat/issue/DEE-509/sf-travel-activities-through-2026-04-24",
+        "createdAt": "2026-04-20T06:31:30.139Z",
+        "startedAt": null,
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-270",
+        "title": "Follow up with Kevin via Tigran T",
+        "state": "Backlog",
+        "linearStatus": "Inbox",
+        "assignee": "Nerses Ohanyan",
+        "priority": 2,
+        "due": null,
+        "updated": "2026-04-20T06:31:23.067Z",
+        "url": "https://linear.app/deepsat/issue/DEE-270/follow-up-with-kevin-via-tigran-t",
+        "createdAt": "2026-03-24T19:04:13.234Z",
+        "startedAt": null,
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-491",
+        "title": "CONTACT: Tigran Tepenjian",
+        "state": "Backlog",
+        "linearStatus": "Inbox",
+        "assignee": "Nerses Ohanyan",
+        "priority": 1,
+        "due": null,
+        "updated": "2026-04-20T06:31:23.067Z",
+        "url": "https://linear.app/deepsat/issue/DEE-491/contact-tigran-tepenjian",
+        "createdAt": "2026-04-19T06:14:50.807Z",
+        "startedAt": null,
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-485",
+        "title": "CONTACT: Aedan Yohannan",
+        "state": "Backlog",
+        "linearStatus": "Inbox",
+        "assignee": "(unassigned)",
+        "priority": 0,
+        "due": null,
+        "updated": "2026-04-20T06:31:23.067Z",
+        "url": "https://linear.app/deepsat/issue/DEE-485/contact-aedan-yohannan",
+        "createdAt": "2026-04-19T05:32:54.061Z",
+        "startedAt": null,
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-404",
+        "title": "Follow up with Josh Bonhart (PEO SDA) — SDK collaboration, Chaos platform, dev kit",
+        "state": "Backlog",
+        "linearStatus": "Inbox",
+        "assignee": "Sarkis Karabashian",
+        "priority": 0,
+        "due": null,
+        "updated": "2026-04-20T06:31:23.067Z",
+        "url": "https://linear.app/deepsat/issue/DEE-404/follow-up-with-josh-bonhart-peo-sda-sdk-collaboration-chaos-platform",
+        "createdAt": "2026-04-16T13:36:19.072Z",
+        "startedAt": null,
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-506",
+        "title": "Audit all DoW investor materials",
+        "state": "Backlog",
+        "linearStatus": "Inbox",
+        "assignee": "(unassigned)",
+        "priority": 0,
+        "due": null,
+        "updated": "2026-04-20T06:31:18.276Z",
+        "url": "https://linear.app/deepsat/issue/DEE-506/audit-all-dow-investor-materials",
+        "createdAt": "2026-04-20T06:31:18.276Z",
+        "startedAt": null,
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-505",
+        "title": "D2P2 playbook session: Subbu, Hayk, Nerses, Craig",
+        "state": "Backlog",
+        "linearStatus": "Inbox",
+        "assignee": "(unassigned)",
+        "priority": 2,
+        "due": null,
+        "updated": "2026-04-20T06:31:14.574Z",
+        "url": "https://linear.app/deepsat/issue/DEE-505/d2p2-playbook-session-subbu-hayk-nerses-craig",
+        "createdAt": "2026-04-20T06:31:14.574Z",
+        "startedAt": null,
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-504",
+        "title": "Coordinate PMOD deck with Sarkis's government deck workstream",
+        "state": "Backlog",
+        "linearStatus": "Inbox",
+        "assignee": "(unassigned)",
+        "priority": 0,
+        "due": null,
+        "updated": "2026-04-20T06:31:12.163Z",
+        "url": "https://linear.app/deepsat/issue/DEE-504/coordinate-pmod-deck-with-sarkiss-government-deck-workstream",
+        "createdAt": "2026-04-20T06:31:12.163Z",
+        "startedAt": null,
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-503",
+        "title": "PMOD deck update: SOCOM learnings, gov distribution, STRATFI matching ask",
+        "state": "Backlog",
+        "linearStatus": "Inbox",
+        "assignee": "(unassigned)",
+        "priority": 2,
+        "due": null,
+        "updated": "2026-04-20T06:31:09.384Z",
+        "url": "https://linear.app/deepsat/issue/DEE-503/pmod-deck-update-socom-learnings-gov-distribution-stratfi-matching-ask",
+        "createdAt": "2026-04-20T06:31:09.384Z",
+        "startedAt": null,
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-502",
+        "title": "Red-team review of STRATFI technical volume",
+        "state": "Backlog",
+        "linearStatus": "Inbox",
+        "assignee": "Hayk Martirosyan",
+        "priority": 2,
+        "due": null,
+        "updated": "2026-04-20T06:31:06.134Z",
+        "url": "https://linear.app/deepsat/issue/DEE-502/red-team-review-of-stratfi-technical-volume",
+        "createdAt": "2026-04-20T06:31:06.134Z",
+        "startedAt": null,
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-501",
+        "title": "Paper the Leonid Capital LOI for venture-debt match",
+        "state": "Backlog",
+        "linearStatus": "Inbox",
+        "assignee": "(unassigned)",
+        "priority": 1,
+        "due": null,
+        "updated": "2026-04-20T06:31:02.051Z",
+        "url": "https://linear.app/deepsat/issue/DEE-501/paper-the-leonid-capital-loi-for-venture-debt-match",
+        "createdAt": "2026-04-20T06:31:02.051Z",
+        "startedAt": null,
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-500",
+        "title": "Vahe: equity match, IAN network, Bessemer intro",
+        "state": "Backlog",
+        "linearStatus": "Inbox",
+        "assignee": "Nerses Ohanyan",
+        "priority": 1,
+        "due": null,
+        "updated": "2026-04-20T06:30:58.464Z",
+        "url": "https://linear.app/deepsat/issue/DEE-500/vahe-equity-match-ian-network-bessemer-intro",
+        "createdAt": "2026-04-20T06:30:58.464Z",
+        "startedAt": null,
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-498",
+        "title": "Meet Jason Oulette in SF, prioritize Mon-Wed",
+        "state": "Backlog",
+        "linearStatus": "Inbox",
+        "assignee": "Ryan Southwick",
+        "priority": 1,
+        "due": null,
+        "updated": "2026-04-20T06:30:54.808Z",
+        "url": "https://linear.app/deepsat/issue/DEE-498/meet-jason-oulette-in-sf-prioritize-mon-wed",
+        "createdAt": "2026-04-20T06:30:54.808Z",
+        "startedAt": null,
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-497",
+        "title": "Ryan spike: compliance budget for additional coverage",
+        "state": "Backlog",
+        "linearStatus": "Inbox",
+        "assignee": "Ryan Southwick",
+        "priority": 1,
+        "due": null,
+        "updated": "2026-04-20T06:30:52.915Z",
+        "url": "https://linear.app/deepsat/issue/DEE-497/ryan-spike-compliance-budget-for-additional-coverage",
+        "createdAt": "2026-04-20T06:30:52.915Z",
+        "startedAt": null,
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-496",
+        "title": "Compliance readiness complete by mid-May 2026",
+        "state": "Backlog",
+        "linearStatus": "Inbox",
+        "assignee": "Ryan Southwick",
+        "priority": 1,
+        "due": null,
+        "updated": "2026-04-20T06:30:48.617Z",
+        "url": "https://linear.app/deepsat/issue/DEE-496/compliance-readiness-complete-by-mid-may-2026",
+        "createdAt": "2026-04-20T06:30:48.617Z",
+        "startedAt": null,
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-457",
+        "title": "RFP: STRATFI is due quickly - we need to work on that",
+        "state": "In Progress",
+        "linearStatus": "In Progress",
+        "assignee": "Sarkis Karabashian",
+        "priority": 1,
+        "due": null,
+        "updated": "2026-04-20T06:30:48.617Z",
+        "url": "https://linear.app/deepsat/issue/DEE-457/rfp-stratfi-is-due-quickly-we-need-to-work-on-that",
+        "createdAt": "2026-04-17T18:56:51.180Z",
+        "startedAt": "2026-04-17T18:56:51.233Z",
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-488",
+        "title": "CONTACT: MAJ Cameron Ludeman",
+        "state": "Backlog",
+        "linearStatus": "Inbox",
+        "assignee": "(unassigned)",
+        "priority": 2,
+        "due": null,
+        "updated": "2026-04-20T06:22:27.290Z",
+        "url": "https://linear.app/deepsat/issue/DEE-488/contact-maj-cameron-ludeman",
+        "createdAt": "2026-04-19T06:12:26.123Z",
+        "startedAt": null,
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-481",
+        "title": "create white paper for SOFWERX",
+        "state": "Todo",
+        "linearStatus": "Not Started",
+        "assignee": "Subbu Viswanathan",
+        "priority": 1,
+        "due": null,
+        "updated": "2026-04-20T06:22:26.651Z",
+        "url": "https://linear.app/deepsat/issue/DEE-481/create-white-paper-for-sofwerx",
+        "createdAt": "2026-04-17T22:53:11.101Z",
+        "startedAt": null,
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-480",
+        "title": "Email socom to get a white paper template",
+        "state": "Todo",
+        "linearStatus": "Not Started",
+        "assignee": "Sarkis Karabashian",
+        "priority": 1,
+        "due": null,
+        "updated": "2026-04-20T06:22:24.848Z",
+        "url": "https://linear.app/deepsat/issue/DEE-480/email-socom-to-get-a-white-paper-template",
+        "createdAt": "2026-04-17T22:52:53.650Z",
+        "startedAt": null,
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-477",
+        "title": "Marketing Material",
+        "state": "Todo",
+        "linearStatus": "Not Started",
+        "assignee": "(unassigned)",
+        "priority": 1,
+        "due": null,
+        "updated": "2026-04-20T06:22:24.109Z",
+        "url": "https://linear.app/deepsat/issue/DEE-477/marketing-material",
+        "createdAt": "2026-04-17T21:06:48.027Z",
+        "startedAt": null,
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-476",
+        "title": "WHITE PAPER",
+        "state": "Todo",
+        "linearStatus": "Not Started",
+        "assignee": "(unassigned)",
+        "priority": 1,
+        "due": null,
+        "updated": "2026-04-20T06:22:23.388Z",
+        "url": "https://linear.app/deepsat/issue/DEE-476/white-paper",
+        "createdAt": "2026-04-17T21:06:39.825Z",
+        "startedAt": null,
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-475",
+        "title": "QUAD CHART",
+        "state": "Todo",
+        "linearStatus": "Not Started",
+        "assignee": "(unassigned)",
+        "priority": 1,
+        "due": null,
+        "updated": "2026-04-20T06:22:22.701Z",
+        "url": "https://linear.app/deepsat/issue/DEE-475/quad-chart",
+        "createdAt": "2026-04-17T21:06:33.760Z",
+        "startedAt": null,
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-462",
+        "title": "SOCOM: SOFWERX Tech Tuesday Submission",
+        "state": "In Progress",
+        "linearStatus": "In Progress",
+        "assignee": "Sarkis Karabashian",
+        "priority": 1,
+        "due": null,
+        "updated": "2026-04-20T06:21:52.945Z",
+        "url": "https://linear.app/deepsat/issue/DEE-462/socom-sofwerx-tech-tuesday-submission",
+        "createdAt": "2026-04-17T20:51:24.534Z",
+        "startedAt": "2026-04-17T20:51:50.248Z",
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-458",
+        "title": "SOCOM Broad Agency Announcement (BAA) Submission $3-15M Opp",
+        "state": "In Progress",
+        "linearStatus": "In Progress",
+        "assignee": "Sarkis Karabashian",
+        "priority": 2,
+        "due": null,
+        "updated": "2026-04-20T06:21:49.153Z",
+        "url": "https://linear.app/deepsat/issue/DEE-458/socom-broad-agency-announcement-baa-submission-dollar3-15m-opp",
+        "createdAt": "2026-04-17T20:40:37.518Z",
+        "startedAt": "2026-04-17T20:42:54.935Z",
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-449",
+        "title": "RFP: DAF26BZ01-NV501: Commercial-Derived Insights for Novel Tactical Surveillance, Reconnaissance, and Tracking (TacSRT) Capabilities",
+        "state": "In Progress",
+        "linearStatus": "In Progress",
+        "assignee": "Sarkis Karabashian",
+        "priority": 2,
+        "due": null,
+        "updated": "2026-04-20T06:21:44.873Z",
+        "url": "https://linear.app/deepsat/issue/DEE-449/rfp-daf26bz01-nv501-commercial-derived-insights-for-novel-tactical",
+        "createdAt": "2026-04-17T01:12:12.170Z",
+        "startedAt": "2026-04-17T18:51:12.556Z",
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-447",
+        "title": "Create tasks for EACH proposal and milestones too - Subbu",
+        "state": "Todo",
+        "linearStatus": "Not Started",
+        "assignee": "(unassigned)",
+        "priority": 0,
+        "due": null,
+        "updated": "2026-04-20T06:21:43.515Z",
+        "url": "https://linear.app/deepsat/issue/DEE-447/create-tasks-for-each-proposal-and-milestones-too-subbu",
+        "createdAt": "2026-04-17T00:30:29.412Z",
+        "startedAt": null,
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-430",
+        "title": "Reach out to Jason Mayer (PAO PO TIS) before Soft Week (May 11)",
+        "state": "Backlog",
+        "linearStatus": "Inbox",
+        "assignee": "Sarkis Karabashian",
+        "priority": 2,
+        "due": "2026-05-06",
+        "updated": "2026-04-20T06:21:40.556Z",
+        "url": "https://linear.app/deepsat/issue/DEE-430/reach-out-to-jason-mayer-pao-po-tis-before-soft-week-may-11",
+        "createdAt": "2026-04-16T13:38:52.948Z",
+        "startedAt": null,
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-429",
+        "title": "Get SOCOM PR point of contact for publication approvals",
+        "state": "Backlog",
+        "linearStatus": "Inbox",
+        "assignee": "Nerses Ohanyan",
+        "priority": 0,
+        "due": null,
+        "updated": "2026-04-20T06:21:39.170Z",
+        "url": "https://linear.app/deepsat/issue/DEE-429/get-socom-pr-point-of-contact-for-publication-approvals",
+        "createdAt": "2026-04-16T13:38:48.144Z",
+        "startedAt": null,
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-419",
+        "title": "Check in with Ann re: D2P2 extension submission this week",
+        "state": "Backlog",
+        "linearStatus": "Inbox",
+        "assignee": "Nerses Ohanyan",
+        "priority": 1,
+        "due": null,
+        "updated": "2026-04-20T06:21:37.372Z",
+        "url": "https://linear.app/deepsat/issue/DEE-419/check-in-with-ann-re-d2p2-extension-submission-this-week",
+        "createdAt": "2026-04-16T13:37:55.974Z",
+        "startedAt": null,
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-235",
+        "title": "AFRL / AFWERX in Ohio",
+        "state": "Backlog",
+        "linearStatus": "Inbox",
+        "assignee": "(unassigned)",
+        "priority": 2,
+        "due": null,
+        "updated": "2026-04-20T06:21:28.330Z",
+        "url": "https://linear.app/deepsat/issue/DEE-235/afrl-afwerx-in-ohio",
+        "createdAt": "2026-03-24T19:01:08.348Z",
+        "startedAt": null,
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-160",
+        "title": "Follow up with Andrew from SpacWerx",
+        "state": "Todo",
+        "linearStatus": "Not Started",
+        "assignee": "Sarkis Karabashian",
+        "priority": 0,
+        "due": null,
+        "updated": "2026-04-20T06:21:25.610Z",
+        "url": "https://linear.app/deepsat/issue/DEE-160/follow-up-with-andrew-from-spacwerx",
+        "createdAt": "2026-03-24T18:55:05.287Z",
+        "startedAt": null,
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-66",
+        "title": "Need to get the STTR 2026 Support letter from AFRL",
+        "state": "In Progress",
+        "linearStatus": "In Progress",
+        "assignee": "Hayk Martirosyan",
+        "priority": 1,
+        "due": null,
+        "updated": "2026-04-20T06:21:23.001Z",
+        "url": "https://linear.app/deepsat/issue/DEE-66/need-to-get-the-sttr-2026-support-letter-from-afrl",
+        "createdAt": "2026-03-23T16:14:08.057Z",
+        "startedAt": "2026-03-23T16:14:08.100Z",
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-493",
+        "title": "CONTACT: Dominic Gallello - DARPA",
+        "state": "Backlog",
+        "linearStatus": "Inbox",
+        "assignee": "Nerses Ohanyan",
+        "priority": 2,
+        "due": null,
+        "updated": "2026-04-19T06:17:11.140Z",
+        "url": "https://linear.app/deepsat/issue/DEE-493/contact-dominic-gallello-darpa",
+        "createdAt": "2026-04-19T06:17:06.769Z",
+        "startedAt": null,
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-490",
+        "title": "CONTACT: Chris Mcdonald",
+        "state": "Backlog",
+        "linearStatus": "Inbox",
+        "assignee": "(unassigned)",
+        "priority": 2,
+        "due": null,
+        "updated": "2026-04-19T06:15:35.713Z",
+        "url": "https://linear.app/deepsat/issue/DEE-490/contact-chris-mcdonald",
+        "createdAt": "2026-04-19T06:13:59.785Z",
+        "startedAt": null,
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-489",
+        "title": "CONTACT: Ben Tuttle",
+        "state": "Backlog",
+        "linearStatus": "Inbox",
+        "assignee": "(unassigned)",
+        "priority": 1,
+        "due": null,
+        "updated": "2026-04-19T06:15:33.825Z",
+        "url": "https://linear.app/deepsat/issue/DEE-489/contact-ben-tuttle",
+        "createdAt": "2026-04-19T06:12:46.506Z",
+        "startedAt": null,
+        "completedAt": null,
+        "canceledAt": null
+      },
+      {
+        "id": "DEE-487",
+        "title": "email Nick (NASA) for new Stratfi letter",
+        "state": "Todo",
+        "linearStatus": "Not Started",
+        "assignee": "Hayk Martirosyan",
+        "priority": 1,
+        "due": null,
+        "updated": "2026-04-19T06:11:09.236Z",
+        "url": "https://linear.app/deepsat/issue/DEE-487/email-nick-nasa-for-new-stratfi-letter",
+        "createdAt": "2026-04-19T06:11:08.847Z",
+        "startedAt": null,
+        "completedAt": null,
+        "canceledAt": null
+      }
+    ]
+  },
+  "changelog": [
+    {
+      "ts": "2026-04-24T08:55:31.521Z",
+      "summary": "Days to submission 39 to 35. 4 Linear issue candidates surfaced (deferred until Linear MCP auth).",
+      "sources": [
+        "gmail-deepsat",
+        "crm"
+      ]
+    },
+    {
+      "ts": "2026-04-24T09:13:08.197Z",
+      "summary": "Linear authenticated; Kanban populated (66 SF STRATFI issues); 3 deferred writes skipped by user.",
+      "sources": [
+        "linear"
+      ]
+    },
+    {
+      "ts": "2026-04-24T09:26:36.523Z",
+      "summary": "Linear-timestamp transitions: DEE-659 marked Done, 9 capability-statement issues moved to Needs Review.",
+      "sources": [
+        "linear"
+      ],
+      "transitions": [
+        {
+          "kind": "kanban",
+          "target": "DEE-659 Get STRATFI Docs from Jesse Olson",
+          "from": "",
+          "to": "Done",
+          "rationale": "Marked Done in Linear · Nerses Ohanyan",
+          "ts": "2026-04-24T08:47:01.305Z",
+          "url": "https://linear.app/deepsat/issue/DEE-659/get-stratfi-docs-from-jesse-olson"
+        },
+        {
+          "kind": "kanban",
+          "target": "DEE-655 Kristina Botelho - Advisor Agreement",
+          "from": "",
+          "to": "In Progress",
+          "rationale": "Started in Linear · Nerses Ohanyan",
+          "ts": "2026-04-23T01:42:32.033Z",
+          "url": "https://linear.app/deepsat/issue/DEE-655/kristina-botelho-advisor-agreement"
+        },
+        {
+          "kind": "kanban",
+          "target": "DEE-474 Are you currently working with the government or private equity? If Yes, please tell us whom.",
+          "from": "",
+          "to": "Needs Review",
+          "rationale": "Marked Needs Review in Linear · (unassigned)",
+          "ts": "2026-04-23T02:17:44.461Z",
+          "url": "https://linear.app/deepsat/issue/DEE-474/are-you-currently-working-with-the-government-or-private-equity-if-yes"
+        },
+        {
+          "kind": "kanban",
+          "target": "DEE-473 What are the next key features you'd like to add to your technology and what are the hurdles?",
+          "from": "",
+          "to": "Needs Review",
+          "rationale": "Marked Needs Review in Linear · (unassigned)",
+          "ts": "2026-04-23T02:16:00.216Z",
+          "url": "https://linear.app/deepsat/issue/DEE-473/what-are-the-next-key-features-youd-like-to-add-to-your-technology-and"
+        },
+        {
+          "kind": "kanban",
+          "target": "DEE-471 What is the current TRL of your technology?",
+          "from": "",
+          "to": "Needs Review",
+          "rationale": "Marked Needs Review in Linear · (unassigned)",
+          "ts": "2026-04-23T02:13:28.283Z",
+          "url": "https://linear.app/deepsat/issue/DEE-471/what-is-the-current-trl-of-your-technology"
+        },
+        {
+          "kind": "kanban",
+          "target": "DEE-470 Do you have an Minimum Viable Product (MVP)/Prototype and what is the customer feedback you've received?",
+          "from": "",
+          "to": "Needs Review",
+          "rationale": "Marked Needs Review in Linear · (unassigned)",
+          "ts": "2026-04-23T02:09:03.124Z",
+          "url": "https://linear.app/deepsat/issue/DEE-470/do-you-have-an-minimum-viable-product-mvpprototype-and-what-is-the"
+        },
+        {
+          "kind": "kanban",
+          "target": "DEE-469 Name your top two competitors and list the key differentiators of your technology/service.",
+          "from": "",
+          "to": "Needs Review",
+          "rationale": "Marked Needs Review in Linear · (unassigned)",
+          "ts": "2026-04-23T02:06:46.340Z",
+          "url": "https://linear.app/deepsat/issue/DEE-469/name-your-top-two-competitors-and-list-the-key-differentiators-of-your"
+        },
+        {
+          "kind": "kanban",
+          "target": "DEE-468 Briefly explain how your transformational technology could be used to help the Warfighter.",
+          "from": "",
+          "to": "Needs Review",
+          "rationale": "Marked Needs Review in Linear · (unassigned)",
+          "ts": "2026-04-23T02:03:26.247Z",
+          "url": "https://linear.app/deepsat/issue/DEE-468/briefly-explain-how-your-transformational-technology-could-be-used-to"
+        },
+        {
+          "kind": "kanban",
+          "target": "DEE-467 Explain what makes your technology transformational. How does it meet that threshold?",
+          "from": "",
+          "to": "Needs Review",
+          "rationale": "Marked Needs Review in Linear · (unassigned)",
+          "ts": "2026-04-23T02:03:06.467Z",
+          "url": "https://linear.app/deepsat/issue/DEE-467/explain-what-makes-your-technology-transformational-how-does-it-meet"
+        },
+        {
+          "kind": "kanban",
+          "target": "DEE-466 What big problem does your technology solve? (3 Sentences)",
+          "from": "",
+          "to": "Needs Review",
+          "rationale": "Marked Needs Review in Linear · (unassigned)",
+          "ts": "2026-04-23T01:59:37.216Z",
+          "url": "https://linear.app/deepsat/issue/DEE-466/what-big-problem-does-your-technology-solve-3-sentences"
+        },
+        {
+          "kind": "kanban",
+          "target": "DEE-465 Capability Statement (1-2 sentences max)",
+          "from": "",
+          "to": "Needs Review",
+          "rationale": "Marked Needs Review in Linear · Sarkis Karabashian",
+          "ts": "2026-04-23T01:58:09.954Z",
+          "url": "https://linear.app/deepsat/issue/DEE-465/capability-statement-1-2-sentences-max"
+        },
+        {
+          "kind": "kanban",
+          "target": "DEE-649 Kristina Botello's contact info",
+          "from": "",
+          "to": "Done",
+          "rationale": "Marked Done in Linear · Nerses Ohanyan",
+          "ts": "2026-04-23T01:40:21.046Z",
+          "url": "https://linear.app/deepsat/issue/DEE-649/kristina-botellos-contact-info"
+        },
+        {
+          "kind": "kanban",
+          "target": "DEE-647 DARPA ERIS Submission",
+          "from": "",
+          "to": "Inbox",
+          "rationale": "Created in Linear as Inbox · (unassigned)",
+          "ts": "2026-04-21T00:56:02.062Z",
+          "url": "https://linear.app/deepsat/issue/DEE-647/darpa-eris-submission"
+        },
+        {
+          "kind": "kanban",
+          "target": "DEE-646 Rewrite dual-use economics framing for SOFWERX white paper",
+          "from": "",
+          "to": "Inbox",
+          "rationale": "Created in Linear as Inbox · Sarkis Karabashian",
+          "ts": "2026-04-21T00:16:12.886Z",
+          "url": "https://linear.app/deepsat/issue/DEE-646/rewrite-dual-use-economics-framing-for-sofwerx-white-paper"
+        }
+      ]
+    }
+  ],
+  "notes": [
+    {
+      "id": "note-2026-04-24-dee451-teaming",
+      "text": "DEE-451 SF254-D1204: vendor-isolated sandbox pillar needs a teaming partner. Candidates flagged: Platform One, Anduril Lattice, Palantir Gotham. ~3 weeks to identify and scope. Writing a one-page scope brief could go to the chosen partner. Decide this week.",
+      "source": "Slack #stratfi · Craig Jennings · 2026-04-23",
+      "createdAt": "2026-04-24T15:16:09.105Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "note-2026-04-24-kristina-blocked",
+      "text": "Ryan is BLOCKED on engaging Kristina Botello for STRATFI compliance — needs to know if we have an existing contract with her or should start one. Overlaps with DEE-499. Unblock via Nerses.",
+      "source": "Slack #stratfi · Ryan Southwick · 2026-04-22",
+      "createdAt": "2026-04-24T15:16:09.105Z",
+      "resolvedAt": null
+    },
+    {
+      "id": "note-2026-04-24-military-meetings",
+      "text": "Three military meetings lined up by Sarkis, read-aheads needed: Col. Trimailo (Commercial Space Office) Apr 29 @ 13:30 El Segundo, Mr. Dolan (deputy PEO Space Sensing) tentatively 12:45 El Segundo, Sandra Autcher (NGA Colorado) in the works. Research + read-aheads assigned to Ryan/Subbu/Eric.",
+      "source": "Slack #stratfi · Sarkis Karabashian · 2026-04-22",
+      "createdAt": "2026-04-24T15:16:09.105Z",
+      "resolvedAt": null
+    }
+  ]
+}</script>
+<script type="module">
+
+// ---- format.mjs ----
+const WEEKDAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+function formatDate(iso) {
+  if (!iso) return '';
+  const d = new Date(iso.length > 10 ? iso : iso + 'T00:00:00Z');
+  if (isNaN(d)) return iso;
+  return `${WEEKDAYS[d.getUTCDay()]}, ${MONTHS[d.getUTCMonth()]} ${d.getUTCDate()}`;
+}
+
+function formatDateTime(iso) {
+  if (!iso) return '';
+  const d = new Date(iso);
+  if (isNaN(d)) return iso;
+  const hh = String(d.getUTCHours()).padStart(2, '0');
+  const mm = String(d.getUTCMinutes()).padStart(2, '0');
+  return `${WEEKDAYS[d.getUTCDay()]}, ${MONTHS[d.getUTCMonth()]} ${d.getUTCDate()} · ${hh}:${mm}`;
+}
+
+
+// ---- header-meta.mjs ----
+
+function renderHeaderMeta(data, opts = {}) {
+  const now = opts.now ?? new Date();
+  const deadline = new Date(data.meta.submissionDeadline + 'T00:00:00Z');
+  const daysLeft = Math.max(0, Math.ceil((deadline - now) / (1000 * 60 * 60 * 24)));
+
+  const el = document.createElement('div');
+  el.className = 'meta';
+  el.innerHTML = `
+    <span><b>Program start:</b> ${formatDate(data.meta.programStart)}</span>
+    <span><b>Submission deadline:</b> ${formatDate(data.meta.submissionDeadline)}</span>
+    <span><b>Days remaining:</b> ${daysLeft}</span>
+    <span><b>Program Manager:</b> ${escapeHtml(data.meta.programManager)}</span>
+    <span><b>Last updated:</b> ${formatDate(data.meta.lastUpdated)}</span>
+  `;
+  return el;
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+
+// ---- kpis.mjs ----
+function renderKPIs(data) {
+  const el = document.createElement('div');
+  el.className = 'kpi-grid';
+
+  if (!data.kpis.length) {
+    el.textContent = 'No KPIs configured.';
+    return el;
+  }
+
+  for (const kpi of data.kpis) {
+    const card = document.createElement('div');
+    card.className = 'kpi' + (kpi.rag ? ' ' + kpi.rag : '');
+    card.innerHTML = `
+      <div class="label">${escapeHtml(kpi.label)}</div>
+      <div class="value">${escapeHtml(kpi.value)}</div>
+      <div class="sub">${escapeHtml(kpi.sub)}</div>
+    `;
+    el.appendChild(card);
+  }
+  return el;
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+
+// ---- raci.mjs ----
+function renderRACI(data) {
+  const el = document.createElement('div');
+  el.className = 'panel';
+
+  if (!data.raci.length) {
+    el.textContent = 'No RACI rows.';
+    return el;
+  }
+
+  const table = document.createElement('table');
+  table.innerHTML = `
+    <thead>
+      <tr>
+        <th>Workstream</th><th>Accountable</th><th>Responsible</th><th>Consulted</th><th>Informed</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  `;
+  const tbody = table.querySelector('tbody');
+  for (const row of data.raci) {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><b>${escapeHtml(row.workstream)}</b></td>
+      <td class="owner">${escapeHtml(row.accountable)}</td>
+      <td class="owner">${row.responsible.map(escapeHtml).join(', ')}</td>
+      <td class="owner">${row.consulted.map(escapeHtml).join(', ')}</td>
+      <td class="owner">${row.informed.map(escapeHtml).join(', ')}</td>
+    `;
+    tbody.appendChild(tr);
+  }
+  el.appendChild(table);
+  return el;
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+
+// ---- gantt.mjs ----
+function renderGantt(data) {
+  const el = document.createElement('div');
+  el.className = 'gantt';
+
+  const weeks = data.gantt.weeks;
+  const header = document.createElement('div');
+  header.className = 'gantt-header';
+  header.style.display = 'grid';
+  header.style.gridTemplateColumns = `repeat(${weeks.length}, 1fr)`;
+  for (const w of weeks) {
+    const col = document.createElement('div');
+    col.className = 'gantt-week';
+    col.textContent = w;
+    header.appendChild(col);
+  }
+  el.appendChild(header);
+
+  const body = document.createElement('div');
+  body.className = 'gantt-body';
+  body.style.display = 'grid';
+  body.style.gridTemplateColumns = `repeat(${weeks.length}, 1fr)`;
+
+  for (const bar of data.gantt.bars) {
+    const b = document.createElement('div');
+    b.className = `gantt-bar ${bar.track} track-${bar.track} status-${bar.status}`;
+    b.style.gridColumn = `${bar.startWeek} / span ${bar.endWeek - bar.startWeek + 1}`;
+    b.textContent = bar.label;
+    body.appendChild(b);
+  }
+  el.appendChild(body);
+
+  return el;
+}
+
+
+// ---- milestones.mjs ----
+
+const STATUS_LABEL = {
+  pending: 'Pending',
+  'in-progress': 'In progress',
+  done: 'Done',
+  blocked: 'Blocked',
+};
+
+function renderMilestones(data) {
+  const el = document.createElement('div');
+  el.className = 'milestones';
+
+  if (!data.milestones.length) {
+    el.textContent = 'No milestones.';
+    return el;
+  }
+
+  const sorted = [...data.milestones].sort((a, b) => a.date.localeCompare(b.date));
+  for (const m of sorted) {
+    const row = document.createElement('div');
+    row.className = `milestone status-${m.status}`;
+    row.innerHTML = `
+      <span class="status-dot" aria-hidden="true"></span>
+      <span class="date" data-iso="${m.date}">${formatDate(m.date)}</span>
+      <span class="label">${escapeHtml(m.label)}</span>
+      <span class="status-pill">${STATUS_LABEL[m.status] ?? m.status}</span>
+    `;
+    el.appendChild(row);
+  }
+  return el;
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+
+// ---- dependencies.mjs ----
+const RISK_LABEL = { green: 'On track', amber: 'At risk', red: 'Critical' };
+
+function renderDependencies(data) {
+  const el = document.createElement('div');
+  el.className = 'deps';
+
+  if (!data.dependencies.length) {
+    el.textContent = 'No dependencies.';
+    return el;
+  }
+
+  for (const d of data.dependencies) {
+    const row = document.createElement('div');
+    row.className = `dep risk-${d.risk}`;
+    row.innerHTML = `
+      <span class="risk-dot" aria-hidden="true"></span>
+      <span class="chain">
+        <span class="from">${escapeHtml(d.from)}</span>
+        <span class="arrow" aria-hidden="true">→</span>
+        <span class="to">${escapeHtml(d.to)}</span>
+      </span>
+      <span class="risk-pill">${RISK_LABEL[d.risk] ?? d.risk}</span>
+    `;
+    el.appendChild(row);
+  }
+  return el;
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+
+// ---- kanban.mjs ----
+
+const STATES = ['Backlog', 'Todo', 'In Progress', 'Done'];
+
+function renderKanban(data, opts = {}) {
+  const now = opts.now ?? new Date();
+  const person = opts.person ?? '__all__';
+
+  const el = document.createElement('div');
+  el.className = 'kanban';
+
+  if (!data.kanban.issues.length) {
+    const empty = document.createElement('div');
+    empty.textContent = 'No kanban issues.';
+    return empty;
+  }
+
+  // Person selector
+  const selectorWrap = document.createElement('div');
+  selectorWrap.className = 'kanban-selector';
+  const sel = document.createElement('select');
+  sel.className = 'kanban-person';
+  sel.innerHTML = `<option value="__all__">All people</option>` +
+    [...data.kanban.people].sort().map(p => `<option value="${escapeHtml(p)}">${escapeHtml(p)}</option>`).join('');
+  sel.value = person;
+  selectorWrap.appendChild(sel);
+  el.appendChild(selectorWrap);
+
+  const grid = document.createElement('div');
+  grid.className = 'kanban-grid';
+
+  for (const state of STATES) {
+    const col = document.createElement('div');
+    col.className = 'kanban-col';
+    col.dataset.state = state;
+    col.innerHTML = `<h4>${state}</h4>`;
+
+    const issues = data.kanban.issues.filter(i =>
+      i.state === state && (person === '__all__' || i.assignee === person)
+    );
+    for (const i of issues) {
+      col.appendChild(renderCard(i, now));
+    }
+    grid.appendChild(col);
+  }
+  el.appendChild(grid);
+
+  // Dispatch a custom event on person-select change; consumer wires up re-render
+  sel.addEventListener('change', () => {
+    el.dispatchEvent(new CustomEvent('kanban:person-change', { detail: { person: sel.value }, bubbles: true }));
+  });
+
+  return el;
+}
+
+function renderCard(i, now) {
+  const card = document.createElement('a');
+  card.className = 'kanban-card';
+  card.href = i.url;
+  card.target = '_blank';
+  if (i.due && new Date(i.due + 'T23:59:59Z') < now) card.classList.add('overdue');
+  card.innerHTML = `
+    <span class="kid">${escapeHtml(i.id)}</span>
+    <span class="ktitle">${escapeHtml(i.title)}</span>
+    <span class="kprio prio-${i.priority}"></span>
+    ${i.due ? `<span class="kdue" data-iso="${i.due}">${formatDate(i.due)}</span>` : ''}
+  `;
+  return card;
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+
+// ---- changelog.mjs ----
+
+function renderChangelog(data) {
+  const el = document.createElement('div');
+  el.className = 'changelog';
+
+  if (!data.changelog.length) {
+    el.textContent = 'No changelog entries yet.';
+    return el;
+  }
+
+  const sorted = [...data.changelog].sort((a, b) => b.ts.localeCompare(a.ts));
+  for (const e of sorted) {
+    const item = document.createElement('div');
+    item.className = 'changelog-entry';
+    item.innerHTML = `
+      <span class="ts" data-iso="${e.ts}">${formatDateTime(e.ts)}</span>
+      <span class="summary">${escapeHtml(e.summary)}</span>
+      <span class="sources">${e.sources.map(s => `<span class="source">${escapeHtml(s)}</span>`).join('')}</span>
+    `;
+    el.appendChild(item);
+  }
+  return el;
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+
+// ---- recent-activity.mjs ----
+
+const ICON = {
+  milestone: '◆',
+  kanban: '▦',
+  'kpi-rag': '●',
+  risk: '⚠',
+  gantt: '▤',
+};
+
+const KIND_LABEL = {
+  milestone: 'Milestone',
+  kanban: 'Kanban',
+  'kpi-rag': 'KPI',
+  risk: 'Risk',
+  gantt: 'Gantt',
+};
+
+const TO_STATE_CLASS = {
+  done: 'state-done',
+  'in-progress': 'state-in-progress',
+  blocked: 'state-blocked',
+  pending: 'state-pending',
+  Done: 'state-done',
+  'In Progress': 'state-in-progress',
+  'Needs Review': 'state-in-progress',
+  'Not Started': 'state-pending',
+  Todo: 'state-pending',
+  Backlog: 'state-pending',
+  Inbox: 'state-pending',
+  Canceled: 'state-blocked',
+  red: 'state-blocked',
+  amber: 'state-in-progress',
+  ok: 'state-done',
+  green: 'state-done',
+  none: 'state-pending',
+};
+
+const DISMISS_STORAGE_KEY = 'stratfi-activity-dismissed';
+
+function eventKey(e) {
+  return e.url ? `${e.url}|${e.ts}` : `${e.kind}|${e.target}|${e.ts}`;
+}
+
+function loadDismissed(storage) {
+  try {
+    return new Set(JSON.parse(storage?.getItem(DISMISS_STORAGE_KEY) ?? '[]'));
+  } catch {
+    return new Set();
+  }
+}
+
+function saveDismissed(storage, set) {
+  try { storage?.setItem(DISMISS_STORAGE_KEY, JSON.stringify([...set])); } catch {}
+}
+
+function renderRecentActivity(data, opts = {}) {
+  const now = opts.now ?? new Date();
+  const windowDays = opts.windowDays ?? 3;
+  const cutoff = new Date(now.getTime() - windowDays * 24 * 60 * 60 * 1000);
+  const storage = opts.storage ?? (typeof localStorage !== 'undefined' ? localStorage : null);
+  const dismissed = loadDismissed(storage);
+
+  const el = document.createElement('div');
+  el.className = 'recent-activity';
+
+  const events = [];
+  for (const entry of data.changelog ?? []) {
+    for (const t of entry.transitions ?? []) {
+      const ts = t.ts ?? entry.ts;
+      if (new Date(ts) < cutoff) continue;
+      events.push({ ...t, ts });
+    }
+  }
+  events.sort((a, b) => b.ts.localeCompare(a.ts));
+
+  const visible = events.filter(e => !dismissed.has(eventKey(e)));
+  const hiddenCount = events.length - visible.length;
+
+  if (!events.length) {
+    el.innerHTML = `<div class="recent-empty">No changes logged in the last ${windowDays} days. Run <code>/stratfi-update</code> to refresh.</div>`;
+    return el;
+  }
+
+  if (!visible.length) {
+    el.innerHTML = `<div class="recent-empty">All ${events.length} recent changes reviewed. <button type="button" class="show-dismissed-btn">Show reviewed (${events.length})</button></div>`;
+    wireShowDismissedButton(el, data, opts, storage);
+    return el;
+  }
+
+  for (const e of visible) {
+    const row = document.createElement('div');
+    row.className = `activity kind-${e.kind} ${TO_STATE_CLASS[e.to] ?? ''}`;
+    row.dataset.key = eventKey(e);
+    const target = e.url
+      ? `<a class="target" href="${e.url}" target="_blank" rel="noopener">${escapeHtml(e.target)}</a>`
+      : `<span class="target">${escapeHtml(e.target)}</span>`;
+    const fromPart = e.from
+      ? `<span class="from">${escapeHtml(e.from)}</span><span class="arrow" aria-hidden="true">→</span>`
+      : '';
+    const rationaleRow = e.rationale
+      ? `<div class="rationale">${escapeHtml(e.rationale)}</div>`
+      : '';
+    row.innerHTML = `
+      <div class="activity-main">
+        <span class="icon" aria-hidden="true">${ICON[e.kind] ?? '•'}</span>
+        <span class="kind-label">${KIND_LABEL[e.kind] ?? e.kind}</span>
+        ${target}
+        <span class="transition">
+          ${fromPart}
+          <span class="to">${escapeHtml(e.to)}</span>
+        </span>
+        <span class="ts" data-iso="${e.ts}">${formatDateTime(e.ts)}</span>
+        <button type="button" class="dismiss" aria-label="Dismiss ${escapeHtml(e.target)}" title="Mark reviewed">×</button>
+      </div>
+      ${rationaleRow}
+    `;
+    el.appendChild(row);
+  }
+
+  if (hiddenCount > 0) {
+    const footer = document.createElement('div');
+    footer.className = 'recent-footer';
+    footer.innerHTML = `<button type="button" class="show-dismissed-btn">Show ${hiddenCount} reviewed</button>`;
+    el.appendChild(footer);
+  }
+
+  // Wire dismiss buttons
+  for (const btn of el.querySelectorAll('.dismiss')) {
+    btn.addEventListener('click', () => {
+      const row = btn.closest('.activity');
+      if (!row) return;
+      const key = row.dataset.key;
+      const set = loadDismissed(storage);
+      set.add(key);
+      saveDismissed(storage, set);
+      row.remove();
+      updateAfterRemove(el, data, opts, storage);
+    });
+  }
+
+  wireShowDismissedButton(el, data, opts, storage);
+  return el;
+}
+
+function wireShowDismissedButton(el, data, opts, storage) {
+  const btn = el.querySelector('.show-dismissed-btn');
+  if (!btn) return;
+  btn.addEventListener('click', () => {
+    saveDismissed(storage, new Set());
+    const fresh = renderRecentActivity(data, opts);
+    el.replaceWith(fresh);
+  });
+}
+
+function updateAfterRemove(el, data, opts, storage) {
+  const remaining = el.querySelectorAll('.activity').length;
+  if (remaining > 0) {
+    // Update the footer count
+    const footer = el.querySelector('.recent-footer');
+    const dismissed = loadDismissed(storage);
+    const totalEligible = countEligible(data, opts);
+    const hiddenCount = totalEligible - remaining;
+    if (footer) {
+      footer.innerHTML = `<button type="button" class="show-dismissed-btn">Show ${hiddenCount} reviewed</button>`;
+      wireShowDismissedButton(el, data, opts, storage);
+    } else if (hiddenCount > 0) {
+      const f = document.createElement('div');
+      f.className = 'recent-footer';
+      f.innerHTML = `<button type="button" class="show-dismissed-btn">Show ${hiddenCount} reviewed</button>`;
+      el.appendChild(f);
+      wireShowDismissedButton(el, data, opts, storage);
+    }
+    return;
+  }
+  // All dismissed — show the "all reviewed" empty state with a "show reviewed" button
+  const totalEligible = countEligible(data, opts);
+  el.innerHTML = `<div class="recent-empty">All ${totalEligible} recent changes reviewed. <button type="button" class="show-dismissed-btn">Show reviewed (${totalEligible})</button></div>`;
+  wireShowDismissedButton(el, data, opts, storage);
+}
+
+function countEligible(data, opts) {
+  const now = opts.now ?? new Date();
+  const windowDays = opts.windowDays ?? 3;
+  const cutoff = new Date(now.getTime() - windowDays * 24 * 60 * 60 * 1000);
+  let n = 0;
+  for (const entry of data.changelog ?? []) {
+    for (const t of entry.transitions ?? []) {
+      const ts = t.ts ?? entry.ts;
+      if (new Date(ts) >= cutoff) n++;
+    }
+  }
+  return n;
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+
+// ---- notes.mjs ----
+
+const DISMISS_STORAGE_KEY = 'stratfi-notes-dismissed';
+
+function loadDismissed(storage) {
+  try { return new Set(JSON.parse(storage?.getItem(DISMISS_STORAGE_KEY) ?? '[]')); }
+  catch { return new Set(); }
+}
+function saveDismissed(storage, set) {
+  try { storage?.setItem(DISMISS_STORAGE_KEY, JSON.stringify([...set])); } catch {}
+}
+
+function renderNotes(data, opts = {}) {
+  const storage = opts.storage ?? (typeof localStorage !== 'undefined' ? localStorage : null);
+  const dismissed = loadDismissed(storage);
+
+  const el = document.createElement('div');
+  el.className = 'notes';
+
+  const all = (data.notes ?? []).filter(n => !n.resolvedAt);
+  const visible = all.filter(n => !dismissed.has(n.id));
+  const hidden = all.length - visible.length;
+
+  if (!all.length) {
+    el.innerHTML = `<div class="notes-empty">No notes to resolve. Notes appear here when the skill surfaces signals that do not map to structured state.</div>`;
+    return el;
+  }
+
+  if (!visible.length) {
+    el.innerHTML = `<div class="notes-empty">All ${all.length} notes resolved. <button type="button" class="show-resolved-btn">Show resolved (${all.length})</button></div>`;
+    wireShowResolved(el, data, opts, storage);
+    return el;
+  }
+
+  for (const note of visible) {
+    const row = document.createElement('div');
+    row.className = 'note';
+    row.dataset.id = note.id;
+    row.innerHTML = `
+      <div class="note-main">
+        <span class="note-icon" aria-hidden="true">📝</span>
+        <span class="note-text">${escapeHtml(note.text)}</span>
+        <button type="button" class="note-resolve" aria-label="Resolve" title="Mark resolved">×</button>
+      </div>
+      <div class="note-meta">
+        <span class="note-source">${escapeHtml(note.source)}</span>
+        <span class="note-ts" data-iso="${note.createdAt}">${formatDateTime(note.createdAt)}</span>
+      </div>
+    `;
+    el.appendChild(row);
+  }
+
+  if (hidden > 0) {
+    const footer = document.createElement('div');
+    footer.className = 'notes-footer';
+    footer.innerHTML = `<button type="button" class="show-resolved-btn">Show ${hidden} resolved</button>`;
+    el.appendChild(footer);
+  }
+
+  for (const btn of el.querySelectorAll('.note-resolve')) {
+    btn.addEventListener('click', () => {
+      const row = btn.closest('.note');
+      if (!row) return;
+      const set = loadDismissed(storage);
+      set.add(row.dataset.id);
+      saveDismissed(storage, set);
+      row.remove();
+      updateAfterRemove(el, data, opts, storage);
+    });
+  }
+
+  wireShowResolved(el, data, opts, storage);
+  return el;
+}
+
+function wireShowResolved(el, data, opts, storage) {
+  const btn = el.querySelector('.show-resolved-btn');
+  if (!btn) return;
+  btn.addEventListener('click', () => {
+    saveDismissed(storage, new Set());
+    const fresh = renderNotes(data, opts);
+    el.replaceWith(fresh);
+  });
+}
+
+function updateAfterRemove(el, data, opts, storage) {
+  const remaining = el.querySelectorAll('.note').length;
+  const all = (data.notes ?? []).filter(n => !n.resolvedAt).length;
+  if (remaining > 0) {
+    const footer = el.querySelector('.notes-footer');
+    const hiddenCount = all - remaining;
+    if (footer) {
+      footer.innerHTML = `<button type="button" class="show-resolved-btn">Show ${hiddenCount} resolved</button>`;
+      wireShowResolved(el, data, opts, storage);
+    } else if (hiddenCount > 0) {
+      const f = document.createElement('div');
+      f.className = 'notes-footer';
+      f.innerHTML = `<button type="button" class="show-resolved-btn">Show ${hiddenCount} resolved</button>`;
+      el.appendChild(f);
+      wireShowResolved(el, data, opts, storage);
+    }
+    return;
+  }
+  el.innerHTML = `<div class="notes-empty">All ${all} notes resolved. <button type="button" class="show-resolved-btn">Show resolved (${all})</button></div>`;
+  wireShowResolved(el, data, opts, storage);
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+
+// ---- index.mjs ----
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function renderAll(data, mounts, opts = {}) {
+  if (mounts.headerMeta) mounts.headerMeta.replaceChildren(renderHeaderMeta(data, opts));
+  if (mounts.kpis) mounts.kpis.replaceChildren(renderKPIs(data));
+  if (mounts.recentActivity) mounts.recentActivity.replaceChildren(renderRecentActivity(data, opts));
+  if (mounts.notes) mounts.notes.replaceChildren(renderNotes(data, opts));
+  if (mounts.raci) mounts.raci.replaceChildren(renderRACI(data));
+  if (mounts.milestones) mounts.milestones.replaceChildren(renderMilestones(data));
+  if (mounts.dependencies) mounts.dependencies.replaceChildren(renderDependencies(data));
+  if (mounts.gantt) mounts.gantt.replaceChildren(renderGantt(data));
+  if (mounts.kanban) mounts.kanban.replaceChildren(renderKanban(data, opts));
+  if (mounts.changelog) mounts.changelog.replaceChildren(renderChangelog(data));
+}
+
+
+
+const mountSelectors = {
+  headerMeta: '[data-section="header-meta"]',
+  kpis: '[data-section="kpis"]',
+  recentActivity: '[data-section="recent-activity"]',
+  notes: '[data-section="notes"]',
+  raci: '[data-section="raci"]',
+  gantt: '[data-section="gantt"]',
+  milestones: '[data-section="milestones"]',
+  dependencies: '[data-section="dependencies"]',
+  kanban: '[data-section="kanban"]',
+  changelog: '[data-section="changelog"]',
+};
+
+function getMounts() {
+  const out = {};
+  for (const [k, sel] of Object.entries(mountSelectors)) {
+    const el = document.querySelector(sel);
+    if (el) out[k] = el;
+  }
+  return out;
+}
+
+const data = JSON.parse(document.getElementById('dashboard-data-inline').textContent);
+const mounts = getMounts();
+renderAll(data, mounts);
+
+if (mounts.kanban) {
+  mounts.kanban.addEventListener('kanban:person-change', (e) => {
+    mounts.kanban.replaceChildren(renderKanban(data, { person: e.detail.person }));
+  });
+}
+
+// History dropdown removed in shared view (no filesystem access).
+const hs = document.getElementById('history-select');
+if (hs) hs.parentElement?.remove();
+</script>
+
 <script type="module">
   import { createViewer } from './viewer.js';
   createViewer({
@@ -864,5 +3402,6 @@
     supabaseKey: 'sb_publishable_lATEOVSdeb8pkbeicOskRA_UumFSWuw',
   }).init();
 </script>
+
 </body>
 </html>
