@@ -197,12 +197,88 @@
   table.diff td:nth-child(2) { width: 32%; background: #fafafa; }
   table.diff td:nth-child(3) { width: 46%; }
 
+  /* Tabs */
+  nav.tabs {
+    display: flex;
+    gap: 2px;
+    border-bottom: 2px solid var(--nav);
+    margin: 14px 0 0 0;
+  }
+  nav.tabs button {
+    appearance: none;
+    background: transparent;
+    border: 1px solid transparent;
+    border-bottom: none;
+    padding: 10px 18px;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--mute);
+    cursor: pointer;
+    letter-spacing: 0.02em;
+    position: relative;
+    top: 2px;
+  }
+  nav.tabs button:hover { color: var(--ink); }
+  nav.tabs button.active {
+    background: var(--nav);
+    color: #fff;
+    border-color: var(--nav);
+  }
+  .tab-panel { display: none; margin-top: 18px; }
+  .tab-panel.active { display: block; }
+
+  /* Concept panel */
+  section.concept { background: #fff; border: 1px solid var(--grid); padding: 28px 36px; max-width: 980px; margin: 0 auto; font-size: 14.5px; line-height: 1.55; color: var(--ink); }
+  section.concept h2 { font-size: 18px; color: var(--nav); margin: 28px 0 10px 0; border-bottom: 1px solid var(--grid); padding-bottom: 4px; }
+  section.concept h2:first-of-type { margin-top: 4px; }
+  section.concept h3 { font-size: 15px; color: var(--nav); margin: 20px 0 6px 0; }
+  section.concept p { margin: 10px 0; }
+  section.concept em { color: var(--mute); }
+  section.concept .lede {
+    background: #f8fafc;
+    border-left: 3px solid var(--nav);
+    padding: 12px 14px;
+    font-size: 13.5px;
+    margin: 14px 0 22px 0;
+  }
+  section.concept table {
+    border-collapse: collapse; width: 100%; font-size: 13px; margin: 10px 0;
+  }
+  section.concept th, section.concept td {
+    border: 1px solid var(--grid); padding: 8px 10px; text-align: left; vertical-align: top;
+  }
+  section.concept th { background: var(--nav); color: #fff; font-weight: 700; }
+  section.concept td:first-child { font-weight: 600; width: 26%; }
+  section.concept ol, section.concept ul { margin: 8px 0 14px 22px; }
+  section.concept li { margin: 4px 0; }
+  section.concept code {
+    background: #f3f4f6; padding: 1px 5px; border-radius: 3px; font-size: 12.5px;
+  }
+  section.concept .tbd {
+    background: #fff3cd; color: #6b4c00; padding: 1px 5px; border-radius: 3px; font-size: 12px; font-weight: 600;
+  }
+  section.concept .anchor {
+    background: #f8fafc; border: 1px solid var(--grid); border-left: 3px solid var(--success); padding: 12px 16px; margin: 10px 0;
+  }
+  section.concept .anchor h3 { margin-top: 0; color: #0a5d2a; }
+  section.concept .phase {
+    background: #fff; border: 1px solid var(--grid); padding: 12px 16px; margin: 10px 0;
+  }
+  section.concept .phase h3 { margin-top: 0; }
+  section.concept .phase .deliverable {
+    font-size: 12.5px; color: var(--mute); margin-top: 6px;
+  }
+
   @media print {
     body { background: #fff; padding: 0; }
     aside.legend { position: static; page-break-inside: avoid; }
     .grid { grid-template-columns: 1fr; }
     table.board { font-size: 10px; }
     section.cso-vs-baa-notes { page-break-before: always; }
+    nav.tabs { display: none; }
+    .tab-panel { display: block !important; page-break-before: always; }
+    .tab-panel:first-of-type { page-break-before: auto; }
   }
 </style>
 </head>
@@ -305,6 +381,12 @@ const DATA = {
     <div class="meta"><span id="deadlineLabel"></span></div>
   </header>
 
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="timeline">Timeline</button>
+    <button class="tab-btn" data-tab="concept">Concept</button>
+  </nav>
+
+  <div id="tab-timeline" class="tab-panel active">
   <div class="grid">
     <div>
       <table class="board" id="board">
@@ -370,6 +452,206 @@ const DATA = {
       Sources: <code>reference/SBIR 25.4 2026/DoD 25.4 SBIR BAA Preface_R12_04132026.pdf</code>, <code>reference/SBIR 25.4 2026/DAF_SBIR_254_D2P2_R12_v5.pdf</code>, <code>reference/SBIR 25.4 2026/topic_SF254-D1204.md</code>, and the CSO playbook at <code>knowledge-base/playbooks/d2p2-playbook.md</code>.
     </p>
   </section>
+  </div><!-- /#tab-timeline -->
+
+  <div id="tab-concept" class="tab-panel">
+    <section class="concept">
+
+      <p class="lede">
+        A one-read concept for our SF254-D1204 D2P2 submission. Enough to discuss scope, team shape, and evidence anchors &mdash; <b>not</b> a technical volume or a SOW. Decisions made here drive V2 drafting; open questions are flagged at the bottom for the team.
+      </p>
+
+      <h2>1. The Opportunity</h2>
+      <p>
+        The Space Development Agency (SDA) has published a D2P2 topic asking for a <b>Secure Multi-Source Data Fusion Environment</b> that lets proliferated LEO constellations (pLEO, PWSA/BMC3 Layer) ingest, fuse, and act on data from <b>many vendors at once</b> without leaking any single vendor's IP to the others.
+      </p>
+      <p>
+        The core problem the Space Force is trying to solve: BMC3 has to combine observations from a dozen different commercial and DoW satellite vendors to generate a decision. Today that fusion is brittle, vendor-dependent, and leaks proprietary tradecraft. SDA wants a <b>vendor-neutral sandbox</b> &mdash; an orchestration and fusion environment where any qualified provider can drop their sensor feed in, get fused against the others, and come back out as an actionable intel product for the operator, without the vendors seeing each other's algorithms.
+      </p>
+      <p>
+        The submission cycle is the <b>DoD SBIR 25.4 BAA, Release 12</b>, DAF Direct-to-Phase-II. $1.8M cap, 24-month period of performance, 25-page V2 technical volume.
+      </p>
+      <p><em>This is not a satellite-hardware topic. It is a platform topic &mdash; which is exactly what DeepSat builds.</em></p>
+
+      <h2>2. Why DeepSat, Why Now</h2>
+      <p>
+        DeepSat is <b>not</b> a satellite hardware company. DeepSat is an intelligence platform company &mdash; the constellation is one sensor of many feeding a broader orchestration layer. Our platform has four layers already under active construction:
+      </p>
+      <ol>
+        <li><b>Orchestration platform and API</b> &mdash; task any sensor, route any feed</li>
+        <li><b>Edge AI models</b> &mdash; trained on proprietary VLEO data, architected to run against any imagery source</li>
+        <li><b>Sensor fusion engine</b> &mdash; cross-cueing (not tip-and-cue) between space, aerial, and surface assets</li>
+        <li><b>Payload abstraction</b> &mdash; the interface layer that treats any satellite, sensor, or vendor as a plug-in</li>
+      </ol>
+      <p>
+        What SF254-D1204 asks for is, essentially, layers 1 + 3 + 4 hardened into a multi-vendor sandbox. We don't have to build a new company to pursue this topic; we have to harden, document, and certify what we're already building.
+      </p>
+      <p>
+        The framing that works across investor and customer conversations: <em>"VLEO is to satellite intelligence what cloud was to enterprise software."</em> This topic is the cloud control plane for the BMC3 Layer.
+      </p>
+
+      <h2>3. The Concept (what we'd build)</h2>
+      <p>
+        A <b>Secure Multi-Source Data Fusion Environment</b> &mdash; working name <b>"Fusion Sandbox"</b> for now, final product name TBD &mdash; with four functional surfaces:
+      </p>
+
+      <h3>A. Vendor Onboarding Surface</h3>
+      <p>
+        Any qualified satellite vendor (commercial or DoW) can register a sensor feed, declare its schema, and start pushing data into the sandbox. DeepSat's existing payload abstraction layer becomes the vendor-onboarding spec. This is the "how does a new vendor plug in" surface.
+      </p>
+
+      <h3>B. Secure Isolation Layer</h3>
+      <p>
+        Each vendor's raw data, algorithms, and model weights are isolated from the others. Fusion happens against <em>outputs</em>, not <em>inputs</em> &mdash; meaning two vendors never see each other's imagery or tradecraft, only each other's derived detections. This solves the proprietary-IP-leakage problem currently blocking real multi-vendor fusion at SDA.
+      </p>
+
+      <h3>C. Fusion and Decision Layer</h3>
+      <p>
+        Cross-cueing logic over the isolated outputs: if vendor A detects a vessel and vendor B's SAR pass confirms the same location, emit a fused high-confidence track. The operator (BMC3, SOF, or other) sees one fused picture, not twelve overlapping ones. This is the layer where DeepSat's edge AI and sensor fusion engine already live &mdash; we extend them to operate on multi-vendor inputs.
+      </p>
+
+      <h3>D. Operator Delivery Surface &mdash; TAK / ATAK</h3>
+      <p>
+        The fused outputs show up where the warfighter already lives: the Team Awareness Kit common operating picture. Whatever the satellite detected and whatever the AI fused about it only matters if it lands on the operator's ATAK screen as a standard Cursor-on-Target (CoT) event. We already have a scoped integration plan for this (see &sect;5, Anchor C).
+      </p>
+
+      <p>
+        None of these four surfaces are new research. <b>All of them exist in draft or production form inside DeepSat's current architecture.</b> What the D2P2 funds is the hardening, certification (ITAR, zero-trust, FedRAMP-equivalent), multi-vendor onboarding, and BMC3-layer interop work that turns an internal platform into a deployable sandbox.
+      </p>
+
+      <h2>4. Proposed Team Shape</h2>
+      <p>Owners marked TBD where we haven't assigned internally. No names invented.</p>
+      <table>
+        <thead><tr><th>Role</th><th>Org</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Prime / PI</td><td>DeepSat</td><td><span class="tbd">TBD</span> (likely Nerses or technical lead)</td></tr>
+          <tr><td>Subcontractor &mdash; BMC3 / tactical delivery integration</td><td>Raytheon (RTX/BBN)</td><td>Planned. NDA in flight as of 2026-04-16; LOI needed before submission.</td></tr>
+          <tr><td>Government TPOC</td><td>Space Force South</td><td><span class="tbd">CONFIRM</span> &mdash; topic itself lists no TPOC; SF South relationship needs external validation</td></tr>
+          <tr><td>End User (DAF rules require DAF)</td><td>DAF / SDA operator on the BMC3 Layer</td><td><span class="tbd">TBD</span></td></tr>
+          <tr><td>Customer org (topic-listed)</td><td>USSF via Space Development Agency (SDA)</td><td>Per TRI</td></tr>
+        </tbody>
+      </table>
+
+      <p>
+        <b>Why Raytheon / BBN as sub.</b> Two reasons. First, RTX/BBN owns deep tactical-intelligence-network expertise (VPN overlay, TAC) that lets our fused outputs ride on the warrior-level network SOCOM and PEO TIS already trust. Second, RTX is independently circling DeepSat (there's a separate conversation about them buying buses from us). Adding them as a sub converts a procurement conversation into a submission partnership &mdash; strictly additive.
+      </p>
+      <p>
+        <b>Why Space Force South as TPOC target.</b> <span class="tbd">CONFIRM</span> &mdash; project memory names Space Force South, but we have no external email trail confirming the relationship. Recent stakeholder engagement has been heavier on SOCOM (PEO TIS, PEO SDA, SOF AT&amp;L S&amp;T via SOFWERX Avon Park 26-2) than on Space Force South specifically. <b>Open question:</b> is SF South the right anchor, or should we use one of the SOCOM pathways (PEO TIS, PEO SDA) instead? See &sect;7.
+      </p>
+
+      <h2>5. Phase I-Equivalent Evidence</h2>
+      <p>
+        Under the 25.4 BAA, D2P2 submissions must show Phase I-equivalent technical work already substantially performed by DeepSat (cannot rely on prior SBIR/STTR-funded work). We have three strong evidence anchors:
+      </p>
+
+      <div class="anchor">
+        <h3>Anchor A &mdash; Active AFRL D2P2 "Orion's Belt" (FA864925P0298)</h3>
+        <p>
+          Already in execution. Documented performance: sub-100ms inference, &gt;90% detection accuracy, &lt;30s end-to-end latency from capture to decision, 100% encrypted data paths. A live government contract with AFRL demonstrating the edge-AI-on-space-imagery core that the Fusion Sandbox would extend. <em>We cannot cite the D2P2-funded work itself as feasibility (rules disallow prior SBIR-funded work), but we can cite the architecture and capabilities that existed before and alongside that contract.</em>
+        </p>
+      </div>
+
+      <div class="anchor">
+        <h3>Anchor B &mdash; SOCOM Technical Exercise 26-2 (Avon Park, April 13-17, 2026)</h3>
+        <p>
+          Just completed last week. Over four days at Avon Park, DeepSat operated alongside SOCOM components (PEO TIS, PEO SDA, SOF AT&amp;L S&amp;T, SOFWERX) and demonstrated cross-cueing between satellite detections and aerial assets. Relevant takeaways:
+        </p>
+        <ul>
+          <li>Demonstrated <b>cross-cueing</b> (satellite &harr; aerial custody handoff) with MQ-9 and go-fast-vessel scenarios &mdash; the bi-directional fusion pattern at the heart of the Fusion Sandbox concept.</li>
+          <li>Confirmed five priority partnership pathways, one of which is <b>Raytheon BBN / VPN overlay on TAC</b> &mdash; the BMC3-layer delivery mechanism for our fused outputs.</li>
+          <li>Confirmed SOFWERX / PEO TIS / PEO SDA receptivity to DeepSat as an integrator, not just a sensor.</li>
+          <li>Secured verbal pathway for a CRADA (no matching funds required) and potential C-130 / MQ-9 flight access for sensor validation.</li>
+        </ul>
+        <p>
+          Freshest, most vivid Phase I-equivalent evidence, and all unclassified commercial exercise work.
+        </p>
+      </div>
+
+      <div class="anchor">
+        <h3>Anchor C &mdash; TAK Server / ATAK Integration Architecture</h3>
+        <p>
+          Full integration architecture already scoped (see <code>notion-export/&hellip;/ATAK Team Awareness Kit.md</code>, Craig, March 2026): CoT gateway converting DeepSat detections into MIL-STD-2525 symbology, confidence-filtered and AOI-bounded delivery to the operator's ATAK common operating picture, mTLS connection to customer-hosted TAK Server. 2&ndash;3 weeks of engineering for the MVP gateway; industry reference patterns include SkyFi's full plugin and BAH's Sit(x) bridge adapters. Not speculative &mdash; it's a scoped engineering plan with library choices, protocol decisions, and identified test harness (FreeTAKServer + ATAK-CIV on Android).
+        </p>
+      </div>
+
+      <p>
+        <b>Use in V5 Feasibility Documentation.</b> Anchor A establishes we've operated a real USG contract at scale. Anchor B establishes that the cross-cueing and multi-vendor fusion concept has already been operationally exercised alongside SOF customers. Anchor C establishes an engineered path to getting fused outputs onto the warfighter's screen.
+      </p>
+
+      <h2>6. Suggested Project Structure (24-month PoP, concept level)</h2>
+      <p>
+        A clean way to slice 24 months at concept level &mdash; <em>not yet a SOW, not yet a budget</em>, just something the team can argue with. Each phase ends with a government-visible demonstration; no long periods of invisible development.
+      </p>
+
+      <div class="phase">
+        <h3>Phase 1 (Months 1-6) &mdash; Vendor Onboarding Surface + Secure Isolation Spec</h3>
+        <ul>
+          <li>Harden payload abstraction layer into a documented multi-vendor onboarding contract</li>
+          <li>Define secure-isolation model (outputs-only fusion, no raw data or weights shared between vendors)</li>
+          <li>First vendor other than DeepSat onboarded as reference integration &mdash; candidate: Raytheon-adjacent pLEO feed, or a SOCOM-sourced commercial partner</li>
+        </ul>
+        <p class="deliverable"><b>Deliverable:</b> multi-vendor onboarding spec + reference implementation with 2 vendors.</p>
+      </div>
+
+      <div class="phase">
+        <h3>Phase 2 (Months 6-12) &mdash; Fusion and Decision Layer (cross-cueing at scale)</h3>
+        <ul>
+          <li>Extend fusion engine from "space + aerial" (current) to "multi-vendor space + aerial + surface"</li>
+          <li>Cross-cueing logic on isolated vendor outputs, not inputs</li>
+          <li>Confidence scoring and conflict resolution when vendors disagree</li>
+        </ul>
+        <p class="deliverable"><b>Deliverable:</b> fusion engine operating against 3+ isolated vendor feeds in a controlled test environment.</p>
+      </div>
+
+      <div class="phase">
+        <h3>Phase 3 (Months 12-18) &mdash; Operator Delivery (TAK / ATAK / BMC3)</h3>
+        <ul>
+          <li>Ship the CoT gateway and TAK Server integration (Anchor C, productionized)</li>
+          <li>Raytheon BBN VPN overlay / TAC integration for the BMC3 layer</li>
+          <li>Operator usability work with a named SOF or DAF end user on the receiving side</li>
+        </ul>
+        <p class="deliverable"><b>Deliverable:</b> fused outputs visible on an operator's ATAK COP in a government exercise.</p>
+      </div>
+
+      <div class="phase">
+        <h3>Phase 4 (Months 18-24) &mdash; Hardening, Certification, Transition</h3>
+        <ul>
+          <li>ITAR, zero-trust, FedRAMP-equivalent certification</li>
+          <li>Transition plan to a production BMC3 or SOF-adjacent program of record</li>
+          <li>Phase III candidates: PEO TIS, PEO SDA (SOCOM), SDA directly, or a named DAF PoR</li>
+        </ul>
+        <p class="deliverable"><b>Deliverable:</b> sandbox deployable into a real operational network with signed-off security documentation.</p>
+      </div>
+
+      <h2>7. Open Questions for the Team</h2>
+      <p>Things to resolve <em>before</em> writing V2, not during:</p>
+      <ol>
+        <li><b>Is Space Force South the right TPOC?</b> The project memory names them; evidence trail (SOCOM Avon Park) is heavier on SOCOM components. Live options: (a) pursue SF South and de-risk with SOCOM as end-user, (b) flip to PEO TIS or PEO SDA as TPOC with Space Force as customer-of-interest, (c) both &mdash; DAF end user with a SOCOM joint-org customer per DAF rules. <em>Owner: <span class="tbd">TBD</span> &mdash; needs a stakeholder call.</em></li>
+        <li><b>Raytheon LOI or full sub MoU pre-submission?</b> NDA in flight; 25.4 BAA does not require a signed subcontract for submission, but an LOI from RTX makes the teaming story credible. Fallback: DeepSat-only team, add RTX by contract modification post-award. <em>Owner: Nerses / Sarkis.</em></li>
+        <li><b>Performance-of-Work deviation &mdash; will Raytheon be &gt; 50% of the work?</b> Per DAF 25.4, if a sub exceeds 50%, PoW deviation must be requested <em>twice</em> (pre-submission + with proposal). Almost certainly Raytheon is under 50% here, but confirm the split and pre-request if needed. <em>Owner: cost volume lead.</em></li>
+        <li><b>"Cross-cueing" vs "tip-and-cue" language.</b> Per SOCOM Day 3 debrief, we committed to updating all collateral to "cross-cueing." V2 should match. <em>Owner: Nerses on final language pass.</em></li>
+        <li><b>Feasibility Documentation &mdash; how much of SOCOM 26-2 is citable?</b> Confirm what can be cited in a SBIR proposal (vs. controlled / FOUO). Worst case: describe our own actions and outcomes as DeepSat's work, not the exercise itself. <em>Owner: Nerses to check with SOCOM POCs (Ron, Vincent Seifert).</em></li>
+        <li><b>Verify 25.4 BAA vs CSO D2P2 rules with Kristina Borthelo</b> (spelling <span class="tbd">TBC</span>). See the comparison table on the Timeline tab. Confirm page limit, V5 attachments, Anticipated Benefits rules before we finalize V2 structure. <em>Owner: Nerses.</em></li>
+      </ol>
+
+      <h2>8. What Happens After Alignment</h2>
+      <ol>
+        <li>Knock down the open questions with one pass of calls/emails (~3-5 business days)</li>
+        <li>Write V2 Technical Volume to the 25.4 BAA 10-item structure, anchoring each section on the evidence in &sect;5 and the phase structure in &sect;6</li>
+        <li>Write V5 Feasibility Documentation citing Anchors A, B, C</li>
+        <li>Cost volume (V3) against the 4-phase structure in &sect;6</li>
+        <li>Close out pre-submission items (Raytheon LOI, PoW deviation if needed, SAM.gov, FWA training, V7 Foreign Affiliations webform)</li>
+        <li>Submit by 2026-05-13</li>
+      </ol>
+
+      <p style="margin-top: 28px; color: var(--mute); font-size: 12.5px;">
+        <b>Sources consulted:</b> <code>reference/SBIR 25.4 2026/DAF_SBIR_254_D2P2_R12_v5.pdf</code>, <code>reference/SBIR 25.4 2026/topic_SF254-D1204.md</code>, <code>notion-export/&hellip;/ATAK Team Awareness Kit.md</code>, <code>notion-export/&hellip;/SOCOM exercise (April 13-17 '26)/SOCOM debrief day 3.md</code>, project memory on DeepSat platform positioning and teaming, prior RFP analysis in <code>rfps/sf254-d1204-secure-multi-source-data-fusion-pleo.md</code> (score 9.0, pursue).
+      </p>
+      <p style="color: var(--mute); font-size: 12.5px;">
+        <em>For team discussion on the SF254-D1204 submission (close 2026-05-13). Sections 3, 4, and 7 are the ones worth arguing about first.</em>
+      </p>
+    </section>
+  </div><!-- /#tab-concept -->
 </div>
 
 <script>
@@ -436,6 +718,21 @@ const DATA = {
   document.getElementById("count-inwork").textContent = counts.inwork;
   document.getElementById("count-missing").textContent = counts.missing;
   document.getElementById("count-na").textContent = counts.na;
+})();
+
+(function initTabs() {
+  document.querySelectorAll("nav.tabs .tab-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const target = btn.getAttribute("data-tab");
+      document.querySelectorAll("nav.tabs .tab-btn").forEach(b => b.classList.toggle("active", b === btn));
+      document.querySelectorAll(".tab-panel").forEach(p => p.classList.toggle("active", p.id === "tab-" + target));
+      if (history.replaceState) history.replaceState(null, "", "#" + target);
+    });
+  });
+  const h = (location.hash || "").replace("#", "");
+  if (h === "concept" || h === "timeline") {
+    document.querySelector('nav.tabs .tab-btn[data-tab="' + h + '"]')?.click();
+  }
 })();
 </script>
 <script type="module">
