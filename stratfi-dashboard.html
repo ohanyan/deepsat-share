@@ -335,6 +335,120 @@
     font-size: 13px;
   }
 
+  /* Tabs */
+  nav.tabs {
+    display: flex;
+    gap: 2px;
+    border-bottom: 2px solid var(--line);
+    margin: 20px 0 0;
+  }
+  nav.tabs button {
+    appearance: none;
+    background: transparent;
+    border: 1px solid transparent;
+    border-bottom: none;
+    padding: 10px 18px;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+    cursor: pointer;
+    letter-spacing: 0.02em;
+    position: relative;
+    top: 2px;
+  }
+  nav.tabs button:hover { color: var(--fg); }
+  nav.tabs button.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+  .tab-panel { display: none; margin-top: 18px; }
+  .tab-panel.active { display: block; }
+
+  /* Timeline tab */
+  table.timeline-board {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    table-layout: fixed;
+    background: #fff;
+  }
+  table.timeline-board thead th {
+    background: var(--card);
+    color: var(--muted);
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 8px 6px;
+    border: 1px solid var(--line);
+    text-align: left;
+  }
+  table.timeline-board thead th.col-workstream { width: 160px; }
+  table.timeline-board thead th.col-lead { width: 100px; }
+  table.timeline-board thead th.col-del { width: 40%; }
+  table.timeline-board thead th.col-status { width: 140px; }
+  table.timeline-board thead th.date { text-align: center; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--muted); }
+  table.timeline-board tbody td {
+    border: 1px solid var(--line);
+    padding: 6px 8px;
+    vertical-align: middle;
+  }
+  table.timeline-board tbody tr.placeholder td {
+    text-align: center;
+    color: var(--muted);
+    font-style: italic;
+    padding: 24px;
+  }
+  .timeline-legend {
+    display: flex;
+    gap: 14px;
+    margin: 8px 0 16px;
+    font-size: 12px;
+    flex-wrap: wrap;
+  }
+  .timeline-legend .item { padding: 4px 10px; border-radius: 999px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+  .timeline-legend .to-complete { background: var(--card); color: var(--muted); }
+  .timeline-legend .in-work { background: #fff8c5; color: var(--warn); }
+  .timeline-legend .deadline { background: #ffd6e0; color: var(--danger); }
+  .timeline-legend .complete { background: #dafbe1; color: var(--ok); }
+
+  /* Concept tab */
+  section.concept { background: #fff; border: 1px solid var(--line); padding: 28px 36px; max-width: 980px; margin: 0 auto; font-size: 14.5px; line-height: 1.55; }
+  section.concept h2 { font-size: 18px; color: var(--accent); margin: 28px 0 10px; border-bottom: 1px solid var(--line); padding-bottom: 4px; font-weight: 600; }
+  section.concept h2:first-of-type { margin-top: 4px; }
+  section.concept h3 { font-size: 15px; color: var(--accent); margin: 20px 0 6px; font-weight: 600; }
+  section.concept p { margin: 10px 0; }
+  section.concept em { color: var(--muted); }
+  section.concept .lede {
+    background: var(--card);
+    border-left: 3px solid var(--accent);
+    padding: 12px 14px;
+    font-size: 13.5px;
+    margin: 14px 0 22px;
+  }
+  section.concept .tbd {
+    background: #fff3cd; color: #6b4c00; padding: 1px 6px; border-radius: 3px; font-size: 12px; font-weight: 600;
+  }
+  section.concept .anchor {
+    background: var(--card); border: 1px solid var(--line); border-left: 3px solid var(--ok); padding: 12px 16px; margin: 10px 0;
+  }
+  section.concept .anchor h3 { margin-top: 0; color: var(--ok); }
+  section.concept .phase {
+    background: #fff; border: 1px solid var(--line); padding: 12px 16px; margin: 10px 0;
+  }
+  section.concept .phase h3 { margin-top: 0; }
+  section.concept .phase .deliverable { font-size: 12.5px; color: var(--muted); margin-top: 6px; }
+  section.concept table {
+    border-collapse: collapse; width: 100%; font-size: 13px; margin: 10px 0;
+  }
+  section.concept th, section.concept td {
+    border: 1px solid var(--line); padding: 8px 10px; text-align: left; vertical-align: top;
+  }
+  section.concept th { background: var(--accent); color: #fff; font-weight: 600; }
+  section.concept td:first-child { font-weight: 600; width: 26%; }
+
   /* Recent Activity */
   .section-sub { font-size: 14px; font-weight: 500; color: var(--muted); letter-spacing: 0; text-transform: none; margin-left: 6px; }
   .recent-activity { display: flex; flex-direction: column; gap: 6px; margin: 8px 0 16px; }
@@ -688,6 +802,14 @@
   </div>
 </header>
 
+<nav class="tabs">
+  <button class="tab-btn active" data-tab="program">Program</button>
+  <button class="tab-btn" data-tab="timeline">Timeline</button>
+  <button class="tab-btn" data-tab="concept">Concept</button>
+</nav>
+
+<div id="tab-program" class="tab-panel active">
+
 <h2 class="section-heading">1. KPIs &amp; Health</h2>
 <div class="kpi-grid" data-section="kpis"></div>
 
@@ -883,6 +1005,139 @@
 
 <h2 class="section-heading">Changelog</h2>
 <div data-section="changelog"></div>
+
+</div><!-- /#tab-program -->
+
+<div id="tab-timeline" class="tab-panel">
+  <h2 class="section-heading">STRATFI Submission Timeline</h2>
+  <p class="meta" style="margin: 0 0 10px;">Deliverable-by-deliverable board from program kickoff to submission. Matches the D2P2 dashboard pattern. <b>Placeholder &mdash; awaiting source materials (STRATFI BAA, CSO playbook deltas, prior submissions).</b></p>
+
+  <div class="timeline-legend">
+    <span class="item to-complete">To be completed</span>
+    <span class="item in-work">In work / need help</span>
+    <span class="item deadline">Deadline</span>
+    <span class="item complete">Complete</span>
+  </div>
+
+  <table class="timeline-board" id="stratfi-board">
+    <thead>
+      <tr>
+        <th class="col-workstream">Workstream</th>
+        <th class="col-lead">Lead</th>
+        <th class="col-del">Deliverable</th>
+        <th class="col-status">Status (BGYR)</th>
+        <th class="date">W1<br><span>Apr 20-26</span></th>
+        <th class="date">W2<br><span>Apr 27 - May 3</span></th>
+        <th class="date">W3<br><span>May 4-10</span></th>
+        <th class="date">W4<br><span>May 11-17</span></th>
+        <th class="date">W5<br><span>May 18-24</span></th>
+        <th class="date">W6<br><span>May 25-29</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="placeholder"><td colspan="10">Drop in STRATFI source materials (BAA, prior submission, customer memo template, CSO-vs-BAA deltas) and the skill will populate deliverable rows with Lead, status, and week-by-week bars.</td></tr>
+    </tbody>
+  </table>
+
+  <section style="margin-top: 28px;">
+    <h3 style="font-size: 15px; color: var(--accent); margin-bottom: 8px;">Planned sections once sources land</h3>
+    <ul class="clean">
+      <li>Deliverable board with BGYR status and per-week progress bars</li>
+      <li>STRATFI BAA vs prior CSO/BAA deltas (page limits, volume structure, attachments, terminology changes)</li>
+      <li>Page-budget tracker per volume (V1 / V2 / V3 / V4 / V5)</li>
+      <li>Attachment checklist with signatures / file checksums on submission</li>
+      <li>Open questions and escalations, flagged with owner and needed-by date</li>
+    </ul>
+  </section>
+</div><!-- /#tab-timeline -->
+
+<div id="tab-concept" class="tab-panel">
+  <section class="concept">
+
+    <p class="lede">
+      A one-read concept for the DeepSat STRATFI submission. Enough to discuss scope, team shape, and evidence anchors &mdash; <b>not</b> the technical volume itself. Decisions captured here drive V2 drafting; open questions are flagged for the team at the bottom. <b>Placeholder &mdash; awaiting source materials.</b>
+    </p>
+
+    <h2>1. The Opportunity</h2>
+    <p><span class="tbd">TBD</span> &mdash; STRATFI topic framing, the operational problem, and why DoW wants a platform answer. Include solicitation identifier, deadline, cap, and period of performance once the BAA lands.</p>
+
+    <h2>2. Why DeepSat, Why Now</h2>
+    <p><span class="tbd">TBD</span> &mdash; DeepSat's platform framing (orchestration layer, edge AI, sensor fusion, payload abstraction) mapped onto what STRATFI asks for. Why this is the right moment to bid.</p>
+
+    <h2>3. The Concept (what we'd build)</h2>
+    <p><span class="tbd">TBD</span> &mdash; working name for the STRATFI offering, the two to four functional surfaces we'd scope, and why none of them are greenfield research.</p>
+
+    <h3>A. <span class="tbd">Surface 1 name</span></h3>
+    <p>Placeholder.</p>
+    <h3>B. <span class="tbd">Surface 2 name</span></h3>
+    <p>Placeholder.</p>
+    <h3>C. <span class="tbd">Surface 3 name</span></h3>
+    <p>Placeholder.</p>
+    <h3>D. <span class="tbd">Operator delivery surface</span></h3>
+    <p>Placeholder. For DoW work this usually ends at an operator's COP (TAK / ATAK, BMC3, etc.).</p>
+
+    <h2>4. Proposed Team Shape</h2>
+    <table>
+      <thead><tr><th>Role</th><th>Org</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>Prime / PI</td><td>DeepSat</td><td><span class="tbd">TBD</span></td></tr>
+        <tr><td>Government TPOC</td><td><span class="tbd">TBD</span></td><td><span class="tbd">TBD</span></td></tr>
+        <tr><td>End user</td><td><span class="tbd">TBD</span></td><td><span class="tbd">TBD</span></td></tr>
+        <tr><td>Matching capital (equity)</td><td><span class="tbd">Vahe</span></td><td><span class="tbd">TBD</span></td></tr>
+        <tr><td>Matching capital (venture debt)</td><td><span class="tbd">Leonid</span></td><td><span class="tbd">TBD</span></td></tr>
+        <tr><td>Matching capital (public)</td><td><span class="tbd">Cody</span></td><td><span class="tbd">TBD</span></td></tr>
+        <tr><td>Subcontractors</td><td><span class="tbd">TBD</span></td><td><span class="tbd">TBD</span></td></tr>
+      </tbody>
+    </table>
+
+    <h2>5. Phase I-Equivalent Evidence</h2>
+    <p>STRATFI requires demonstrated Phase II performance plus a credible Phase III path. Anchor every claim with a real artifact or relationship.</p>
+
+    <div class="anchor">
+      <h3>Anchor A &mdash; <span class="tbd">TBD</span></h3>
+      <p>Placeholder. Candidates: active AFRL D2P2 "Orion's Belt" (FA864925P0298), SOCOM TE 26-2 at Avon Park (April 2026), prior TAK / ATAK integration architecture.</p>
+    </div>
+
+    <div class="anchor">
+      <h3>Anchor B &mdash; <span class="tbd">TBD</span></h3>
+      <p>Placeholder.</p>
+    </div>
+
+    <div class="anchor">
+      <h3>Anchor C &mdash; <span class="tbd">TBD</span></h3>
+      <p>Placeholder.</p>
+    </div>
+
+    <h2>6. Suggested Project Structure (24-month PoP, concept level)</h2>
+    <p>Concept-level phase breakdown, not yet a SOW or a budget. Each phase ends with a government-visible demonstration.</p>
+
+    <div class="phase">
+      <h3>Phase 1 (Months 1-6) &mdash; <span class="tbd">TBD</span></h3>
+      <p class="deliverable"><b>Deliverable:</b> <span class="tbd">TBD</span></p>
+    </div>
+    <div class="phase">
+      <h3>Phase 2 (Months 7-12) &mdash; <span class="tbd">TBD</span></h3>
+      <p class="deliverable"><b>Deliverable:</b> <span class="tbd">TBD</span></p>
+    </div>
+    <div class="phase">
+      <h3>Phase 3 (Months 13-18) &mdash; <span class="tbd">TBD</span></h3>
+      <p class="deliverable"><b>Deliverable:</b> <span class="tbd">TBD</span></p>
+    </div>
+    <div class="phase">
+      <h3>Phase 4 (Months 19-24) &mdash; <span class="tbd">TBD</span></h3>
+      <p class="deliverable"><b>Deliverable:</b> <span class="tbd">TBD</span></p>
+    </div>
+
+    <h2>7. Matching Capital Plan</h2>
+    <p><span class="tbd">TBD</span> &mdash; STRATFI requires a 1:1:2 match (or 1:2 defense-only). Break down equity, venture debt, and public-match components with named sources and written commitments.</p>
+
+    <h2>8. Open Questions for the Team</h2>
+    <ul class="clean">
+      <li><span class="tbd">TBD</span> &mdash; add from source review</li>
+    </ul>
+
+  </section>
+</div><!-- /#tab-concept -->
 
 <footer class="foot">
   DeepSat StratFi Program Dashboard &middot; Initialized 2026-04-20 &middot; Source: <a href="https://deepsat.ghe.com/deepsat/stratfi-inception" target="_blank">deepsat/stratfi-inception</a> &middot; Refreshed weekly before the Monday STRATFI Review.
@@ -3437,6 +3692,20 @@ if (mounts.kanban) {
 // History dropdown removed in shared view (no filesystem access).
 const hs = document.getElementById('history-select');
 if (hs) hs.parentElement?.remove();
+
+// Tabs: Program / Timeline / Concept
+document.querySelectorAll('nav.tabs .tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = btn.getAttribute('data-tab');
+    document.querySelectorAll('nav.tabs .tab-btn').forEach(b => b.classList.toggle('active', b === btn));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === 'tab-' + target));
+    if (history.replaceState) history.replaceState(null, '', '#' + target);
+  });
+});
+const __hashTab = (location.hash || '').replace('#', '');
+if (__hashTab === 'timeline' || __hashTab === 'concept' || __hashTab === 'program') {
+  document.querySelector('nav.tabs .tab-btn[data-tab="' + __hashTab + '"]')?.click();
+}
 </script>
 
 <script type="module">
