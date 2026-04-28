@@ -38,7 +38,12 @@ const STYLES = `
 .dsv-sb-header { padding:12px 16px; border-bottom:1px solid #d1d9e0; font-weight:600; font-size:14px; color:#656d76; position:sticky; top:0; background:rgba(255,255,255,0.97); flex-shrink:0; display:flex; justify-content:space-between; align-items:center; }
 #dsv-sb-list { flex:1; overflow-y:auto; }
 .dsv-sb-empty { padding:40px 20px; text-align:center; color:#656d76; font-size:13px; line-height:1.6; }
-.dsv-sb-comment { padding:14px 20px; border-bottom:1px solid #f0f0f0; }
+.dsv-sb-comment { padding:14px 20px; border-bottom:1px solid #f0f0f0; position:relative; }
+.dsv-sb-meta { display:flex; align-items:center; gap:8px; }
+.dsv-sb-meta strong { flex:0 0 auto; }
+.dsv-sb-meta span { flex:1 1 auto; font-size:12px; color:#656d76; }
+.dsv-sb-delete { background:none; border:0; color:#8b949e; cursor:pointer; font-size:18px; line-height:1; padding:2px 8px; border-radius:4px; flex-shrink:0; font-family:inherit; }
+.dsv-sb-delete:hover { background:#ffebe9; color:#cf222e; }
 .dsv-sb-meta { display:flex; justify-content:space-between; font-size:11px; color:#8b949e; margin-bottom:6px; }
 .dsv-sb-meta strong { color:#1f2328; font-size:12px; }
 .dsv-sb-selected { font-size:12px; color:#656d76; font-style:italic; padding:4px 8px; background:#fff8c5; border-radius:4px; margin-bottom:6px; line-height:1.4; border-left:3px solid #d4a72c; }
@@ -93,6 +98,14 @@ function supabaseGet(url, key, table, query) {
   return fetch(`${url}/rest/v1/${table}?${query}`, {
     headers: { apikey: key, Authorization: `Bearer ${key}` },
   }).then(r => r.ok ? r.json() : null).catch(() => null);
+}
+
+function supabaseDelete(url, key, table, query) {
+  if (!url || !key) return Promise.resolve(false);
+  return fetch(`${url}/rest/v1/${table}?${query}`, {
+    method: 'DELETE',
+    headers: { apikey: key, Authorization: `Bearer ${key}` },
+  }).then(r => r.ok).catch(() => false);
 }
 
 // ─── Highlight engine (handles cross-element selections) ───────
@@ -374,7 +387,14 @@ export function createViewer(userConfig = {}) {
     };
 
     state.comments.push(comment);
-    supabasePost(config.supabaseUrl, config.supabaseKey, 'doc_comments', comment); // fire and forget
+    // Post to Supabase and capture the server-generated id so the comment is immediately deletable
+    supabasePost(config.supabaseUrl, config.supabaseKey, 'doc_comments', comment).then(result => {
+      if (result && result[0] && result[0].id) {
+        comment.id = result[0].id;
+        localSet(`comments_${config.docId}`, state.comments);
+        renderComments();
+      }
+    });
     localSet(`comments_${config.docId}`, state.comments);
 
     // Clear active selection, add permanent highlight
@@ -424,13 +444,45 @@ export function createViewer(userConfig = {}) {
       list.innerHTML = '<div class="dsv-sb-empty">No comments yet.<br>Switch to <strong>Review</strong> mode, then select text to comment.</div>';
       return;
     }
-    list.innerHTML = state.comments.map(c => `
-      <div class="dsv-sb-comment">
-        <div class="dsv-sb-meta"><strong>${c.name || c.email || ''}</strong><span>${new Date(c.created_at).toLocaleString()}</span></div>
-        <div class="dsv-sb-selected">"${c.selected_text}"</div>
-        <div class="dsv-sb-text">${c.comment}</div>
-      </div>
-    `).join('');
+    list.innerHTML = state.comments.map(c => {
+      const canDelete = c.id && c.email && c.email === state.viewerEmail;
+      return `
+        <div class="dsv-sb-comment">
+          <div class="dsv-sb-meta">
+            <strong>${c.name || c.email || ''}</strong>
+            <span>${new Date(c.created_at).toLocaleString()}</span>
+            ${canDelete ? `<button class="dsv-sb-delete" data-id="${c.id}" title="Delete this comment">×</button>` : ''}
+          </div>
+          <div class="dsv-sb-selected">"${c.selected_text}"</div>
+          <div class="dsv-sb-text">${c.comment}</div>
+        </div>
+      `;
+    }).join('');
+
+    list.querySelectorAll('.dsv-sb-delete').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.id;
+        if (!id) return;
+        if (!confirm('Delete this comment? This cannot be undone.')) return;
+        deleteComment(id);
+      });
+    });
+  }
+
+  async function deleteComment(id) {
+    // Optimistic local removal
+    state.comments = state.comments.filter(c => c.id !== id);
+    localSet(`comments_${config.docId}`, state.comments);
+
+    // Clear all highlights and markers, then re-add with new numbering
+    clearMarks('dsv-highlight');
+    document.querySelectorAll('.dsv-comment-marker').forEach(el => el.remove());
+    state.comments.forEach((c, i) => addPermanentHighlight(c.selected_text, i + 1, () => setMode(true)));
+
+    renderComments();
+
+    // Server-side delete (fire and forget; if it fails, the next page load will resync)
+    supabaseDelete(config.supabaseUrl, config.supabaseKey, 'doc_comments', `id=eq.${id}`);
   }
 
   // ─── Init ────────────────────────────────────────────────
