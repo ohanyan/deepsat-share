@@ -58,56 +58,58 @@
     background: var(--navy);
     color: #ffffff;
     border-radius: 4px;
-    padding: 22px 26px;
+    padding: 12px 20px;
     display: grid;
     grid-template-columns: 1.35fr 1fr;
-    gap: 24px;
+    gap: 18px;
   }
   .header-band .tag {
-    font-size: 9pt;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    color: #c7d6ea;
-    margin-bottom: 8px;
-  }
-  .header-band h1 {
-    margin: 0 0 6px 0;
-    font-size: 19pt;
-    font-weight: 700;
-    line-height: 1.2;
-  }
-  .header-band .role {
-    font-size: 10.5pt;
-    color: #d4dfee;
-    line-height: 1.45;
-    margin: 0;
-  }
-  .header-band .meta-block .meeting {
-    font-size: 11pt;
-    font-weight: 700;
-    margin: 0;
-  }
-  .header-band .meta-block .where {
-    font-size: 10pt;
-    color: #d4dfee;
-    margin: 2px 0 14px 0;
-  }
-  .header-band .meta-block .att-tag {
-    font-size: 9pt;
+    font-size: 8pt;
     font-weight: 700;
     letter-spacing: 0.14em;
     color: #c7d6ea;
     margin-bottom: 4px;
   }
+  .header-band h1 {
+    margin: 0 0 4px 0;
+    font-size: 15pt;
+    font-weight: 700;
+    line-height: 1.18;
+  }
+  .header-band .role {
+    font-size: 9.5pt;
+    color: #d4dfee;
+    line-height: 1.35;
+    margin: 0;
+  }
+  .header-band .meta-block .meeting {
+    font-size: 10pt;
+    font-weight: 700;
+    margin: 0;
+  }
+  .header-band .meta-block .where {
+    font-size: 9pt;
+    color: #d4dfee;
+    margin: 1px 0 8px 0;
+  }
+  .header-band .meta-block .att-tag {
+    font-size: 8pt;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: #c7d6ea;
+    margin-bottom: 2px;
+  }
   .header-band .meta-block .att-name {
-    font-size: 10.5pt;
+    font-size: 9.5pt;
     font-weight: 600;
-    margin: 2px 0 0 0;
+    margin: 1px 0 0 0;
+    line-height: 1.25;
   }
   .header-band .meta-block .att-role {
-    font-size: 9.5pt;
+    font-size: 8.5pt;
     color: #c7d6ea;
-    margin: 0 0 8px 0;
+    margin: 0 0 4px 0;
+    line-height: 1.25;
   }
 
   .callout {
@@ -293,16 +295,23 @@
   }
 
   @media print {
-    @page { size: letter; margin: 0.5in; }
-    body { background: #fff; font-size: 10.5pt; }
+    @page { size: letter; margin: 0.45in; }
+    body { background: #fff; font-size: 10pt; }
     .page { padding: 0; max-width: 100%; min-height: auto; }
-    .header-band { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-    .callout { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-    .platform-visual-section .pv-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .header-band { -webkit-print-color-adjust: exact; print-color-adjust: exact; padding: 16px 22px; }
+    .header-band h1 { font-size: 17pt; }
+    .callout { -webkit-print-color-adjust: exact; print-color-adjust: exact; padding: 10px 14px; margin: 14px 0 4px 0; }
+    .platform-visual-section { margin: 14px 0 8px 0; }
+    .platform-visual-section .pv-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; padding: 8px 14px; }
     .pv-chip, .pv-chip-label, .pv-tag { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-    h2 { break-after: avoid; }
+    .pv-node img.pv-hero { height: 60px; }
+    .platform-visual-lede { margin: 6px 0 8px 0; }
+    h2 { break-after: avoid; margin-top: 18px; margin-bottom: 8px; }
+    p { margin: 0 0 7px 0; }
+    p.kicker { margin: 0 0 6px 0; }
     table, ul, ol, .platform-visual-section { break-inside: avoid; }
-    .about-table { break-before: page; page-break-before: always; }
+    /* Force page 2 to start at the about table: page break AFTER the diagram */
+    .platform-visual-section { break-after: page; page-break-after: always; }
   }
 </style>
 </head>
