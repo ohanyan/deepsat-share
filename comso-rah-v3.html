@@ -124,6 +124,22 @@
     border-left: 3px solid var(--stamp);
   }
   .callout.bluf .callout-title { color: var(--stamp); }
+  .callout.asks {
+    margin: 24px 0 14px 0;
+    padding: 18px 22px;
+  }
+  .callout.asks .asks-heading {
+    font-size: 11.5pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--navy);
+    margin: 0 0 10px 0;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--rule-strong);
+  }
+  .callout.asks p { margin: 0 0 8px 0; }
+  .callout.asks ol { margin: 8px 0 0 0; }
   .callout .callout-title {
     font-weight: 700;
     color: var(--navy);
@@ -301,6 +317,7 @@
     .header-band { -webkit-print-color-adjust: exact; print-color-adjust: exact; padding: 16px 22px; }
     .header-band h1 { font-size: 17pt; }
     .callout { -webkit-print-color-adjust: exact; print-color-adjust: exact; padding: 10px 14px; margin: 14px 0 4px 0; }
+    .callout.asks { padding: 14px 18px; margin: 14px 0 8px 0; break-inside: avoid; }
     .platform-visual-section { margin: 14px 0 8px 0; }
     .platform-visual-section .pv-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; padding: 8px 14px; }
     .pv-chip, .pv-chip-label, .pv-tag { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
@@ -449,19 +466,21 @@
     </tbody>
   </table>
 
-  <h2>What We Are Asking from COMSO</h2>
-  <p>Our PY26.1 STRATFI submission is due 29 May 2026, and we appreciate COMSO taking this meeting on short notice. We are not asking for program funding. Our primary ask below is time-sensitive; the remaining three are parallel pathways that support it.</p>
-  <ol>
-    <li><strong>Champion our STRATFI Government Funding Letter ($30M matching funding target, PY26.1 submission, due 29 May 2026).</strong> The cleanest path is COMSO championing within SSC, either by signing directly or by introducing us to the right mission PEO signatory. The most relevant PEOs connected to COMSO for VLEO ISR are: PEO Space Sensing, PEO Tactical Intelligence and SATCOM, and PEO Space Domain Awareness.</li>
-    <li><strong>Commercial-integration on-ramps.</strong> Three specific pathways:
-      <ul>
-        <li><strong>CASR vendor pool.</strong> Path into the first CASR tranche (cohort September 2026). VLEO ISR fits the crisis-surge construct directly.</li>
-        <li><strong>TacSRT pilot inclusion.</strong> DeepSat produces tactically timed, unclassified commercial data, the exact product TacSRT moves through the Global Data Marketplace, plus a VLEO and onboard-AI layer the pool lacks today.</li>
-        <li><strong>Working Capital Fund pathway.</strong> How a commercially financed provider structures pricing and recurring orders through the WCF construct.</li>
-      </ul>
-    </li>
-    <li><strong>PEO connectivity, current and future.</strong> Beyond STRATFI, building relationships with Program Executive Offices as they evolve, positioning DeepSat for future task order and acquisition opportunities.</li>
-  </ol>
+  <div class="callout asks">
+    <div class="asks-heading">What We Are Asking from COMSO</div>
+    <p>Our PY26.1 STRATFI submission is due 29 May 2026, and we appreciate COMSO taking this meeting on short notice. We are not asking for program funding. Our primary ask below is time-sensitive; the remaining three are parallel pathways that support it.</p>
+    <ol>
+      <li><strong>Champion our STRATFI Government Funding Letter ($30M matching funding target, PY26.1 submission, due 29 May 2026).</strong> The cleanest path is COMSO championing within SSC, either by signing directly or by introducing us to the right mission PEO signatory. The most relevant PEOs connected to COMSO for VLEO ISR are: PEO Space Sensing, PEO Tactical Intelligence and SATCOM, and PEO Space Domain Awareness.</li>
+      <li><strong>Commercial-integration on-ramps.</strong> Three specific pathways:
+        <ul>
+          <li><strong>CASR vendor pool.</strong> Path into the first CASR tranche (cohort September 2026). VLEO ISR fits the crisis-surge construct directly.</li>
+          <li><strong>TacSRT pilot inclusion.</strong> DeepSat produces tactically timed, unclassified commercial data, the exact product TacSRT moves through the Global Data Marketplace, plus a VLEO and onboard-AI layer the pool lacks today.</li>
+          <li><strong>Working Capital Fund pathway.</strong> How a commercially financed provider structures pricing and recurring orders through the WCF construct.</li>
+        </ul>
+      </li>
+      <li><strong>PEO connectivity, current and future.</strong> Beyond STRATFI, building relationships with Program Executive Offices as they evolve, positioning DeepSat for future task order and acquisition opportunities.</li>
+    </ol>
+  </div>
 
   <div class="footer">
     <span>nerses@deepsat.com &middot; deepsat.com</span>
