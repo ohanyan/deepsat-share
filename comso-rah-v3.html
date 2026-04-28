@@ -306,9 +306,10 @@
     .pv-chip, .pv-chip-label, .pv-tag { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     .pv-node img.pv-hero { height: 60px; }
     .platform-visual-lede { margin: 6px 0 8px 0; }
-    h2 { break-after: avoid; margin-top: 18px; margin-bottom: 8px; }
-    p { margin: 0 0 7px 0; }
-    p.kicker { margin: 0 0 6px 0; }
+    h2 { break-after: avoid; margin-top: 12px; margin-bottom: 6px; }
+    body, p, li { line-height: 1.4; }
+    p { margin: 0 0 6px 0; }
+    p.kicker { margin: 0 0 5px 0; }
     table, ul, ol, .platform-visual-section { break-inside: avoid; }
     /* Force page 2 to start at the about table: page break AFTER the diagram */
     .platform-visual-section { break-after: page; page-break-after: always; }
@@ -357,7 +358,7 @@
 
   <h2>Who We Are</h2>
   <p class="kicker">DeepSat is creating a new strategic layer of space infrastructure.</p>
-  <p>DeepSat is building <strong>Orion's Belt</strong>, an ISR constellation in Very Low Earth Orbit (VLEO) at approximately 300 km altitude that drives rapid decisions for defense and national security operators. The operator receives decisions, not raw imagery. Onboard AI generates detections in approximately 200 milliseconds, and Kepler optical inter-satellite links deliver intelligence to operators in under 30 seconds end-to-end.</p>
+  <p>DeepSat is building <strong>Orion's Belt</strong>, an ISR constellation in Very Low Earth Orbit (VLEO) at 250 km altitude that drives rapid decisions for defense and national security operators. The operator receives decisions, not raw imagery. Onboard AI generates detections in approximately 200 milliseconds, and Kepler optical inter-satellite links deliver intelligence to operators in under 30 seconds end-to-end.</p>
   <p>We are COTS-first by design. Our supply chain integrates commercially available components from Redwire (bus), Satlantis (optics), Kepler (laser comms), and NVIDIA (compute), producing an end-to-end intelligence service delivered on a commercially financed model.</p>
 
   <div class="platform-visual-section">
@@ -422,14 +423,6 @@
     <li><strong>Quality.</strong> Multi-modal sensing (optical, RF, AIS, polarimetric) with roughly 4x SNR advantage over LEO from VLEO look angles. Sub-meter VNIR and SWIR imaging with multi-band real-time video.</li>
     <li><strong>Resilience.</strong> Self-cleaning orbit below the debris belt and below the principal anti-satellite (ASAT) threat envelope. COTS-abstracted supply chain. On-orbit model updates.</li>
   </ol>
-  <p><strong>What this means for COMSO:</strong></p>
-  <ul>
-    <li><strong>Novel data layer.</strong> VLEO produces a class of imagery and sensing data that has not been collected from this altitude in any operational capacity. New capability for the architecture, not redundancy.</li>
-    <li><strong>Below the ASAT envelope.</strong> Orion's Belt operates below the primary threat envelope for kinetic anti-satellite weapons, offering a more survivable tier for crisis and conflict scenarios. Directly relevant to CASR planning.</li>
-    <li><strong>Commercial-first architecture.</strong> Our supply chain is entirely COTS. COMSO does not need to fund our development. We are seeking integration pathways, not program funding.</li>
-    <li><strong>Dual-use by design.</strong> Orion's Belt serves both commercial and defense customers. That commercial revenue base is what allows companies to deliver on Pentagon timelines without depending on a Pentagon contract for survival.</li>
-  </ul>
-
   <h2>Operational Engagement to Date</h2>
   <p>DeepSat has active engagement with defense and national security customers relevant to COMSO's combatant command coordination mandate:</p>
   <ul>
@@ -438,7 +431,6 @@
     <li><strong>DAF, D2P2 SBIR.</strong> Executing a $1.25M Direct-to-Phase II contract from AFWERX, our primary non-dilutive funding vehicle and a direct pathway into the SpaceWERX and COMSO ecosystem.</li>
     <li><strong>MDA SHIELD IDIQ.</strong> Prime on the MDA SHIELD IDIQ, a $151B ceiling vehicle covering missile warning, missile tracking, missile defense, and space-based defense work.</li>
     <li><strong>NASA Goddard.</strong> Letter of Intent for first-of-kind VLEO atmospheric and space-weather datasets.</li>
-    <li><strong>USC ISI / SSC STTR.</strong> SF25D-T1201 submitted with USC Information Sciences Institute; Phase II in pipeline.</li>
   </ul>
 
   <h2 class="page-break-trajectory">Trajectory and Next Milestones</h2>
@@ -461,15 +453,14 @@
   <p>Our PY26.1 STRATFI submission is due 29 May 2026, and we appreciate COMSO taking this meeting on short notice. We are not asking for program funding. Our primary ask below is time-sensitive; the remaining three are parallel pathways that support it.</p>
   <ol>
     <li><strong>Champion our STRATFI Government Funding Letter ($30M matching funding target, PY26.1 submission, due 29 May 2026).</strong> The cleanest path is COMSO championing within SSC, either by signing directly or by introducing us to the right mission PEO signatory. The most relevant PEOs connected to COMSO for VLEO ISR are: PEO Space Sensing, PEO Tactical Intelligence and SATCOM, and PEO Space Domain Awareness.</li>
-    <li><strong>Mission alignment.</strong> We want to hear directly from COMSO where VLEO ISR fits in the commercial architecture, and how to structure our engagement to be useful to COMSO's mandate.</li>
-    <li><strong>Commercial-integration on-ramps.</strong> We see COMSO as a long-term partner as our constellation grows. Three specific pathways we want to understand:
+    <li><strong>Commercial-integration on-ramps.</strong> Three specific pathways:
       <ul>
-        <li><strong>CASR vendor pool.</strong> Path into the first CASR tranche (first cohort September 2026). VLEO ISR as a crisis-surge service fits the CASR construct directly.</li>
-        <li><strong>TacSRT pilot inclusion.</strong> DeepSat produces tactically timed, unclassified commercial data, the exact product TacSRT was built to move through the Global Data Marketplace. Inclusion in the TacSRT vendor pool fits cleanly alongside the existing pool but adds a VLEO and onboard-AI layer the pool does not currently have.</li>
-        <li><strong>Working Capital Fund pathway.</strong> How a commercially financed provider like DeepSat structures pricing and recurring orders through the WCF construct.</li>
+        <li><strong>CASR vendor pool.</strong> Path into the first CASR tranche (cohort September 2026). VLEO ISR fits the crisis-surge construct directly.</li>
+        <li><strong>TacSRT pilot inclusion.</strong> DeepSat produces tactically timed, unclassified commercial data, the exact product TacSRT moves through the Global Data Marketplace, plus a VLEO and onboard-AI layer the pool lacks today.</li>
+        <li><strong>Working Capital Fund pathway.</strong> How a commercially financed provider structures pricing and recurring orders through the WCF construct.</li>
       </ul>
     </li>
-    <li><strong>PEO connectivity, current and future.</strong> Beyond STRATFI, we want to understand how to develop relationships with Program Executive Offices as they evolve, ensuring DeepSat is positioned for future task order and acquisition opportunities.</li>
+    <li><strong>PEO connectivity, current and future.</strong> Beyond STRATFI, building relationships with Program Executive Offices as they evolve, positioning DeepSat for future task order and acquisition opportunities.</li>
   </ol>
 
   <div class="footer">
