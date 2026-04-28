@@ -215,6 +215,29 @@
     justify-content: space-between;
   }
 
+  /* Print/Save-as-PDF button (hidden in print) */
+  .doc-print-btn {
+    position: fixed;
+    top: 12px;
+    right: 165px;
+    z-index: 1003;
+    background: var(--navy);
+    color: #ffffff;
+    border: none;
+    padding: 6px 14px;
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: inherit;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    letter-spacing: 0.02em;
+  }
+  .doc-print-btn:hover { background: var(--navy-soft); }
+
   /* Platform visual diagram (lifted from SOFWERX white paper) */
   .platform-visual-section { margin: 22px 0 14px 0; }
   .platform-visual-section .pv-header {
@@ -332,10 +355,20 @@
     .platform-visual-section { break-after: page; page-break-after: always; }
     /* Force page 3 to start at Trajectory section so Asks stays clean on page 3 */
     h2.page-break-trajectory { break-before: page; page-break-before: always; }
+    /* Hide all interactive UI in print: print button, viewer.js toggle/sidebar/highlights */
+    .doc-print-btn,
+    #dsv-mode-bar,
+    #dsv-float-toggle,
+    #dsv-sidebar,
+    #dsv-gate-bg,
+    #dsv-gate-card,
+    .dsv-comment-marker { display: none !important; }
+    mark.dsv-highlight { background: transparent !important; padding: 0 !important; }
   }
 </style>
 </head>
 <body>
+<button class="doc-print-btn" onclick="window.print()" title="Print or Save as PDF">Print / Save as PDF</button>
 <div class="page">
 
   <div class="breadcrumb">
@@ -376,7 +409,7 @@
   <h2>Who We Are</h2>
   <p class="kicker">DeepSat is creating a new strategic layer of space infrastructure.</p>
   <p>DeepSat is building <strong>Orion's Belt</strong>, an ISR constellation in Very Low Earth Orbit (VLEO) at 250 km altitude that drives rapid decisions for defense and national security operators. The operator receives decisions, not raw imagery. Onboard AI generates detections in approximately 200 milliseconds, and Kepler optical inter-satellite links deliver intelligence to operators in under 30 seconds end-to-end.</p>
-  <p>We are COTS-first by design. Our supply chain integrates commercially available components from Redwire (bus), Satlantis (optics), Kepler (laser comms), and NVIDIA (compute), producing an end-to-end intelligence service delivered on a commercially financed model.</p>
+  <p>We are COTS-first by design. Our platform is built around commercial systems: bus manufactured by Redwire, optical payload by Satlantis, onboard GPU by NVIDIA, laser inter-satellite communications via Kepler, and an environmental-data payload via NASA Goddard collaboration. Together producing an end-to-end intelligence service delivered on a commercially financed model.</p>
 
   <div class="platform-visual-section">
     <div class="pv-header">Space ISR and Orchestration Platform</div>
@@ -428,7 +461,7 @@
       <tr><th class="row-label">Active Pursuits</th><td>USC ISI / SSC STTR &middot; pLEO opportunity (Space Force)</td></tr>
       <tr><th class="row-label">Clearance</th><td>CMMC-2 in progress through AFRL &middot; MDA Facility Clearance in progress</td></tr>
       <tr><th class="row-label">First Launch</th><td>Q4 2027 SpaceX rideshare (precursor, TRL 8 pre-launch, TRL 9 in flight)</td></tr>
-      <tr><th class="row-label">Constellation Target</th><td>Multiple dual-use VLEO constellations operational by 2030</td></tr>
+      <tr><th class="row-label">Constellation Target</th><td>Initial operational capability 2028 &middot; 500 satellites operational by 2030</td></tr>
     </tbody>
   </table>
 
@@ -444,14 +477,14 @@
   <p>DeepSat has active engagement with defense and national security customers relevant to COMSO's combatant command coordination mandate:</p>
   <ul>
     <li><strong>SOCOM, TE 26-2.</strong> Participated in SOCOM Technical Experimentation 26-2 in Q1 2026, demonstrating our ISR capability directly with special operations end-users. Maritime TE follow-on planned August 2026.</li>
-    <li><strong>SOUTHCOM / JIATF-S.</strong> Counter-narcotics S&amp;T engagement with Joint Interagency Task Force, South, validating our maritime detection capability against an active operational demand signal (Q3 2025 onward).</li>
+    <li><strong>SOUTHCOM / JIATF-S.</strong> Counter-narcotics S&amp;T engagement with Joint Interagency Task Force, South, validating our polarimetric maritime detection capability against an active operational demand signal (Q3 2025 onward).</li>
     <li><strong>DAF, D2P2 SBIR.</strong> Executing a $1.25M Direct-to-Phase II contract from AFWERX, our primary non-dilutive funding vehicle and a direct pathway into the SpaceWERX and COMSO ecosystem.</li>
     <li><strong>MDA SHIELD IDIQ.</strong> Prime on the MDA SHIELD IDIQ, a $151B ceiling vehicle covering missile warning, missile tracking, missile defense, and space-based defense work.</li>
     <li><strong>NASA Goddard.</strong> Letter of Intent for first-of-kind VLEO atmospheric and space-weather datasets.</li>
   </ul>
 
   <h2 class="page-break-trajectory">Trajectory and Next Milestones</h2>
-  <p>We are positioning for the pLEO (proliferated Low Earth Orbit) opportunity at Space Force, and our STRATFI submission is due 29 May 2026. Our precursor satellite is scheduled to launch Q4 2027 on a SpaceX rideshare. We achieve TRL 8 pre-launch through a series of technology maturation steps, and TRL 9 in the operational space environment via the flight itself. Our goal is multiple dual-use VLEO constellations operational by 2030.</p>
+  <p>We are positioning for the pLEO (proliferated Low Earth Orbit) opportunity at Space Force, and our STRATFI submission is due 29 May 2026. Our precursor satellite is scheduled to launch Q4 2027 on a SpaceX rideshare. We achieve TRL 8 pre-launch through a series of technology maturation steps, and TRL 9 in the operational space environment via the flight itself. From there we reach initial operational capability in 2028 and scale to a 500-satellite constellation operational by 2030.</p>
 
   <table>
     <thead>
@@ -462,7 +495,8 @@
       <tr><td>Payload integration with Redwire VLEO bus</td><td>FY26</td></tr>
       <tr><td>SOCOM Maritime TE characterization</td><td>August 2026</td></tr>
       <tr><td>Precursor launch on SpaceX rideshare (TRL 9)</td><td>Q4 2027</td></tr>
-      <tr><td>Dual-use VLEO constellations operational</td><td>2030</td></tr>
+      <tr><td>Initial operational capability (IOC)</td><td>2028</td></tr>
+      <tr><td>500-satellite constellation operational</td><td>2030</td></tr>
     </tbody>
   </table>
 
