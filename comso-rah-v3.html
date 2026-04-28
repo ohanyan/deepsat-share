@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>DeepSat, COMSO Introductory Brief — Read-Ahead</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1f3a5f;
+    --navy-soft: #2d4870;
+    --ink: #1e293b;
+    --ink-muted: #475569;
+    --ink-faint: #64748b;
+    --rule: #e2e8f0;
+    --rule-strong: #cbd5e1;
+    --paper: #ffffff;
+    --paper-soft: #f8fafc;
+    --callout-bg: #eef3fa;
+    --callout-rule: #3b5b8a;
+    --stamp: #8b1f24;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--paper-soft); }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 11pt;
+    line-height: 1.5;
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+  .page {
+    max-width: 8.5in;
+    margin: 0 auto;
+    background: var(--paper);
+    padding: 0.55in 0.7in 0.6in 0.7in;
+    min-height: 11in;
+  }
+  .breadcrumb {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 8px;
+    margin-bottom: 18px;
+    font-size: 9.5pt;
+    color: var(--ink-faint);
+  }
+  .breadcrumb .crumbs { letter-spacing: 0.01em; }
+  .breadcrumb .stamp {
+    color: var(--stamp);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+  }
+
+  .header-band {
+    background: var(--navy);
+    color: #ffffff;
+    border-radius: 4px;
+    padding: 22px 26px;
+    display: grid;
+    grid-template-columns: 1.35fr 1fr;
+    gap: 24px;
+  }
+  .header-band .tag {
+    font-size: 9pt;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: #c7d6ea;
+    margin-bottom: 8px;
+  }
+  .header-band h1 {
+    margin: 0 0 6px 0;
+    font-size: 19pt;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  .header-band .role {
+    font-size: 10.5pt;
+    color: #d4dfee;
+    line-height: 1.45;
+    margin: 0;
+  }
+  .header-band .meta-block .meeting {
+    font-size: 11pt;
+    font-weight: 700;
+    margin: 0;
+  }
+  .header-band .meta-block .where {
+    font-size: 10pt;
+    color: #d4dfee;
+    margin: 2px 0 14px 0;
+  }
+  .header-band .meta-block .att-tag {
+    font-size: 9pt;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: #c7d6ea;
+    margin-bottom: 4px;
+  }
+  .header-band .meta-block .att-name {
+    font-size: 10.5pt;
+    font-weight: 600;
+    margin: 2px 0 0 0;
+  }
+  .header-band .meta-block .att-role {
+    font-size: 9.5pt;
+    color: #c7d6ea;
+    margin: 0 0 8px 0;
+  }
+
+  .callout {
+    background: var(--callout-bg);
+    border-left: 3px solid var(--callout-rule);
+    padding: 14px 18px;
+    margin: 22px 0 6px 0;
+    border-radius: 2px;
+  }
+  .callout .callout-title {
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+  .callout p { margin: 0; }
+
+  h2 {
+    font-size: 10.5pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--navy);
+    border-bottom: 1px solid var(--rule-strong);
+    padding-bottom: 5px;
+    margin-top: 26px;
+    margin-bottom: 12px;
+  }
+  p { margin: 0 0 10px 0; }
+  p strong { color: var(--ink); }
+  ul, ol { margin: 6px 0 12px 0; padding-left: 22px; }
+  li { margin-bottom: 6px; }
+  li > ul, li > ol { margin-top: 6px; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 4px 0 14px 0;
+    font-size: 10.5pt;
+  }
+  table thead th {
+    background: var(--paper-soft);
+    text-align: left;
+    font-weight: 600;
+    color: var(--ink-muted);
+    border-bottom: 1px solid var(--rule-strong);
+    padding: 8px 12px;
+  }
+  table td, table th.row-label {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+    text-align: left;
+  }
+  table th.row-label {
+    width: 28%;
+    font-weight: 600;
+    color: var(--ink-muted);
+    background: var(--paper-soft);
+  }
+  table tbody tr:last-child td,
+  table tbody tr:last-child th { border-bottom: none; }
+
+  .acronyms {
+    font-size: 9.5pt;
+    color: var(--ink-muted);
+    line-height: 1.65;
+  }
+
+  .footer {
+    margin-top: 32px;
+    padding-top: 10px;
+    border-top: 1px solid var(--rule);
+    font-size: 9pt;
+    color: var(--ink-faint);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  @media print {
+    @page { size: letter; margin: 0.5in; }
+    body { background: #fff; font-size: 10.5pt; }
+    .page { padding: 0; max-width: 100%; min-height: auto; }
+    .header-band { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .callout { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    h2 { break-after: avoid; }
+    table, ul, ol { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="breadcrumb">
+    <span class="crumbs">DeepSat &middot; COMSO Read-Ahead &middot; 29 April 2026</span>
+    <span class="stamp">FOR OFFICIAL USE, PRE-DECISIONAL</span>
+  </div>
+
+  <header class="header-band">
+    <div class="title-block">
+      <div class="tag">READ-AHEAD</div>
+      <h1>DeepSat, COMSO Introductory Brief</h1>
+      <p class="role">
+        Col. Tim Trimailo, Director<br>
+        Commercial Space Office, Space Systems Command
+      </p>
+    </div>
+    <div class="meta-block">
+      <p class="meeting">29 April 2026 &middot; 1:30 PM</p>
+      <p class="where">El Segundo, CA &middot; 30 minutes</p>
+      <div class="att-tag">ATTENDEES</div>
+      <p class="att-name">Nerses Ohanyan</p>
+      <p class="att-role">Co-Founder &amp; CEO</p>
+      <p class="att-name">Sarkis Karabashian</p>
+      <p class="att-role">Director, BD &amp; Government Relations</p>
+    </div>
+  </header>
+
+  <div class="callout">
+    <div class="callout-title">Purpose of This Meeting</div>
+    <p>DeepSat is requesting this meeting to introduce <strong>Orion's Belt</strong>, our VLEO ISR constellation, to COMSO; understand how our trajectory aligns with COMSO's commercial integration mission; and build a direct working relationship. That includes how COMSO can support our active STRATFI submission (due 29 May 2026) and connect us with relevant PEOs for current and future opportunities.</p>
+  </div>
+
+  <h2>Who We Are</h2>
+  <p>DeepSat is building <strong>Orion's Belt</strong>, an ISR constellation in Very Low Earth Orbit (VLEO) at approximately 300 km altitude that drives rapid decisions for defense and national security operators. The operator receives decisions, not raw imagery. Onboard AI generates detections in approximately 200 milliseconds, and Kepler optical inter-satellite links deliver intelligence to operators in under 30 seconds end-to-end.</p>
+  <p>We are COTS-first by design. Our supply chain integrates commercially available components from Redwire (bus), Satlantis (optics), Kepler (laser comms), and NVIDIA (compute), producing an end-to-end intelligence service delivered on a commercially financed model.</p>
+
+  <table>
+    <tbody>
+      <tr><th class="row-label">Founded</th><td>2024, Los Angeles, CA</td></tr>
+      <tr><th class="row-label">Team</th><td>10 people</td></tr>
+      <tr><th class="row-label">Capital</th><td>$1.5M private + $1.25M non-dilutive (DAF D2P2)</td></tr>
+      <tr><th class="row-label">Active Contracts</th><td>DAF Direct-to-Phase II SBIR (AFWERX) &middot; MDA SHIELD IDIQ (Prime, $151B ceiling) &middot; NASA Goddard LOI</td></tr>
+      <tr><th class="row-label">Active Pursuits</th><td>USC ISI / SSC STTR &middot; pLEO opportunity (Space Force)</td></tr>
+      <tr><th class="row-label">Clearance</th><td>CMMC-2 in progress through AFRL &middot; MDA Facility Clearance in progress</td></tr>
+      <tr><th class="row-label">First Launch</th><td>Q4 2027 SpaceX rideshare (precursor, TRL 8 pre-launch, TRL 9 in flight)</td></tr>
+      <tr><th class="row-label">Constellation Target</th><td>Multiple dual-use VLEO constellations operational by 2030</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Why VLEO Matters to COMSO</h2>
+  <p>COMSO's mission is to integrate commercial capabilities into the Space Force architecture at speed. VLEO is an orbit that no current commercial ISR constellation operates from at scale. <strong>Orion's Belt</strong> addresses a genuine gap in the architecture, on a commercially financed model.</p>
+  <p><strong>The product rests on three pillars:</strong></p>
+  <ol>
+    <li><strong>Speed.</strong> Onboard AI detection in approximately 200 ms. Sub-30-minute revisit. Sub-30-second end-to-end latency from collection to operator alert.</li>
+    <li><strong>Quality.</strong> Multi-modal sensing (optical, polarimetric, RF, AIS) with roughly 4x SNR advantage over LEO from VLEO look angles. Sub-meter VNIR and SWIR imaging with multi-band real-time video.</li>
+    <li><strong>Resilience.</strong> Self-cleaning orbit below the debris belt and below the principal anti-satellite (ASAT) threat envelope. COTS-abstracted supply chain. On-orbit model updates.</li>
+  </ol>
+  <p><strong>What this means for COMSO:</strong></p>
+  <ul>
+    <li><strong>Novel data layer.</strong> VLEO produces a class of imagery and sensing data that has not been collected from this altitude in any operational capacity. New capability for the architecture, not redundancy.</li>
+    <li><strong>Below the ASAT envelope.</strong> Orion's Belt operates below the primary threat envelope for kinetic anti-satellite weapons, offering a more survivable tier for crisis and conflict scenarios. Directly relevant to CASR planning.</li>
+    <li><strong>Commercial-first architecture.</strong> Our supply chain is entirely COTS. COMSO does not need to fund our development. We are seeking integration pathways, not program funding.</li>
+    <li><strong>Dual-use by design.</strong> Orion's Belt serves both commercial and defense customers. That commercial revenue base is what allows companies to deliver on Pentagon timelines without depending on a Pentagon contract for survival.</li>
+  </ul>
+
+  <h2>Operational Engagement to Date</h2>
+  <p>DeepSat has active engagement with defense and national security customers relevant to COMSO's combatant command coordination mandate:</p>
+  <ul>
+    <li><strong>SOCOM, TE 26-2.</strong> Participated in SOCOM Technical Experimentation 26-2 in Q1 2026, demonstrating our ISR capability directly with special operations end-users. Maritime TE follow-on planned August 2026.</li>
+    <li><strong>SOUTHCOM / JIATF-S.</strong> Counter-narcotics S&amp;T engagement with Joint Interagency Task Force, South, validating our maritime detection capability against an active operational demand signal (Q3 2025 onward).</li>
+    <li><strong>DAF, D2P2 SBIR.</strong> Executing a $1.25M Direct-to-Phase II contract from AFWERX, our primary non-dilutive funding vehicle and a direct pathway into the SpaceWERX and COMSO ecosystem.</li>
+    <li><strong>MDA SHIELD IDIQ.</strong> Prime on the MDA SHIELD IDIQ, a $151B ceiling vehicle covering missile warning, missile tracking, missile defense, and space-based defense work.</li>
+    <li><strong>NASA Goddard.</strong> Letter of Intent for first-of-kind VLEO atmospheric and space-weather datasets.</li>
+    <li><strong>USC ISI / SSC STTR.</strong> SF25D-T1201 submitted with USC Information Sciences Institute; Phase II in pipeline.</li>
+  </ul>
+
+  <h2>Trajectory and Next Milestones</h2>
+  <p>We are positioning for the pLEO (proliferated Low Earth Orbit) opportunity at Space Force, and our STRATFI submission is due 29 May 2026. Our precursor satellite is scheduled to launch Q4 2027 on a SpaceX rideshare. We achieve TRL 8 pre-launch through a series of technology maturation steps, and TRL 9 in the operational space environment via the flight itself. Our goal is multiple dual-use VLEO constellations operational by 2030.</p>
+
+  <table>
+    <thead>
+      <tr><th>Milestone</th><th>Timing</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>STRATFI submission</td><td>29 May 2026</td></tr>
+      <tr><td>Payload integration with Redwire VLEO bus</td><td>FY26</td></tr>
+      <tr><td>SOCOM Maritime TE characterization</td><td>August 2026</td></tr>
+      <tr><td>Precursor launch on SpaceX rideshare (TRL 9)</td><td>Q4 2027</td></tr>
+      <tr><td>Dual-use VLEO constellations operational</td><td>2030</td></tr>
+    </tbody>
+  </table>
+
+  <h2>What We Are Asking from COMSO</h2>
+  <p>We are not asking for program funding. We are asking for COMSO's guidance and introductions to ensure we are integrating correctly into the Space Force's commercial framework.</p>
+  <ol>
+    <li><strong>STRATFI guidance (active submission, due 29 May 2026).</strong> COMSO does not sign STRATFI Government Funding Letters, but COMSO can identify and introduce us to the right mission PEO signatory, whether PEO Space Sensing, PEO Tactical Intelligence and SATCOM, or PEO Space Domain Awareness, for our active submission.</li>
+    <li><strong>Mission alignment.</strong> We want to hear directly from COMSO where VLEO ISR fits in the commercial architecture, and how to structure our engagement to be useful to COMSO's mandate.</li>
+    <li><strong>Commercial-integration on-ramps.</strong> We see COMSO as a long-term partner as our constellation grows. Three specific pathways we want to understand:
+      <ul>
+        <li><strong>CASR vendor pool.</strong> Path into the first CASR tranche (first cohort September 2026). VLEO ISR as a crisis-surge service fits the CASR construct directly.</li>
+        <li><strong>TacSRT pilot inclusion.</strong> DeepSat produces tactically timed, unclassified commercial data, the exact product TacSRT was built to move through the Global Data Marketplace. Inclusion in the TacSRT vendor pool fits cleanly alongside the existing pool but adds a VLEO and onboard-AI layer the pool does not currently have.</li>
+        <li><strong>Working Capital Fund pathway.</strong> How a commercially financed provider like DeepSat structures pricing and recurring orders through the WCF construct.</li>
+      </ul>
+    </li>
+    <li><strong>PEO connectivity, current and future.</strong> Beyond STRATFI, we want to understand how to develop relationships with Program Executive Offices as they evolve, ensuring DeepSat is positioned for future task order and acquisition opportunities.</li>
+  </ol>
+
+  <h2>Acronyms</h2>
+  <p class="acronyms">AFRL = Air Force Research Laboratory &middot; AFWERX = Air Force innovation arm &middot; AIS = Automatic Identification System &middot; ASAT = Anti-Satellite &middot; BD = Business Development &middot; CASR = Commercial Augmentation Space Reserve &middot; CMMC = Cybersecurity Maturity Model Certification &middot; COMSO = Commercial Space Office &middot; COTS = Commercial Off-The-Shelf &middot; D2P2 = Direct-to-Phase II SBIR &middot; DAF = Department of the Air Force &middot; IDIQ = Indefinite Delivery, Indefinite Quantity &middot; ISR = Intelligence, Surveillance, Reconnaissance &middot; JIATF-S = Joint Interagency Task Force, South &middot; LEO = Low Earth Orbit &middot; LOI = Letter of Intent &middot; MDA = Missile Defense Agency &middot; NASA = National Aeronautics and Space Administration &middot; PEO = Program Executive Office &middot; pLEO = proliferated Low Earth Orbit &middot; RF = Radio Frequency &middot; SBIR = Small Business Innovation Research &middot; SDA = Space Domain Awareness &middot; SNR = Signal-to-Noise Ratio &middot; SOCOM = Special Operations Command &middot; SOUTHCOM = Southern Command &middot; SSC = Space Systems Command &middot; STRATFI = Strategic Funding Increase &middot; STTR = Small Business Technology Transfer &middot; SWIR = Short-Wave Infrared &middot; TacSRT = Tactical Surveillance, Reconnaissance &amp; Tracking &middot; TE = Technical Experimentation &middot; TIS = Tactical Intelligence and SATCOM &middot; TRL = Technology Readiness Level &middot; VLEO = Very Low Earth Orbit &middot; VNIR = Visible &amp; Near-Infrared &middot; WCF = Working Capital Fund</p>
+
+  <div class="footer">
+    <span>nerses@deepsat.com &middot; deepsat.com</span>
+    <span>FOR OFFICIAL USE, PRE-DECISIONAL</span>
+  </div>
+
+</div>
+<script type="module">
+  import { createViewer } from './viewer.js';
+  createViewer({
+    docId: 'comso-rah-v3',
+    brandName: 'DeepSat',
+    brandTagline: 'Defense Intelligence from VLEO',
+    requireEmail: true,
+    supabaseUrl: 'https://wpyuqnuekzbcsirkrjsk.supabase.co',
+    supabaseKey: 'sb_publishable_lATEOVSdeb8pkbeicOskRA_UumFSWuw',
+  }).init();
+</script>
+</body>
+</html>
+</invoke>
