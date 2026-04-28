@@ -312,6 +312,8 @@
     table, ul, ol, .platform-visual-section { break-inside: avoid; }
     /* Force page 2 to start at the about table: page break AFTER the diagram */
     .platform-visual-section { break-after: page; page-break-after: always; }
+    /* Force page 3 to start at Trajectory section so Asks stays clean on page 3 */
+    h2.page-break-trajectory { break-before: page; page-break-before: always; }
   }
 </style>
 </head>
@@ -439,7 +441,7 @@
     <li><strong>USC ISI / SSC STTR.</strong> SF25D-T1201 submitted with USC Information Sciences Institute; Phase II in pipeline.</li>
   </ul>
 
-  <h2>Trajectory and Next Milestones</h2>
+  <h2 class="page-break-trajectory">Trajectory and Next Milestones</h2>
   <p>We are positioning for the pLEO (proliferated Low Earth Orbit) opportunity at Space Force, and our STRATFI submission is due 29 May 2026. Our precursor satellite is scheduled to launch Q4 2027 on a SpaceX rideshare. We achieve TRL 8 pre-launch through a series of technology maturation steps, and TRL 9 in the operational space environment via the flight itself. Our goal is multiple dual-use VLEO constellations operational by 2030.</p>
 
   <table>
@@ -469,9 +471,6 @@
     </li>
     <li><strong>PEO connectivity, current and future.</strong> Beyond STRATFI, we want to understand how to develop relationships with Program Executive Offices as they evolve, ensuring DeepSat is positioned for future task order and acquisition opportunities.</li>
   </ol>
-
-  <h2>Acronyms</h2>
-  <p class="acronyms">AFRL = Air Force Research Laboratory &middot; AFWERX = Air Force innovation arm &middot; AIS = Automatic Identification System &middot; ASAT = Anti-Satellite &middot; BD = Business Development &middot; CASR = Commercial Augmentation Space Reserve &middot; CMMC = Cybersecurity Maturity Model Certification &middot; COMSO = Commercial Space Office &middot; COTS = Commercial Off-The-Shelf &middot; D2P2 = Direct-to-Phase II SBIR &middot; DAF = Department of the Air Force &middot; IDIQ = Indefinite Delivery, Indefinite Quantity &middot; ISR = Intelligence, Surveillance, Reconnaissance &middot; JIATF-S = Joint Interagency Task Force, South &middot; LEO = Low Earth Orbit &middot; LOI = Letter of Intent &middot; MDA = Missile Defense Agency &middot; NASA = National Aeronautics and Space Administration &middot; PEO = Program Executive Office &middot; pLEO = proliferated Low Earth Orbit &middot; RF = Radio Frequency &middot; SBIR = Small Business Innovation Research &middot; SDA = Space Domain Awareness &middot; SNR = Signal-to-Noise Ratio &middot; SOCOM = Special Operations Command &middot; SOUTHCOM = Southern Command &middot; SSC = Space Systems Command &middot; STRATFI = Strategic Funding Increase &middot; STTR = Small Business Technology Transfer &middot; SWIR = Short-Wave Infrared &middot; TacSRT = Tactical Surveillance, Reconnaissance &amp; Tracking &middot; TE = Technical Experimentation &middot; TIS = Tactical Intelligence and SATCOM &middot; TRL = Technology Readiness Level &middot; VLEO = Very Low Earth Orbit &middot; VNIR = Visible &amp; Near-Infrared &middot; WCF = Working Capital Fund</p>
 
   <div class="footer">
     <span>nerses@deepsat.com &middot; deepsat.com</span>
