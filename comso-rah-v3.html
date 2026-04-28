@@ -338,7 +338,8 @@
   @media print {
     @page { size: letter; margin: 0.45in; }
     body { background: #fff; font-size: 10pt; }
-    .page { padding: 0; max-width: 100%; min-height: auto; }
+    .page { padding: 0; max-width: 100%; min-height: auto; display: block; }
+    .footer { margin-top: 32px; }
     .header-band { -webkit-print-color-adjust: exact; print-color-adjust: exact; padding: 14px 20px; }
     .header-band h1 { font-size: 13.5pt; line-height: 1.15; white-space: nowrap; }
     .callout { -webkit-print-color-adjust: exact; print-color-adjust: exact; padding: 10px 14px; margin: 14px 0 4px 0; }
@@ -355,8 +356,8 @@
     table, ul, ol, .platform-visual-section { break-inside: avoid; }
     /* Force page 2 to start at the about table: page break AFTER the diagram */
     .platform-visual-section { break-after: page; page-break-after: always; }
-    /* Force page 3 to start at Trajectory section so Asks stays clean on page 3 */
-    h2.page-break-trajectory { break-before: page; page-break-before: always; }
+    /* Trajectory page-break removed; natural flow lets OE bullets stay with their header on page 2.
+       (Was: h2.page-break-trajectory { break-before: page; }) */
     /* Hide all interactive UI in print: print button, viewer.js toggle/sidebar/highlights */
     .doc-print-btn,
     #dsv-mode-bar,
