@@ -142,6 +142,12 @@
   }
   p { margin: 0 0 10px 0; }
   p strong { color: var(--ink); }
+  p.kicker {
+    font-style: italic;
+    color: var(--ink-muted);
+    font-size: 11.5pt;
+    margin: 0 0 8px 0;
+  }
   ul, ol { margin: 6px 0 12px 0; padding-left: 22px; }
   li { margin-bottom: 6px; }
   li > ul, li > ol { margin-top: 6px; }
@@ -296,6 +302,7 @@
     .pv-chip, .pv-chip-label, .pv-tag { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     h2 { break-after: avoid; }
     table, ul, ol, .platform-visual-section { break-inside: avoid; }
+    .about-table { break-before: page; page-break-before: always; }
   }
 </style>
 </head>
@@ -338,6 +345,7 @@
   </div>
 
   <h2>Who We Are</h2>
+  <p class="kicker">DeepSat is creating a new strategic layer of space infrastructure.</p>
   <p>DeepSat is building <strong>Orion's Belt</strong>, an ISR constellation in Very Low Earth Orbit (VLEO) at approximately 300 km altitude that drives rapid decisions for defense and national security operators. The operator receives decisions, not raw imagery. Onboard AI generates detections in approximately 200 milliseconds, and Kepler optical inter-satellite links deliver intelligence to operators in under 30 seconds end-to-end.</p>
   <p>We are COTS-first by design. Our supply chain integrates commercially available components from Redwire (bus), Satlantis (optics), Kepler (laser comms), and NVIDIA (compute), producing an end-to-end intelligence service delivered on a commercially financed model.</p>
 
@@ -382,7 +390,7 @@
     </div>
   </div>
 
-  <table>
+  <table class="about-table">
     <tbody>
       <tr><th class="row-label">Founded</th><td>2024, Los Angeles, CA</td></tr>
       <tr><th class="row-label">Team</th><td>10 people</td></tr>
@@ -399,8 +407,8 @@
   <p>COMSO's mission is to integrate commercial capabilities into the Space Force architecture at speed. VLEO is an orbit that no current commercial ISR constellation operates from at scale. <strong>Orion's Belt</strong> addresses a genuine gap in the architecture, on a commercially financed model.</p>
   <p><strong>The product rests on three pillars:</strong></p>
   <ol>
-    <li><strong>Speed.</strong> Onboard AI detection in approximately 200 ms. Sub-30-minute revisit. Sub-30-second end-to-end latency from collection to operator alert.</li>
-    <li><strong>Quality.</strong> Multi-modal sensing (optical, polarimetric, RF, AIS) with roughly 4x SNR advantage over LEO from VLEO look angles. Sub-meter VNIR and SWIR imaging with multi-band real-time video.</li>
+    <li><strong>Speed.</strong> Onboard AI detection in approximately 200 ms. Sub-30-minute revisit. Sub-30-second end-to-end latency from collection to operator alert. DeepSat is always connected to the internet via Kepler optical inter-satellite links.</li>
+    <li><strong>Quality.</strong> Multi-modal sensing (optical, RF, AIS, polarimetric) with roughly 4x SNR advantage over LEO from VLEO look angles. Sub-meter VNIR and SWIR imaging with multi-band real-time video.</li>
     <li><strong>Resilience.</strong> Self-cleaning orbit below the debris belt and below the principal anti-satellite (ASAT) threat envelope. COTS-abstracted supply chain. On-orbit model updates.</li>
   </ol>
   <p><strong>What this means for COMSO:</strong></p>
