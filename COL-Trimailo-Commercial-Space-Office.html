@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>DeepSat, COMSO Introductory Brief, Read-Ahead</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1f3a5f;
+    --navy-soft: #2d4870;
+    --ink: #1e293b;
+    --ink-muted: #475569;
+    --ink-faint: #64748b;
+    --rule: #e2e8f0;
+    --rule-strong: #cbd5e1;
+    --paper: #ffffff;
+    --paper-soft: #f8fafc;
+    --callout-bg: #eef3fa;
+    --callout-rule: #3b5b8a;
+    --stamp: #8b1f24;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--paper-soft); }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 11pt;
+    line-height: 1.5;
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+  .page {
+    max-width: 8.5in;
+    margin: 0 auto;
+    background: var(--paper);
+    padding: 0.55in 0.7in 0.6in 0.7in;
+  }
+  .breadcrumb {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 8px;
+    margin-bottom: 18px;
+    font-size: 9.5pt;
+    color: var(--ink-faint);
+  }
+  .breadcrumb .crumbs { letter-spacing: 0.01em; }
+  .breadcrumb .stamp {
+    color: var(--stamp);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+  }
+
+  .header-band {
+    background: var(--navy);
+    color: #ffffff;
+    border-radius: 4px;
+    padding: 12px 20px;
+    display: grid;
+    grid-template-columns: 1.35fr 1fr;
+    gap: 18px;
+  }
+  .header-band .tag {
+    font-size: 8pt;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: #c7d6ea;
+    margin-bottom: 4px;
+  }
+  .header-band h1 {
+    margin: 0 0 4px 0;
+    font-size: 15pt;
+    font-weight: 700;
+    line-height: 1.18;
+  }
+  .header-band .role {
+    font-size: 9.5pt;
+    color: #d4dfee;
+    line-height: 1.35;
+    margin: 0;
+  }
+  .header-band .meta-block .meeting {
+    font-size: 10pt;
+    font-weight: 700;
+    margin: 0;
+  }
+  .header-band .meta-block .where {
+    font-size: 9pt;
+    color: #d4dfee;
+    margin: 1px 0 8px 0;
+  }
+  .header-band .meta-block .att-tag {
+    font-size: 8pt;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: #c7d6ea;
+    margin-bottom: 2px;
+  }
+  .header-band .meta-block .att-name {
+    font-size: 9.5pt;
+    font-weight: 600;
+    margin: 1px 0 0 0;
+    line-height: 1.25;
+  }
+  .header-band .meta-block .att-role {
+    font-size: 8.5pt;
+    color: #c7d6ea;
+    margin: 0 0 4px 0;
+    line-height: 1.25;
+  }
+
+  .callout {
+    background: var(--callout-bg);
+    border-left: 3px solid var(--callout-rule);
+    padding: 14px 18px;
+    margin: 22px 0 6px 0;
+    border-radius: 2px;
+  }
+  .callout.bluf {
+    background: #fef6e7;
+    border-left: 3px solid var(--stamp);
+  }
+  .callout.bluf .callout-title { color: var(--stamp); }
+  .callout.asks {
+    margin: 24px 0 14px 0;
+    padding: 18px 22px;
+  }
+  .callout.asks .asks-heading {
+    font-size: 11.5pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--navy);
+    margin: 0 0 10px 0;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--rule-strong);
+  }
+  .callout.asks p { margin: 0 0 8px 0; }
+  .callout.asks ol { margin: 8px 0 0 0; }
+  .callout .callout-title {
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+  .callout p { margin: 0; }
+
+  h2 {
+    font-size: 10.5pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--navy);
+    border-bottom: 1px solid var(--rule-strong);
+    padding-bottom: 5px;
+    margin-top: 26px;
+    margin-bottom: 12px;
+  }
+  p { margin: 0 0 10px 0; }
+  p strong { color: var(--ink); }
+  p.kicker {
+    font-style: italic;
+    color: var(--ink-muted);
+    font-size: 11.5pt;
+    margin: 0 0 8px 0;
+  }
+  ul, ol { margin: 6px 0 12px 0; padding-left: 22px; }
+  li { margin-bottom: 6px; }
+  li > ul, li > ol { margin-top: 6px; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 4px 0 14px 0;
+    font-size: 10.5pt;
+  }
+  table thead th {
+    background: var(--paper-soft);
+    text-align: left;
+    font-weight: 600;
+    color: var(--ink-muted);
+    border-bottom: 1px solid var(--rule-strong);
+    padding: 8px 12px;
+  }
+  table td, table th.row-label {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+    text-align: left;
+  }
+  table th.row-label {
+    width: 28%;
+    font-weight: 600;
+    color: var(--ink-muted);
+    background: var(--paper-soft);
+  }
+  table tbody tr:last-child td,
+  table tbody tr:last-child th { border-bottom: none; }
+
+  .acronyms {
+    font-size: 9.5pt;
+    color: var(--ink-muted);
+    line-height: 1.65;
+  }
+
+  .footer {
+    margin-top: 48px;
+    padding-top: 10px;
+    border-top: 1px solid var(--rule);
+    font-size: 9pt;
+    color: var(--ink-faint);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* Print/Save-as-PDF button (hidden in print) */
+  .doc-print-btn {
+    position: fixed;
+    top: 12px;
+    right: 165px;
+    z-index: 1003;
+    background: var(--navy);
+    color: #ffffff;
+    border: none;
+    padding: 6px 14px;
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: inherit;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    letter-spacing: 0.02em;
+  }
+  .doc-print-btn:hover { background: var(--navy-soft); }
+
+  /* Platform visual diagram (lifted from SOFWERX white paper) */
+  .platform-visual-section { margin: 22px 0 14px 0; }
+  .platform-visual-section .pv-header {
+    background: var(--navy);
+    color: #ffffff;
+    font-size: 10.5pt;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    padding: 10px 16px;
+    border-radius: 4px 4px 0 0;
+  }
+  .platform-visual-lede {
+    font-size: 10.5pt;
+    color: var(--ink-muted);
+    margin: 10px 0 12px 0;
+    font-style: italic;
+  }
+  .platform-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin: 12px 0 6px 0;
+    flex-wrap: nowrap;
+  }
+  .pv-node { text-align: center; flex: 0 0 auto; }
+  .pv-node.pv-infra { width: 190px; }
+  .pv-node.pv-platform { width: 160px; }
+  .pv-node.pv-operator { width: 180px; }
+  .pv-node img.pv-hero {
+    height: 68px;
+    width: auto;
+    margin: 0 auto 6px;
+    display: block;
+  }
+  .pv-node .pv-name {
+    font-size: 11pt;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .pv-node.pv-platform .pv-name { color: #3b4cc0; }
+  .pv-partner-row {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 4px;
+  }
+  .pv-partner-row img { object-fit: contain; opacity: 0.8; }
+  .pv-plus, .pv-arrow {
+    flex-shrink: 0;
+    padding: 0 10px;
+    color: var(--ink-faint);
+    align-self: center;
+  }
+  .pv-plus { font-size: 22pt; font-weight: 300; }
+  .pv-chip {
+    width: 58px;
+    height: 58px;
+    border-radius: 12px;
+    border: 2px solid #3b4cc0;
+    background: linear-gradient(135deg, #eef0ff, #dce0ff);
+    margin: 0 auto 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .pv-chip-label {
+    color: white;
+    font-weight: 800;
+    font-size: 10pt;
+    background: #3b4cc0;
+    padding: 4px 9px;
+    border-radius: 5px;
+    letter-spacing: 0.04em;
+  }
+  .pv-tags { display: flex; gap: 4px; justify-content: center; flex-wrap: wrap; }
+  .pv-tag {
+    padding: 2px 7px;
+    background: #eef0ff;
+    border-radius: 3px;
+    font-size: 8.5pt;
+    font-weight: 700;
+    color: #3b4cc0;
+  }
+  .pv-desc {
+    font-size: 9pt;
+    color: var(--ink-faint);
+    line-height: 1.35;
+    margin-top: 2px;
+  }
+
+  @media print {
+    @page { size: letter; margin: 0.45in; }
+    body { background: #fff; font-size: 10pt; }
+    .page { padding: 0; max-width: 100%; }
+    .footer { margin-top: 32px; }
+    .header-band { -webkit-print-color-adjust: exact; print-color-adjust: exact; padding: 14px 20px; }
+    .header-band h1 { font-size: 13.5pt; line-height: 1.15; white-space: nowrap; }
+    .callout { -webkit-print-color-adjust: exact; print-color-adjust: exact; padding: 10px 14px; margin: 14px 0 4px 0; }
+    .callout.asks { padding: 14px 18px; margin: 14px 0 8px 0; break-inside: avoid; }
+    .platform-visual-section { margin: 14px 0 8px 0; }
+    .platform-visual-section .pv-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; padding: 8px 14px; }
+    .pv-chip, .pv-chip-label, .pv-tag { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .pv-node img.pv-hero { height: 60px; }
+    .platform-visual-lede { margin: 6px 0 8px 0; }
+    h2 { break-after: avoid; margin-top: 12px; margin-bottom: 6px; }
+    body, p, li { line-height: 1.4; }
+    p { margin: 0 0 6px 0; }
+    p.kicker { margin: 0 0 5px 0; }
+    table, ul, ol, .platform-visual-section { break-inside: avoid; }
+    /* Force page 2 to start at the about table: page break AFTER the diagram */
+    .platform-visual-section { break-after: page; page-break-after: always; }
+    /* Trajectory page-break removed; natural flow lets OE bullets stay with their header on page 2.
+       (Was: h2.page-break-trajectory { break-before: page; }) */
+    /* Hide all interactive UI in print: print button, viewer.js toggle/sidebar/highlights */
+    .doc-print-btn,
+    #dsv-mode-bar,
+    #dsv-float-toggle,
+    #dsv-sidebar,
+    #dsv-gate-bg,
+    #dsv-gate-card,
+    .dsv-comment-marker { display: none !important; }
+    mark.dsv-highlight { background: transparent !important; padding: 0 !important; }
+  }
+</style>
+</head>
+<body>
+<button class="doc-print-btn" onclick="window.print()" title="Print or Save as PDF">Print / Save as PDF</button>
+<div class="page">
+
+  <div class="breadcrumb">
+    <span class="crumbs">DeepSat &middot; COMSO Read-Ahead &middot; 29 April 2026</span>
+  </div>
+
+  <header class="header-band">
+    <div class="title-block">
+      <div class="tag">READ-AHEAD</div>
+      <h1>DeepSat, COMSO Introductory Brief</h1>
+      <p class="role">
+        Col. Tim Trimailo, Director<br>
+        Commercial Space Office, Space Systems Command
+      </p>
+    </div>
+    <div class="meta-block">
+      <p class="meeting">29 April 2026 &middot; 1:30 PM</p>
+      <p class="where">El Segundo, CA</p>
+      <div class="att-tag">ATTENDEES</div>
+      <p class="att-name">Nerses Ohanyan</p>
+      <p class="att-role">Co-Founder &amp; CEO</p>
+      <p class="att-name">Sarkis Karabashian</p>
+      <p class="att-role">Director, BD &amp; Government Relations</p>
+    </div>
+  </header>
+
+  <div class="callout bluf">
+    <div class="callout-title">Bottom Line Up Front</div>
+    <p>DeepSat is scheduled to launch a precursor satellite Q4 2027 on a SpaceX rideshare. The active <strong>PY26.1 STRATFI submission, due 29 May 2026, targets $30M in government matching funding</strong>. The time-sensitive ask of this meeting: COMSO to fund DeepSat through STRATFI directly, or champion DeepSat within SSC by introducing the right mission PAE signatory.</p>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">Purpose of This Meeting</div>
+    <p>DeepSat is requesting this meeting to introduce <strong>Orion's Belt</strong>, the DeepSat VLEO ISR constellation, to COMSO; understand how DeepSat's trajectory aligns with COMSO's commercial integration mission; and build a direct working relationship. That includes how COMSO can support the active STRATFI submission and connect DeepSat with relevant PAEs for current and future opportunities.</p>
+  </div>
+
+  <h2>About DeepSat</h2>
+  <p class="kicker">Creating a new strategic layer of space infrastructure.</p>
+  <p>DeepSat is building <strong>Orion's Belt</strong>, an ISR constellation in Very Low Earth Orbit (VLEO) at 250 km altitude that drives rapid decisions for defense and national security operators. The operator receives actionable intelligence, not raw imagery. Onboard AI generates detections in milliseconds, and in-space backhaul delivers intelligence in under 30 seconds from capture to operator.</p>
+  <p>DeepSat is COTS-first by design. The platform is built around commercial systems: bus manufactured by Redwire, optical payload by Satlantis, onboard GPU by NVIDIA, laser inter-satellite communications via Kepler, and an environmental-data payload via NASA Goddard collaboration. Together producing a dual-use end-to-end intelligence service.</p>
+
+  <div class="platform-visual-section">
+    <div class="pv-header">Space ISR and Orchestration Platform</div>
+    <div class="platform-visual-lede">In VLEO, delivering rapid and resilient space intelligence directly to the warfighter.</div>
+    <div class="platform-visual">
+      <div class="pv-node pv-infra">
+        <img src="assets/deepsat-satellite.png" class="pv-hero" alt="DeepSat Satellite">
+        <div class="pv-name">DeepSat Infrastructure</div>
+        <div class="pv-partner-row">
+          <img src="assets/redwire.png" alt="Redwire" style="height:13px">
+          <img src="assets/satlantis.png" alt="Satlantis" style="height:11px">
+          <img src="assets/kepler.png" alt="Kepler" style="height:12px">
+          <img src="assets/nvidia.png" alt="NVIDIA" style="height:15px">
+          <img src="logos/nasa_goddard.png" alt="NASA Goddard" style="height:15px">
+        </div>
+      </div>
+      <div class="pv-plus">+</div>
+      <div class="pv-node pv-platform">
+        <div class="pv-chip"><div class="pv-chip-label">AI</div></div>
+        <div class="pv-name">DeepSat Platform</div>
+        <div class="pv-tags">
+          <span class="pv-tag">Edge Intelligence</span>
+          <span class="pv-tag">Sensor Fusion</span>
+          <span class="pv-tag">Operations</span>
+        </div>
+      </div>
+      <div class="pv-arrow">
+        <svg viewBox="0 0 50 20" width="50" height="20"><line x1="2" y1="10" x2="38" y2="10" stroke="#3b4cc0" stroke-width="2.5" stroke-linecap="round" opacity="0.45"/><polygon points="48,10 38,4 38,16" fill="#3b4cc0" opacity="0.45"/></svg>
+      </div>
+      <div class="pv-node pv-operator">
+        <img src="assets/operator.png" class="pv-hero" alt="Operator">
+        <div class="pv-name">Operator</div>
+        <div class="pv-desc">Ships found, drones tasked,<br>operators act in real time</div>
+        <div class="pv-partner-row" style="margin-top:6px">
+          <img src="logos/socom.png" alt="SOCOM" style="height:18px">
+          <img src="logos/afrl.png" alt="AFRL" style="height:18px">
+          <img src="logos/mda.png" alt="MDA" style="height:18px">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <table class="about-table">
+    <tbody>
+      <tr><th class="row-label">Founded</th><td>2024, Los Angeles, CA</td></tr>
+      <tr><th class="row-label">Team</th><td>10 people</td></tr>
+      <tr><th class="row-label">Capital</th><td>$1.5M private + $1.25M non-dilutive (DAF D2P2)</td></tr>
+      <tr><th class="row-label">Active Contracts</th><td>DAF Direct-to-Phase II SBIR (AFWERX) &middot; MDA SHIELD IDIQ (Prime, $151B ceiling) &middot; NASA Goddard LOI</td></tr>
+      <tr><th class="row-label">Active Pursuits</th><td><strong>PY26.1 SpaceWERX STRATFI</strong> &middot; SSC STTR with USC ISI &middot; pLEO SBIR with Raytheon BBN</td></tr>
+      <tr><th class="row-label">First Flight (Precursor)</th><td>Q4 2027 SpaceX rideshare, TRL 8 pre-launch, TRL 9 in flight</td></tr>
+      <tr><th class="row-label">Constellation Target</th><td>Initial operational capability 2028 &rarr; Target 500 satellites operational by 2030 for global coverage, AOR-prioritized for USINDOPACOM, USSOUTHCOM, USCENTCOM, and allies</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Why VLEO Matters to COMSO</h2>
+  <p>COMSO's mission is to integrate commercial capabilities into the Space Force architecture at speed. VLEO is an orbit that no current commercial ISR constellation operates from. <strong>Orion's Belt</strong> addresses a critical gap in the space infrastructure that defense, national security, and global trade depend on.</p>
+  <p><strong>The product rests on three pillars:</strong></p>
+  <ol>
+    <li><strong>Speed.</strong> Onboard AI detection in milliseconds. Sub-30-minute revisit, with proliferation through COTS enabling higher revisit rates and rapid redeployment as the constellation scales. Sub-30-second end-to-end delivery from collection to alert to operator. DeepSat is always connected to the internet.</li>
+    <li><strong>Quality.</strong> Multi-modal sensing (optical, RF, AIS, polarimetric) with roughly 4x SNR advantage over LEO from VLEO look angles. Sub-meter VNIR and SWIR imaging with multi-band real-time video.</li>
+    <li><strong>Resilience.</strong> Self-cleaning orbit below the debris belt and below the principal anti-satellite (ASAT) threat envelope. COTS-enabled supply chain. On-orbit model updates.</li>
+  </ol>
+  <h2>Operational Engagement to Date</h2>
+  <p>DeepSat has active engagement with defense and national security customers relevant to COMSO's role in combatant command coordination:</p>
+  <ul>
+    <li><strong>JIATF-S/SOUTHCOM.</strong> Counter-narcotics S&amp;T engagement with Joint Interagency Task Force, South, validating DeepSat's polarimetric maritime detection capability against an active operational demand signal (Q3 2025 onward).</li>
+    <li><strong>SOCOM, TE 26-2.</strong> Participated in SOCOM Technical Experimentation 26-2 in April 2026, demonstrating DeepSat's agentic and cross-cueing capabilities with special operations end-users. Maritime TE follow-on planned August 2026.</li>
+    <li><strong>DAF, D2P2 SBIR.</strong> Executing a $1.25M Direct-to-Phase II contract from AFWERX, DeepSat's primary non-dilutive funding vehicle and a direct pathway into the SpaceWERX and COMSO ecosystem.</li>
+    <li><strong>MDA SHIELD IDIQ.</strong> Prime on the MDA SHIELD IDIQ, a $151B ceiling vehicle covering missile warning, missile tracking, missile defense, and space-based defense work.</li>
+    <li><strong>NASA Goddard.</strong> Letter of Intent for an environmental and space-weather sensing payload to fly on the entire Orion's Belt constellation, generating first-of-kind VLEO atmospheric and space-weather datasets.</li>
+  </ul>
+
+  <h2 class="page-break-trajectory">Trajectory and Next Milestones</h2>
+  <p>DeepSat's PY26.1 SpaceWERX STRATFI submission is due 29 May 2026. A precursor satellite is scheduled to launch Q4 2027 on a SpaceX rideshare, achieving TRL 8 pre-launch through a series of technology maturation steps and TRL 9 in the operational space environment via the flight itself. From there DeepSat reaches initial operational capability in 2028 and scales toward a target 500-satellite constellation operational by 2030 for global coverage. The scale-out is AOR-prioritized, sequenced for USINDOPACOM, USSOUTHCOM, USCENTCOM, and allies.</p>
+
+  <table>
+    <thead>
+      <tr><th>Milestone</th><th>Timing</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>STRATFI submission</td><td>29 May 2026</td></tr>
+      <tr><td>Payload integration with Redwire VLEO bus</td><td>FY26-27</td></tr>
+      <tr><td>SOCOM Maritime TE characterization</td><td>August 2026</td></tr>
+      <tr><td>Precursor launch on SpaceX rideshare (TRL 9)</td><td>Q4 2027</td></tr>
+      <tr><td>Initial operational capability (IOC)</td><td>2028</td></tr>
+      <tr><td>Target 500-satellite constellation operational for global coverage</td><td>2030</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout asks">
+    <div class="asks-heading">What DeepSat Asks from COMSO</div>
+    <p>DeepSat's PY26.1 STRATFI submission is due 29 May 2026, and the team is grateful to COMSO for taking this meeting on short notice. The primary ask below is time-sensitive; the remaining two are parallel pathways that support it.</p>
+    <ol>
+      <li><strong>Fund DeepSat directly through PY26.1 STRATFI.</strong> $30M government matching funding target, due 29 May 2026. Provide a STRATFI Government Funding Letter.</li>
+      <li><strong>Champion DeepSat within SSC and Space Force.</strong> If COMSO is unable to fund directly, champion DeepSat within SSC by introducing signatories that can fund. The most relevant offices for VLEO ISR are PEO Space Sensing, PEO Tactical Intelligence and SATCOM, and PEO Space Domain Awareness.</li>
+      <li><strong>Commercial-integration on-ramps.</strong> Three specific pathways:
+        <ul>
+          <li><strong>CASR vendor pool.</strong> Path into the first CASR tranche. VLEO ISR fits the crisis-surge objective directly.</li>
+          <li><strong>TacSRT pilot inclusion.</strong> DeepSat produces tactically timed, unclassified commercial data, the exact product TacSRT moves through the Global Data Marketplace, plus a VLEO and onboard-AI layer the pool lacks today.</li>
+          <li><strong>Working Capital Fund pathway.</strong> Guidance on how to structure pricing and recurring orders through WCF.</li>
+        </ul>
+      </li>
+    </ol>
+  </div>
+
+  <div class="footer">
+    <span>nerses@deepsat.com &middot; deepsat.com</span>
+    <span>NOT FOR PUBLIC RELEASE</span>
+  </div>
+
+</div>
+</body>
+</html>
